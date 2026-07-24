@@ -1,0 +1,693 @@
+/* Dashboard styles. Everything is scoped under .adm* and styles.css is never
+   loaded on /admin, so none of this touches the public site. */
+
+.adm,
+.adm-login,
+.adm-boot {
+  --adm-red: #e0342a;
+  --adm-red-dark: #b8271e;
+  --adm-black: #16181d;
+  --adm-ink: #1b1d22;
+  --adm-muted: #6b7280;
+  --adm-line: #e6e8ec;
+  --adm-bg: #f5f6f8;
+  --adm-card: #fff;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  color: var(--adm-ink);
+}
+
+.adm-boot {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background: var(--adm-bg);
+  color: var(--adm-muted);
+}
+
+/* ============================================================
+   Login
+   ============================================================ */
+
+/* Black field with a red glow behind the card — sets the palette before the
+   user is even signed in. */
+.adm-login {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+  background:
+    radial-gradient(60rem 30rem at 50% -10%, rgba(224, 52, 42, 0.28), transparent 70%),
+    var(--adm-black);
+}
+
+.adm-login__card {
+  width: 100%;
+  max-width: 390px;
+  background: var(--adm-card);
+  border-radius: 16px;
+  padding: 2.25rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.adm-login__mark {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  background: var(--adm-red);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.adm-login__title {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.adm-login__sub {
+  margin: 0.35rem 0 1.5rem;
+  color: var(--adm-muted);
+  font-size: 0.9rem;
+}
+
+.adm-field {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.adm-field span {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.adm-field input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 9px;
+  font: inherit;
+  background: #fff;
+}
+
+.adm-field input:focus-visible,
+.adm-search:focus-visible {
+  outline: 2px solid var(--adm-red);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+.adm-btn {
+  padding: 0.55rem 0.95rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 9px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.adm-btn:hover {
+  border-color: var(--adm-red);
+  color: var(--adm-red);
+}
+
+.adm-btn--primary {
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.8rem;
+  border-color: transparent;
+  background: var(--adm-red);
+  color: #fff;
+  font-size: 0.92rem;
+}
+
+.adm-btn--primary:hover {
+  background: var(--adm-red-dark);
+  color: #fff;
+}
+
+.adm-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.adm-alert {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.85rem;
+  border-left: 3px solid var(--adm-red);
+  border-radius: 8px;
+  background: #fdecea;
+  color: #9b1c15;
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   Shell
+   ============================================================ */
+
+.adm {
+  display: flex;
+  min-height: 100vh;
+  background: var(--adm-bg);
+}
+
+.adm-side {
+  flex: 0 0 250px;
+  width: 250px;
+  background: var(--adm-black);
+  color: #cfd2d8;
+  padding: 1.1rem 0.9rem 2rem;
+}
+
+.adm-side__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.2rem 0.4rem 1.4rem;
+}
+
+.adm-side__mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--adm-red);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.adm-side__name {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.adm-side__close {
+  display: none;
+  margin-left: auto;
+  border: 0;
+  background: none;
+  color: #cfd2d8;
+  cursor: pointer;
+}
+
+.adm-nav__label {
+  margin: 1.1rem 0 0.4rem;
+  padding-left: 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #6f757f;
+}
+
+.adm-nav__item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  margin-bottom: 0.15rem;
+  border: 0;
+  border-radius: 9px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.88rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.adm-nav__item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.adm-nav__item.is-active {
+  background: var(--adm-red);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* The dot is the only colour cue left once a row goes solid red, so it
+   turns white rather than competing with the active background. */
+.adm-nav__item.is-active .adm-dot {
+  background: #fff;
+}
+
+.adm-nav__count {
+  margin-left: auto;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.adm-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.adm-dot--red {
+  background: var(--adm-red);
+}
+.adm-dot--dark {
+  background: #9aa0aa;
+}
+.adm-dot--new {
+  background: #e0a92a;
+}
+.adm-dot--contacted {
+  background: #2f6fed;
+}
+.adm-dot--closed {
+  background: #17a34a;
+}
+.adm-dot--muted {
+  background: #575c66;
+}
+
+.adm-scrim {
+  display: none;
+}
+
+/* ============================================================
+   Topbar
+   ============================================================ */
+
+.adm-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.adm-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid var(--adm-line);
+}
+
+.adm-burger {
+  display: none;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--adm-ink);
+}
+
+.adm-search {
+  flex: 1 1 auto;
+  max-width: 420px;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.88rem;
+  background: var(--adm-bg);
+}
+
+.adm-top__right {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-left: auto;
+  font-size: 0.88rem;
+}
+
+.adm-avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--adm-red);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   Main
+   ============================================================ */
+
+.adm-main {
+  padding: 1.5rem;
+}
+
+.adm-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.adm-h1 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.adm-crumb {
+  margin: 0;
+  color: var(--adm-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- Stat cards ---------- */
+
+.adm-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.adm-card {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 14px;
+  background: var(--adm-card);
+}
+
+.adm-card__top {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.adm-card__icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: none;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.adm-card__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.adm-card__meta {
+  min-width: 0;
+}
+
+.adm-card__label {
+  margin: 0;
+  color: var(--adm-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.adm-card__value {
+  margin: 0.1rem 0 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.adm-spark {
+  margin-left: auto;
+  flex: none;
+}
+
+.adm-card__foot {
+  margin: 0.7rem 0 0;
+  color: var(--adm-muted);
+  font-size: 0.76rem;
+}
+
+/* Per-card accent: a soft wash of the tone plus a matching icon chip. */
+.adm-card--red {
+  background: linear-gradient(180deg, #fdeceb 0%, #fff 62%);
+}
+.adm-card--red .adm-card__icon {
+  background: var(--adm-red);
+}
+
+.adm-card--dark {
+  background: linear-gradient(180deg, #eceef1 0%, #fff 62%);
+}
+.adm-card--dark .adm-card__icon {
+  background: var(--adm-black);
+}
+
+.adm-card--amber {
+  background: linear-gradient(180deg, #fdf3e3 0%, #fff 62%);
+}
+.adm-card--amber .adm-card__icon {
+  background: #e08a00;
+}
+
+.adm-card--blue {
+  background: linear-gradient(180deg, #eaf1fd 0%, #fff 62%);
+}
+.adm-card--blue .adm-card__icon {
+  background: #2f6fed;
+}
+
+.adm-card--green {
+  background: linear-gradient(180deg, #e8f6ed 0%, #fff 62%);
+}
+.adm-card--green .adm-card__icon {
+  background: #17a34a;
+}
+
+/* ---------- Table panel ---------- */
+
+.adm-panel {
+  background: var(--adm-card);
+  border: 1px solid var(--adm-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.adm-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--adm-line);
+}
+
+.adm-panel__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.adm-panel__count {
+  color: var(--adm-muted);
+  font-size: 0.8rem;
+}
+
+/* The table sets its own min-width and scrolls inside this wrapper, so a
+   long message can't push the page into horizontal scroll. */
+.adm-tablewrap {
+  overflow-x: auto;
+}
+
+.adm-table {
+  width: 100%;
+  min-width: 940px;
+  border-collapse: collapse;
+  font-size: 0.87rem;
+}
+
+.adm-table th,
+.adm-table td {
+  padding: 0.75rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid var(--adm-line);
+  vertical-align: middle;
+}
+
+.adm-table th {
+  background: #fafbfc;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--adm-muted);
+}
+
+.adm-table tbody tr:hover {
+  background: #fcfcfd;
+}
+
+.adm-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.adm-strong {
+  font-weight: 600;
+}
+
+.adm-dim {
+  color: var(--adm-muted);
+}
+
+.adm-nowrap {
+  white-space: nowrap;
+}
+
+.adm-cap {
+  text-transform: capitalize;
+}
+
+.adm-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.adm-link svg {
+  width: 13px;
+  height: 13px;
+  color: var(--adm-muted);
+  flex: none;
+}
+
+.adm-link:hover {
+  color: var(--adm-red);
+}
+
+.adm-msg {
+  max-width: 300px;
+  color: var(--adm-muted);
+}
+
+.adm-empty {
+  padding: 3rem 1rem !important;
+  text-align: center;
+  color: var(--adm-muted);
+}
+
+.adm-status {
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: #fff;
+  cursor: pointer;
+}
+
+.adm-status--new {
+  border-color: #e0a92a;
+  background: #fdf6e6;
+  color: #8a6400;
+}
+
+.adm-status--contacted {
+  border-color: #2f6fed;
+  background: #eaf1fd;
+  color: #1a49a8;
+}
+
+.adm-status--closed {
+  border-color: #17a34a;
+  background: #e8f6ed;
+  color: #0e6b31;
+}
+
+.adm-del {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  color: var(--adm-muted);
+  cursor: pointer;
+}
+
+.adm-del svg {
+  width: 14px;
+  height: 14px;
+}
+
+.adm-del:hover {
+  background: #fdecea;
+  color: var(--adm-red);
+}
+
+/* ============================================================
+   Responsive — sidebar becomes an overlay drawer
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .adm-side {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.22s ease;
+  }
+
+  .adm-side.is-open {
+    transform: none;
+  }
+
+  .adm-side__close {
+    display: block;
+  }
+
+  .adm-burger {
+    display: grid;
+    place-items: center;
+  }
+
+  .adm-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .adm-who {
+    display: none;
+  }
+
+  .adm-main {
+    padding: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adm-side {
+    transition: none;
+  }
+}

@@ -1,0 +1,3266 @@
+﻿/* ============================================================
+   Saeed Accounting â€” global styles
+
+   Typography scale is driven by a fluid root font-size, so every
+   rem-based size tracks the viewport. At 1920px the root resolves
+   to 22px, which reproduces the reference's ~20px body copy,
+   ~88px card icons and ~140px hero title. Below 1391px it pins to
+   16px and the layout falls back to the media queries at the end.
+   ============================================================ */
+
+/* Poppins is self-hosted (latin subset only). Loading it from
+   fonts.googleapis.com cost two third-party round trips before the
+   first paint, and the late swap reflowed the hero copy — a layout
+   shift Lighthouse penalised. Local files can be preloaded instead. */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/poppins-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/poppins-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/poppins-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/poppins-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/poppins-800.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --orange: #ff4b1f;
+  --orange-dark: #e63c12;
+  --green: #25d366;
+  --ink: #0d0d0d;
+  --body: #7c7c7c;
+  --card-bg: #f2f2f2;
+  --card-border: #e5e5e5;
+  --cyan: #e2f7f7;
+  --dark: #161616;
+
+  --container: 1710px;
+  /* Wide enough to clear the 30px fixed contact rail on the left edge,
+     which otherwise overlaps body copy on any viewport under ~1770px. */
+  --gutter: 46px;
+  --radius-card: 14px;
+  --header-h: 5.8rem;
+}
+
+html {
+  font-size: clamp(16px, 1.15vw, 22px);
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, 'Segoe UI', Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Photo slots keep a grey fill behind the image, so a missing or not-yet-
+   loaded file shows its box rather than collapsing to nothing. Deliberately
+   excludes .collage__image, which is a transparent PNG. */
+.hero__image,
+.about__media img {
+  background: #dcdcdc;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ------------------------------------------------------------
+   Shared section furniture
+   ------------------------------------------------------------ */
+.section {
+  padding: 30px 0;
+}
+
+.section--services {
+  padding-top: 30px;
+}
+
+.section--tight {
+  padding: 30px 0;
+}
+
+.eyebrow {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #8f8f8f;
+  margin-bottom: 0.8rem;
+}
+
+.eyebrow--left {
+  text-align: left;
+  letter-spacing: 0.26em;
+}
+
+.section__title {
+  text-align: center;
+  font-size: clamp(1.75rem, 2.9vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 2.2rem;
+}
+
+/* ------------------------------------------------------------
+   Buttons
+   ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.74rem;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn--whatsapp {
+  background: var(--green);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.35rem 1.2rem 0.35rem 0.35rem;
+}
+
+.btn--whatsapp:hover {
+  background: #1fbb59;
+}
+
+.btn__icon-circle {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.btn__icon-circle svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.btn__trailing {
+  margin-left: 0.4rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.btn--ghost {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  padding: 0.85rem 1.2rem;
+  gap: 1.6rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+}
+
+.btn--ghost svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.btn--ghost:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+.btn--orange {
+  background: var(--orange);
+  color: #fff;
+  border-radius: 5px;
+  padding: 0.9rem 1.6rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.btn--orange:hover {
+  background: var(--orange-dark);
+}
+
+.btn--block {
+  width: 100%;
+  max-width: 21rem;
+  justify-content: center;
+  text-align: center;
+  padding: 0.95rem 1.2rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------------------
+   1. Header
+   ------------------------------------------------------------ */
+/* Transparent header overlaying the hero. It is absolutely positioned rather
+   than sticky: a transparent sticky bar would carry its dark nav links over
+   the near-black "Work with us!" section and disappear. The hero adds
+   --header-h to its top padding to make room. */
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: transparent;
+}
+
+.header__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  min-height: var(--header-h);
+}
+
+.logo {
+  display: inline-flex;
+  flex: none;
+  line-height: 0;
+}
+
+.logo__img {
+  height: 2.9rem;
+  width: auto;
+}
+
+/* Equal auto margins centre the menu in the space between the logo and
+   the WhatsApp button, rather than pinning it to the button. */
+.nav {
+  margin-inline: auto;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.nav__item {
+  position: relative;
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  transition: color 0.18s ease;
+}
+
+.nav__link:hover,
+.nav__link--active {
+  color: var(--orange);
+}
+
+/* Orange underline under the hovered / current item. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 1rem;
+  bottom: 0;
+  height: 2px;
+  background: var(--orange);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.nav__item--has-menu > .nav__link::after {
+  right: 1.1rem;
+}
+
+.nav__link:hover::after,
+.nav__link--active::after {
+  opacity: 1;
+}
+
+.nav__caret {
+  margin-top: 1px;
+  transition: transform 0.18s ease;
+}
+
+/* ---- Dropdown panel ---- */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 1.2rem);
+  left: -1.4rem;
+  z-index: 60;
+  min-width: 17rem;
+  padding: 1.3rem 0;
+  background: #0d0d0d;
+  /* Hidden but focusable-safe: opacity+visibility so it can transition. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+.dropdown__link {
+  display: block;
+  padding: 0.55rem 1.6rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #8f8f8f;
+  white-space: nowrap;
+  transition: color 0.18s ease;
+}
+
+.dropdown__link:hover {
+  color: var(--orange);
+}
+
+@media (min-width: 901px) {
+  /* A transparent bridge across the gap between link and panel, so the
+     pointer can travel down without the panel closing under it. */
+  .nav__item--has-menu::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 1.2rem;
+  }
+
+  .nav__item--has-menu:hover > .dropdown,
+  .nav__item--has-menu:focus-within > .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Keep the parent highlighted while the pointer is down in the panel. */
+  .nav__item--has-menu:hover > .nav__link {
+    color: var(--orange);
+  }
+
+  .nav__item--has-menu:hover > .nav__link::after {
+    opacity: 1;
+  }
+
+  .nav__item--has-menu:hover > .nav__link .nav__caret {
+    transform: rotate(180deg);
+  }
+}
+
+.header__cta {
+  flex: none;
+}
+
+.nav__toggle {
+  display: none;
+  color: var(--ink);
+  padding: 4px;
+}
+
+/* ------------------------------------------------------------
+   2. Hero
+   ------------------------------------------------------------ */
+/* Warm orange bloom anchored off the lower-left corner, washing out to a
+   cream base. The ellipse is pulled slightly off-canvas (-4% / 74%) so the
+   most saturated core sits just outside the viewport and only its falloff
+   is visible â€” that keeps the orange from banding at the left edge. */
+.hero {
+  background-color: #fdf4e3;
+  background-image: radial-gradient(
+    72% 100% at -4% 74%,
+    #f2701f 0%,
+    #f5813a 14%,
+    #f79a5f 28%,
+    #fab27e 40%,
+    #fbc79d 52%,
+    #fddfc2 68%,
+    rgba(253, 244, 227, 0) 86%
+  );
+  padding: calc(var(--header-h) + 3.4rem) 0 5rem;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero__title {
+  font-size: clamp(2.75rem, 7.3vw, 9rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.1rem;
+}
+
+.hero__text {
+  max-width: 30rem;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.85;
+  color: #111;
+  margin-bottom: 1.6rem;
+}
+
+/* The two hero buttons sit side by side, left-aligned, and wrap to a
+   stack when the copy column gets too narrow to hold both. */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Hero buttons run larger than the header/inline ones. Scoped to
+   .hero__actions so the compact header WhatsApp pill is untouched. */
+.hero__actions .btn {
+  font-size: 0.88rem;
+}
+
+.hero__actions .btn--whatsapp {
+  padding: 0.5rem 1.7rem 0.5rem 0.5rem;
+  gap: 0.7rem;
+}
+
+.hero__actions .btn__icon-circle {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.hero__actions .btn__icon-circle svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.hero__actions .btn--ghost {
+  background: transparent;
+  padding: 1.15rem 1.7rem;
+  font-size: 0.8rem;
+  gap: 2.2rem;
+  border-radius: 8px;
+}
+
+.hero__actions .btn--ghost svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.hero__media {
+  justify-self: end;
+  width: 100%;
+}
+
+.hero__image {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* ------------------------------------------------------------
+   Inner pages â€” banner, article body, forms
+   ------------------------------------------------------------ */
+.banner {
+  background-image: linear-gradient(100deg, #d7ebe4 0%, #eaf0ee 42%, #f4eeee 72%, #f9ecea 100%);
+  padding: calc(var(--header-h) + 2.4rem) 0 3.4rem;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.breadcrumb a:hover {
+  color: var(--orange);
+}
+
+.breadcrumb__sep {
+  color: #9a9a9a;
+}
+
+.breadcrumb__current {
+  color: #1a1a1a;
+}
+
+.banner__title {
+  font-size: clamp(1.7rem, 2.9vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.page {
+  padding: 3.4rem 0 3rem;
+}
+
+/* Centred section heading whose leading words are orange. */
+.page__title {
+  text-align: center;
+  font-size: clamp(1.5rem, 2.5vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 2.4rem;
+}
+
+/* Applies to both the centred heading and an accented subheading. */
+.accent {
+  color: var(--orange);
+}
+
+.page__title--upper {
+  text-transform: uppercase;
+  color: #3d3d3d;
+}
+
+.page__title--left {
+  text-align: left;
+  color: var(--ink);
+}
+
+/* An orange section heading dropped into the middle of an article. */
+.page .page__title--left {
+  margin-top: 2.4rem;
+}
+
+.page__lead {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #4a4a4a;
+  margin: -1.4rem 0 2.4rem;
+}
+
+.page__lead--left {
+  text-align: left;
+  margin: -1.6rem 0 1.8rem;
+}
+
+/* Copy in one column, image in the other. */
+.page__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 1.4rem;
+}
+
+.page__split--single {
+  grid-template-columns: 1fr;
+}
+
+/* Each figure sets --ratio inline; see `introImageRatio` in data/services.js. */
+.page__media img {
+  width: 100%;
+  aspect-ratio: var(--ratio, 7 / 6);
+  object-fit: cover;
+  border-radius: 6px;
+  background: #dcdcdc;
+}
+
+.page__caption {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  color: #8f8f8f;
+}
+
+/* Centred figure sitting between paragraphs of a full-width article. */
+.page__inline-figure {
+  margin: 1.8rem auto;
+  max-width: 34rem;
+  text-align: center;
+}
+
+.page__inline-figure img {
+  width: 100%;
+  aspect-ratio: 5 / 2;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #dcdcdc;
+}
+
+.page__subheading {
+  font-size: clamp(1.15rem, 1.6vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 1.1rem;
+}
+
+.page__heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.6rem;
+}
+
+.page__text {
+  font-size: 0.9rem;
+  line-height: 1.95;
+  color: #4a4a4a;
+  margin-bottom: 1rem;
+}
+
+/* ---- Checklist section ---- */
+.page-list {
+  padding: 2.6rem 0 4rem;
+}
+
+.check-list {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+}
+
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #3d3d3d;
+}
+
+.check-list__icon {
+  flex: none;
+  margin-top: 0.4em;
+  width: 0.85rem;
+  height: 0.85rem;
+  color: var(--orange);
+}
+
+/* ---- Tab strip (Accounts Payable) ---- */
+.tabs {
+  margin-top: 1.6rem;
+}
+
+/* Auto-flow columns so the strip adapts to any number of tabs (4 or 6). */
+.tabs__strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+.tabs__tab {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #1a1a1a;
+  border: 1px solid transparent;
+  border-bottom-color: #cfcfcf;
+  transition: color 0.18s ease;
+}
+
+.tabs__tab:hover {
+  color: var(--orange);
+}
+
+/* The active tab joins the panel: its own border, minus the shared edge. */
+.tabs__tab--active {
+  color: var(--orange);
+  border-color: #cfcfcf;
+  border-bottom-color: transparent;
+}
+
+.tabs--upper .tabs__tab {
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+.tabs__panel {
+  margin-top: -1px;
+  padding: 1.6rem 1.4rem;
+  border: 1px solid #cfcfcf;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #3d3d3d;
+}
+
+.tabs__para {
+  margin-bottom: 1rem;
+}
+
+.tabs__para:last-child {
+  margin-bottom: 0;
+}
+
+.tabs__list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.tabs__list li {
+  position: relative;
+  padding-left: 1.4rem;
+  line-height: 1.7;
+}
+
+.tabs__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+/* Bulleted list used by pages that have no list image. */
+.page__list {
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+
+.page__list li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #4a4a4a;
+}
+
+.page__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+/* ------------------------------------------------------------
+   About page
+   ------------------------------------------------------------ */
+.welcome__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.4rem;
+  align-items: center;
+}
+
+.welcome__media img {
+  width: 100%;
+  height: auto;
+}
+
+.pill-label {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 3px;
+  background: #fdeedd;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.welcome__title {
+  font-size: clamp(1.6rem, 2.6vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.1rem;
+}
+
+.welcome__text {
+  font-size: 0.9rem;
+  line-height: 1.95;
+  color: var(--body);
+  margin-bottom: 2rem;
+}
+
+.welcome__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+  margin-bottom: 2rem;
+}
+
+.mini-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mini-card__icon {
+  color: var(--orange);
+  margin-bottom: 0.9rem;
+}
+
+.mini-card__icon svg {
+  width: 2.1rem;
+  height: 2.1rem;
+}
+
+.mini-card__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.mini-card__text {
+  font-size: 0.85rem;
+  line-height: 1.85;
+  color: var(--body);
+}
+
+.welcome__cta {
+  display: flex;
+  justify-content: center;
+}
+
+.next-step__title {
+  margin-bottom: 1.2rem;
+}
+
+.next-step__text {
+  max-width: 62rem;
+  margin-inline: auto;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.95;
+  color: var(--body);
+}
+
+/* Four orange service tiles on a cream band. */
+.service-strip {
+  background: #fdf6e8;
+  padding: 2.6rem 0;
+}
+
+.service-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+}
+
+.service-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.service-tile__icon {
+  display: grid;
+  place-items: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  background: var(--orange);
+  color: #fff;
+  transition: transform 0.2s ease;
+}
+
+.service-tile__icon svg {
+  width: 1.9rem;
+  height: 1.9rem;
+}
+
+.service-tile:hover .service-tile__icon {
+  transform: translateY(-3px);
+}
+
+.service-tile__label {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   Contact page
+
+   Split layout: a dark rail carrying the contact channels against a
+   white form panel that overlaps it. The page runs full-bleed with no
+   PageBanner — the rail's heading does that job instead.
+   ------------------------------------------------------------ */
+.ctc {
+  /* Clear the fixed header (var(--header-h)) before the card starts, plus
+     breathing room — otherwise the card's top corners slide under the
+     navbar when the page is scrolled to the top. */
+  padding: calc(var(--header-h) + 2.4rem) 0 4rem;
+  background: linear-gradient(180deg, #fdf3ec 0%, #fff 55%);
+}
+
+.ctc__inner {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: stretch;
+  gap: 0;
+  width: min(100% - 2.5rem, 1280px);
+  margin: 0 auto;
+  border-radius: 22px;
+  box-shadow: 0 30px 70px rgba(20, 12, 8, 0.13);
+  overflow: hidden;
+}
+
+/* ---------- Dark rail ---------- */
+
+.ctc__aside {
+  position: relative;
+  padding: 3rem 2.6rem;
+  background:
+    radial-gradient(28rem 20rem at 15% 0%, rgba(255, 75, 31, 0.32), transparent 65%),
+    var(--dark);
+  color: #fff;
+}
+
+.ctc__eyebrow {
+  margin: 0 0 0.8rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.ctc__title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.ctc__lede {
+  margin: 0 0 2.2rem;
+  max-width: 30ch;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.ctc__channels {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: grid;
+  gap: 1.4rem;
+}
+
+.ctc-ch {
+  display: flex;
+  gap: 0.95rem;
+  align-items: flex-start;
+}
+
+.ctc-ch__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--orange);
+}
+
+.ctc-ch__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.ctc-ch__body {
+  min-width: 0;
+}
+
+.ctc-ch__label {
+  margin: 0 0 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.ctc-ch__value {
+  display: block;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #fff;
+  text-decoration: none;
+}
+
+a.ctc-ch__value:hover {
+  color: var(--orange);
+}
+
+.ctc-ch__note {
+  margin: 0.2rem 0 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.ctc__wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.3rem;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ctc__wa svg {
+  width: 17px;
+  height: 17px;
+}
+
+.ctc__wa:hover {
+  background: #1fbb59;
+}
+
+/* ---------- Form panel ---------- */
+
+.ctc__panel {
+  padding: 3rem 2.8rem;
+  background: #fff;
+}
+
+.ctc-form__title {
+  margin: 0 0 0.3rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ctc-form__sub {
+  margin: 0 0 1.9rem;
+  font-size: 0.88rem;
+  color: var(--body);
+}
+
+.ctc-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ---------- Floating-label fields ---------- */
+
+/* The input carries placeholder=" " so :placeholder-shown is only true
+   while it is genuinely empty — that drives the label position without
+   any JS state. */
+.ctc-fld {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.ctc-fld input,
+.ctc-fld textarea {
+  width: 100%;
+  padding: 1.35rem 1rem 0.55rem;
+  border: 1px solid #e3e3e3;
+  border-radius: 11px;
+  background: #fafafa;
+  font: inherit;
+  font-size: 0.92rem;
+  color: var(--ink);
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease;
+}
+
+.ctc-fld textarea {
+  resize: vertical;
+  min-height: 6.5rem;
+  line-height: 1.6;
+}
+
+.ctc-fld label {
+  position: absolute;
+  left: 1rem;
+  top: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--orange);
+  pointer-events: none;
+  transition:
+    top 0.16s ease,
+    font-size 0.16s ease,
+    color 0.16s ease;
+}
+
+/* Resting state — label sits mid-field, looking like a placeholder. */
+.ctc-fld input:placeholder-shown:not(:focus) + label,
+.ctc-fld textarea:placeholder-shown:not(:focus) + label {
+  top: 1.05rem;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: #9a9a9a;
+}
+
+.ctc-fld textarea:placeholder-shown:not(:focus) + label {
+  top: 1.05rem;
+}
+
+.ctc-fld input:focus,
+.ctc-fld textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  background: #fff;
+}
+
+/* ---------- Captcha ---------- */
+
+.ctc-cap {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+
+.ctc-cap__code {
+  padding: 0.85rem 1.1rem;
+  border-radius: 11px;
+  background: repeating-linear-gradient(45deg, #fdece5, #fdece5 3px, #fff6f1 3px, #fff6f1 6px);
+  border: 1px dashed #f3b8a2;
+  font-family: 'Courier New', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #c2360f;
+  user-select: none;
+}
+
+.ctc-cap__refresh {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e3e3e3;
+  border-radius: 9px;
+  background: #fff;
+  font-size: 1rem;
+  color: var(--body);
+  cursor: pointer;
+}
+
+.ctc-cap__refresh:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.ctc-fld--cap {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* ---------- Submit + assurances ---------- */
+
+.ctc-form__error {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.9rem;
+  border-left: 3px solid #d93025;
+  border-radius: 8px;
+  background: #fdecea;
+  font-size: 0.85rem;
+  color: #9b1c15;
+}
+
+.ctc-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  justify-content: center;
+  padding: 1.05rem 1.6rem;
+  border: 0;
+  border-radius: 11px;
+  background: var(--orange);
+  color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    transform 0.16s ease;
+}
+
+.ctc-submit svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ctc-submit:hover:not(:disabled) {
+  background: var(--orange-dark);
+  transform: translateY(-1px);
+}
+
+.ctc-submit:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.ctc-assure {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 0;
+}
+
+.ctc-assure li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.79rem;
+  color: var(--body);
+}
+
+.ctc-assure svg {
+  width: 13px;
+  height: 13px;
+  color: var(--green);
+  flex: none;
+}
+
+/* ---------- Success state ---------- */
+
+.ctc-done {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.ctc-done__tick {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 1.2rem;
+  border-radius: 50%;
+  background: #e8f6ed;
+  color: var(--green);
+}
+
+.ctc-done__tick svg {
+  width: 26px;
+  height: 26px;
+}
+
+.ctc-done__title {
+  margin: 0 0 0.6rem;
+  font-size: 1.4rem;
+  color: var(--ink);
+}
+
+.ctc-done__text {
+  margin: 0 0 1.6rem;
+  max-width: 34ch;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--body);
+}
+
+.ctc-done__text a {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.ctc-done__again {
+  padding: 0.7rem 1.4rem;
+  border: 1px solid #e3e3e3;
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ctc-done__again:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* ---------- Map ---------- */
+
+.ctc-map {
+  line-height: 0;
+}
+
+.ctc-map iframe {
+  width: 100%;
+  height: 380px;
+  border: 0;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.3s ease;
+}
+
+.ctc-map iframe:hover {
+  filter: none;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .ctc__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .ctc__aside,
+  .ctc__panel {
+    padding: 2.2rem 1.5rem;
+  }
+
+  .ctc-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .ctc-cap {
+    flex-wrap: wrap;
+  }
+
+  .ctc-fld--cap {
+    flex: 1 1 100%;
+    margin-top: 0.8rem;
+  }
+
+  .ctc-map iframe {
+    height: 260px;
+  }
+}
+
+/* Kept for LeadForm.jsx, which still uses this class for its sent state. */
+.form__sent {
+  padding: 1.4rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background: var(--card-bg);
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------
+   VAT Registration landing page
+   ------------------------------------------------------------ */
+/* Softer, lighter peach wash than the default .hero bloom — a gentle
+   light-orange centre-left fading out to cream. */
+.vat-hero {
+  background-color: #fdf3e6;
+  background-image: radial-gradient(
+    90% 120% at 22% 58%,
+    #f7c496 0%,
+    #fad3ac 26%,
+    #fce2c9 48%,
+    #fdeeda 66%,
+    rgba(253, 244, 227, 0) 82%
+  );
+}
+
+.vat-hero .hero__inner {
+  align-items: center;
+  /* Give the copy column more room than the image. */
+  grid-template-columns: 1.3fr 1fr;
+}
+
+.vat-hero__title {
+  font-size: clamp(2.6rem, 5vw, 6rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.9rem;
+}
+
+.vat-hero__offer {
+  font-size: clamp(1.1rem, 1.5vw, 1.55rem);
+  font-weight: 700;
+  color: #f4331d;
+  margin-bottom: 1.5rem;
+}
+
+.vat-hero__price {
+  color: var(--ink);
+}
+
+.badges {
+  background: #ebebeb;
+  padding: 1.6rem 0;
+}
+
+.badges__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+}
+
+/* Each logo in its own white card, on the grey band. */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  padding: 0.9rem 1.2rem;
+}
+
+.badge__name {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.badge__rating {
+  font-size: 0.7rem;
+  color: #6b6b6b;
+}
+
+/* Two eligibility blurbs on the left, the document checklist on the right. */
+.elig {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.elig__col {
+  display: grid;
+  gap: 1.4rem;
+  align-content: start;
+}
+
+.elig-card {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.elig-card__head {
+  margin: -0.5rem -0.5rem 0.9rem;
+  padding: 0.7rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.elig-card__head--orange {
+  background: var(--orange);
+}
+
+.elig-card__head--dark {
+  background: #121a33;
+}
+
+.elig-card__text {
+  padding: 0 0.7rem 0.7rem;
+  font-size: 0.82rem;
+  line-height: 1.85;
+  color: #4a4a4a;
+}
+
+.doc-list {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0 0.7rem 0.7rem;
+}
+
+.doc-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #3d3d3d;
+}
+
+.doc-list__icon {
+  flex: none;
+  margin-top: 0.3em;
+  width: 0.85rem;
+  height: 0.85rem;
+  color: #22a94f;
+}
+
+.features3 {
+  background: #ececec;
+  padding: 2.2rem 0;
+}
+
+.features3__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+
+.feature3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.feature3__icon {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  color: var(--orange);
+}
+
+.feature3__icon svg {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.feature3__img {
+  width: 4.6rem;
+  height: 4.6rem;
+  object-fit: contain;
+  /* Drops the white background on the flat-illustration icons into the
+     grey band; harmless on the transparent PNGs. */
+  mix-blend-mode: multiply;
+}
+
+.feature3__label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.vat-cta {
+  background: #2b2b2b;
+  color: #fff;
+  padding: 2.6rem 0;
+}
+
+.vat-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+}
+
+.vat-cta__heading {
+  font-size: clamp(1rem, 1.4vw, 1.4rem);
+  font-weight: 700;
+}
+
+.vat-cta__kicker {
+  font-size: 0.8rem;
+}
+
+.vat-cta__title {
+  font-size: clamp(1.3rem, 2.1vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.pricing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+}
+
+.price-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 1.8rem 1.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.price-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+}
+
+.price-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.price-card__price {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--orange);
+}
+
+/* ---- FAQ accordion ---- */
+.faq {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.faq__item {
+  background: #f2f2f2;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.faq__q {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.faq__plus {
+  flex: none;
+  width: 1rem;
+  font-size: 1rem;
+  line-height: 1;
+  color: #6b6b6b;
+}
+
+.faq__text {
+  flex: 1;
+}
+
+.faq__chevron {
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  color: #6b6b6b;
+  transition: transform 0.18s ease;
+}
+
+.faq__item--open .faq__chevron {
+  transform: rotate(90deg);
+}
+
+.faq__item--open .faq__q {
+  color: var(--orange);
+}
+
+.faq__a {
+  padding: 0 1.1rem 1.1rem 3rem;
+  font-size: 0.85rem;
+  line-height: 1.85;
+  color: #4a4a4a;
+}
+
+/* ------------------------------------------------------------
+   Corporate Tax landing pages
+   ------------------------------------------------------------ */
+/* Softer, flatter peach than the homepage hero's orange bloom. */
+/* Shorter than the base hero: tighter top/bottom padding trims the band. */
+.ct-hero {
+  background-color: #fdeee0;
+  background-image: linear-gradient(115deg, #fbe0c8 0%, #fdeade 40%, #fdf1e6 75%, #fdf6ee 100%);
+  padding-top: calc(var(--header-h) + 1.4rem);
+  padding-bottom: 1.6rem;
+}
+
+/* Give the copy column more room than the image. */
+.ct-hero .hero__inner {
+  grid-template-columns: 1.4fr 1fr;
+}
+
+/* Skip layout/paint for the below-the-fold sections until they scroll near
+   the viewport — trims blocking time on these long landing pages. The heroes
+   (.ct-hero / .vat-hero) are not .section elements, so they are never
+   affected and keep painting immediately. */
+.ct-page .section,
+.ct-page .features3,
+.ct-page .ct-cta,
+.vat-page .section,
+.vat-page .features3,
+.vat-page .vat-cta,
+.vat-page .badges,
+.vat-page .reviews {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+.ct-pill {
+  display: inline-block;
+  margin-bottom: 0.9rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+  background: var(--ctf-red);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Title on one line; font is sized to fit the hero's left column at that
+   width. `nowrap` is lifted on tablet/mobile (see media queries) so it can
+   wrap rather than overflow. */
+.ct-hero__title {
+  font-size: clamp(2.2rem, 3.7vw, 4.1rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  white-space: nowrap;
+}
+
+/* Wider cap so the intro wraps to two lines rather than three. */
+.ct-hero__sub {
+  max-width: 40rem;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #3d3d3d;
+  margin-bottom: 1.1rem;
+}
+
+.ct-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.ct-checks li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ct-checks__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--orange);
+}
+
+.ct-hero__offer {
+  font-size: clamp(1rem, 1.4vw, 1.45rem);
+  font-weight: 700;
+  color: var(--ctf-red);
+  margin-bottom: 1.2rem;
+}
+
+/* Smaller image: capped width, right-aligned in its column, shorter crop. */
+.ct-hero__image {
+  width: 100%;
+  max-width: 30rem;
+  margin-left: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 8px;
+}
+
+/* Logos sit inside one white bordered box, centred, not a full-width grid. */
+.badges--plain {
+  background: transparent;
+  padding: 0.6rem 0 1.6rem;
+}
+
+.badges__box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 1.4rem 2.2rem;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.badges__box .badge {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.7rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0.4rem 1.4rem;
+}
+
+.badges__box .badge__mark {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+.badges__box .badge__name {
+  font-size: 1.15rem;
+}
+
+.badges__box .badge__rating {
+  font-size: 0.82rem;
+}
+
+.badges__box .badge__stars svg {
+  width: 0.78rem;
+  height: 0.78rem;
+}
+
+.badges__box .badge--wordmark .badge__name {
+  font-size: 1.7rem;
+}
+
+.badges__box .badge + .badge {
+  border-left: 1px solid #ececec;
+}
+
+.badge__mark {
+  flex: none;
+}
+
+.badge__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.badge__name--green {
+  color: #0caa41;
+}
+
+.badge__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.badge__stars {
+  display: flex;
+  gap: 1px;
+  color: #ffc107;
+}
+
+.badge__stars svg {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+.badge--wordmark .badge__name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #00234b;
+  letter-spacing: -0.02em;
+}
+
+.ct-title {
+  margin-bottom: 1.1rem;
+}
+
+/* The lead ran the full container width with tight leading, which read as
+   congested. Cap the measure and open up the line-height. */
+.ct-page .page__lead {
+  max-width: 46rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.85;
+  font-size: 0.92rem;
+}
+
+/* Two feature cards; the right one is solid red, the left a soft peach. */
+/* Extra top margin so the overhanging diamond badges have room. */
+.ct-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+  align-items: stretch;
+  margin: 3rem 0 0 1.4rem;
+}
+
+.ct-card {
+  position: relative;
+  border-radius: 10px;
+  padding: 1.8rem 1.6rem;
+}
+
+/* 3D image badge straddling the card's top-left corner. The diamond frame is
+   baked into the PNG (with transparent padding), so no rotation/border here. */
+.ct-badge-img {
+  position: absolute;
+  top: -3rem;
+  left: -2.8rem;
+  width: 6rem;
+  height: auto;
+  pointer-events: none;
+}
+
+.ct-badge-img--center {
+  left: 50%;
+  margin-left: -3rem;
+}
+
+/* Rotated square badge straddling the card's top-left corner. */
+.ct-badge {
+  position: absolute;
+  top: -1.4rem;
+  left: -1.4rem;
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  transform: rotate(45deg);
+  border-radius: 4px;
+}
+
+/* Counter-rotate so the glyph stays upright inside the diamond. */
+.ct-badge svg {
+  transform: rotate(-45deg);
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.ct-badge--peach {
+  background: #fdf1e6;
+  border: 2px solid #f0b98a;
+  color: #6b6b6b;
+}
+
+.ct-badge--red {
+  background: #fff;
+  border: 2px solid #ef3a1d;
+  color: #ef3a1d;
+}
+
+.ct-badge--center {
+  left: 50%;
+  margin-left: -1.6rem;
+}
+
+.ct-card--peach {
+  background: #fbdcc4;
+  color: #2b2b2b;
+}
+
+.ct-card--red {
+  background: #ef3a1d;
+  color: #fff;
+}
+
+.ct-card--wide {
+  margin: 3.4rem auto 0;
+  max-width: 46rem;
+  /* Centre badge sits on the top edge, so the title needs room below it. */
+  padding-top: 3rem;
+}
+
+.ct-card__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+}
+
+.ct-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.ct-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.ct-list__icon {
+  flex: none;
+  margin-top: 0.28em;
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.ct-card--peach .ct-list__icon {
+  color: var(--orange);
+}
+
+.ct-card--red .ct-list__icon {
+  color: #fff;
+}
+
+.ct-list__label {
+  font-weight: 700;
+}
+
+.ct-list__text {
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+}
+
+/* CTA band: team photo behind a peach tint that fades left-to-right.
+   Drop the photo at public/images/services/ct-cta.jpg; until it exists the
+   band falls back to flat peach. */
+.ct-cta {
+  position: relative;
+  background-color: #f3d3b8;
+  background-image: linear-gradient(
+      90deg,
+      #fbdcc4 0%,
+      #fbdcc4 42%,
+      rgba(251, 220, 196, 0.35) 100%
+    ),
+    url('/images/services/ct-cta.jpg');
+  background-size: cover;
+  background-position: center right;
+  padding: 2.4rem 0;
+}
+
+.ct-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.ct-cta__title {
+  font-size: clamp(1.4rem, 2.4vw, 2.6rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.ct-cta__title .accent {
+  color: var(--ctf-red);
+}
+
+.ct-cta__line {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+/* On these pages the FAQ rows are peach and the reviews band is warm,
+   not the homepage's grey rows / cyan band. */
+.ct-page .faq__item {
+  background: #fdeade;
+}
+
+.ct-page .reviews {
+  background: linear-gradient(100deg, #fdf1e6 0%, #fdeade 55%, #fbd0ae 100%);
+}
+
+.ct-page .reviews::before {
+  display: none;
+}
+
+/* ------------------------------------------------------------
+   Single-card review carousel (ReviewsCarousel) — used only on
+   the consultant + vat-registrations landing pages.
+   ------------------------------------------------------------ */
+.reviews {
+  position: relative;
+  background: linear-gradient(100deg, #fdf1e6 0%, #fdeade 55%, #fbd0ae 100%);
+  padding: 30px 0;
+  overflow: hidden;
+}
+
+.reviews .container {
+  position: relative;
+  z-index: 1;
+}
+
+.reviews__stage {
+  max-width: 1240px;
+  margin-inline: auto;
+}
+
+.review-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 15rem;
+  background: #fff;
+  border-radius: 16px;
+  padding: 3.2rem 6.5rem;
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.04);
+}
+
+/* Arrows live inside the card, pinned to its top-right corner. */
+.reviews__nav {
+  position: absolute;
+  top: 1.4rem;
+  right: 2rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.reviews__arrow {
+  width: 1.9rem;
+  height: 1.9rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  background: #ececec;
+  color: #6b6b6b;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.reviews__arrow svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.reviews__arrow:hover {
+  background: var(--orange);
+  color: #fff;
+}
+
+.review-card__body {
+  width: 100%;
+}
+
+.review-card__text {
+  display: flex;
+  gap: 0.7rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #3d3d3d;
+}
+
+.review-card__quote {
+  flex: none;
+  margin-top: 0.4rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  color: #111;
+}
+
+.review-card__stars {
+  display: flex;
+  gap: 5px;
+  margin-top: 1.1rem;
+  padding-left: 1.65rem;
+  color: #ffc107;
+}
+
+.review-card__stars svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+/* Price card */
+.ct-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  max-width: 34rem;
+  margin: 2rem auto 0;
+  padding: 2.8rem 2.4rem;
+  border-radius: 12px;
+  background: #fbdcc4;
+  text-align: center;
+}
+
+.ct-price__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.ct-price__amount {
+  font-size: 1.95rem;
+  font-weight: 700;
+  color: var(--ctf-red);
+}
+
+/* Declared on :root, not .ctf — the Corporate Tax landing pages share the
+   red/border tokens and sit outside the .ctf wrapper. */
+:root {
+  --ctf-red: #fd2e04;
+  --ctf-red-dark: #d12402;
+  --ctf-sky: #ff8870;
+  --ctf-sky-l: #fff1ee;
+  --ctf-amber: #fbbf24;
+  --ctf-green: #059669;
+  --ctf-green-l: #d1fae5;
+  --ctf-err: #dc2626;
+  --ctf-text: #2b1f1c;
+  --ctf-text2: #5c4e4a;
+  --ctf-text3: #9e8e88;
+  --ctf-border: #e8dedb;
+}
+
+/* ------------------------------------------------------------
+   3. Penalty banner
+   ------------------------------------------------------------ */
+.penalty {
+  background: #fff;
+  padding: 30px 0;
+}
+
+.penalty__text {
+  text-align: center;
+  font-weight: 700;
+  font-size: clamp(1rem, 1.4vw, 1.4rem);
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------
+   4â€“6. Service cards
+   ------------------------------------------------------------ */
+.grid {
+  display: grid;
+}
+
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  padding: 2.8rem 1.6rem 3.2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+}
+
+.card__icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.6rem;
+  flex: none;
+}
+
+.card__icon svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.card__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 0.9rem;
+}
+
+.card__text {
+  font-size: 0.9rem;
+  line-height: 2;
+  color: var(--body);
+}
+
+/* ------------------------------------------------------------
+   7. About
+   ------------------------------------------------------------ */
+.about {
+  padding: 30px 0;
+}
+
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.4rem;
+  align-items: center;
+}
+
+.about__media img {
+  width: 100%;
+  aspect-ratio: 1.9 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.about__title {
+  font-size: clamp(1.6rem, 2.9vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  margin: 0.5rem 0 1rem;
+}
+
+.about__text {
+  max-width: 26rem;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: var(--body);
+  margin-bottom: 1.5rem;
+}
+
+/* ------------------------------------------------------------
+   8. Skills + commitment
+   ------------------------------------------------------------ */
+.commitment {
+  padding: 30px 0;
+}
+
+.commitment__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.skills {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.skill__label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.skill__track {
+  height: 1.5rem;
+  background: #ececec;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.skill__fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0.6rem;
+  border-radius: 3px;
+}
+
+.skill__fill--orange {
+  background: var(--orange);
+}
+
+.skill__fill--dark {
+  background: #111;
+}
+
+.skill__value {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+}
+
+/* Single pre-composed PNG. The stagger, rounded corners and gaps are baked
+   into the artwork, and the gaps are transparent â€” so no background fill and
+   no border-radius here, or they would show through as grey blocks. */
+.collage {
+  width: 100%;
+}
+
+.collage__image {
+  width: 100%;
+  height: auto;
+}
+
+.commitment__title {
+  font-size: clamp(1.6rem, 2.9vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------
+   9. Dark CTA
+   ------------------------------------------------------------ */
+.team {
+  background: var(--dark);
+  color: #fff;
+  padding: 30px 0;
+}
+
+.team__inner {
+  display: grid;
+  grid-template-columns: 1fr 0.92fr;
+  gap: 3.4rem;
+  align-items: center;
+}
+
+.team__kicker {
+  font-size: 0.78rem;
+  font-weight: 400;
+  margin-bottom: 0.7rem;
+}
+
+.team__title {
+  font-size: clamp(1.6rem, 2.9vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.4rem;
+}
+
+.team__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  text-align: center;
+  border: 2px solid #cfcfcf;
+  border-radius: 10px;
+  padding: 1.7rem 1.3rem;
+  transition: border-color 0.2s ease;
+}
+
+.feature:hover {
+  border-color: var(--orange);
+}
+
+.feature__icon {
+  color: var(--orange);
+  display: grid;
+  place-items: center;
+}
+
+.feature__icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.feature__text {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------
+   10. Reviews
+   ------------------------------------------------------------ */
+/* Client reviews — three-card grid, left-aligned heading. */
+.client-reviews {
+  background: #fff;
+  padding: 3.4rem 0 4rem;
+}
+
+.client-reviews .eyebrow--left {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.cr-title {
+  text-align: left;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 800;
+  line-height: 1.12;
+  max-width: 30ch;
+  margin-bottom: 2.2rem;
+}
+
+.cr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.7rem;
+  margin-top: 1.6rem;
+}
+
+.cr-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #ece5e1;
+  border-radius: 18px;
+  padding: 2rem 2.1rem;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cr-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(255, 75, 31, 0.1);
+}
+
+/* Decorative quote glyph in the top-right corner. */
+.cr-card::before {
+  content: '\201D';
+  position: absolute;
+  top: 1.1rem;
+  right: 1.5rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 4.2rem;
+  line-height: 1;
+  color: var(--orange);
+  opacity: 0.4;
+}
+
+.cr-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1.1rem;
+  color: #ffb400;
+}
+
+.cr-stars svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.cr-text {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #2c2c2c;
+  margin-bottom: 1.7rem;
+  /* Uniform four-line block so the author rows align across cards. */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(1.85em * 4);
+}
+
+.cr-author {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.cr-avatar {
+  flex: none;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.cr-name {
+  font-weight: 700;
+  color: #111;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.cr-role {
+  font-size: 0.85rem;
+  color: #8a8a8a;
+}
+
+@media (max-width: 900px) {
+  .cr-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------
+   11. Stats
+   ------------------------------------------------------------ */
+.stats {
+  background: linear-gradient(
+    90deg,
+    #fbd7bd 0%,
+    #fdeade 22%,
+    #fdf4ec 50%,
+    #fdeade 78%,
+    #fbd7bd 100%
+  );
+  padding: 30px 0;
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.stat {
+  background: #fff;
+  border: 1px solid #e7d4c4;
+  border-radius: 6px;
+  padding: 3.6rem 1.4rem;
+  text-align: center;
+}
+
+.stat__value {
+  font-size: clamp(2.2rem, 4.3vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.7rem;
+}
+
+.stat__label {
+  white-space: pre-line;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #3f3f3f;
+}
+
+/* ------------------------------------------------------------
+   12. Footer
+   ------------------------------------------------------------ */
+.footer {
+  background: var(--cyan);
+  color: #2b2b2b;
+  padding-top: 3.6rem;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1.2fr 1.4fr;
+  gap: 2rem;
+}
+
+.footer__heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1rem;
+}
+
+.footer__text {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: #4a4a4a;
+  max-width: 21rem;
+}
+
+.footer__list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footer__list a {
+  font-size: 0.85rem;
+  color: #4a4a4a;
+  transition: color 0.18s ease;
+}
+
+.footer__list a:hover {
+  color: var(--orange);
+}
+
+.footer__contact {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.footer__contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+}
+
+.footer__contact-icon {
+  flex: none;
+  margin-top: 0.35rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--orange);
+}
+
+.footer__bar {
+  margin-top: 2.4rem;
+  border-top: 1px solid #cbe8e8;
+}
+
+.footer__bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+}
+
+.footer__copy {
+  font-size: 0.8rem;
+  color: #3d3d3d;
+}
+
+.footer__socials {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.footer__socials a {
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  transition: opacity 0.18s ease;
+}
+
+.footer__socials svg {
+  width: 0.72rem;
+  height: 0.72rem;
+}
+
+.footer__socials a:hover {
+  opacity: 0.82;
+}
+
+.footer__socials li:nth-child(1) a {
+  background: #1877f2;
+}
+.footer__socials li:nth-child(2) a {
+  background: #000;
+}
+.footer__socials li:nth-child(3) a {
+  background: #e1306c;
+}
+.footer__socials li:nth-child(4) a {
+  background: #0a66c2;
+}
+.footer__socials li:nth-child(5) a {
+  background: #ff0000;
+}
+
+/* ------------------------------------------------------------
+   Floating actions
+   ------------------------------------------------------------ */
+.rail {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: grid;
+}
+
+.rail__btn {
+  width: 30px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: #1a73e8;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.rail__btn:first-child {
+  border-top-right-radius: 4px;
+}
+
+.rail__btn:last-child {
+  border-bottom: 0;
+  border-bottom-right-radius: 4px;
+}
+
+.rail__btn:hover {
+  background: #0f5bd0;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Laptop â€” nav tightens, 4-up cards become 2-up */
+@media (max-width: 1200px) {
+  .header__inner {
+    gap: 1rem;
+  }
+
+  .nav__list {
+    gap: 0.9rem;
+  }
+
+  .nav__link {
+    font-size: 0.78rem;
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .commitment__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .commitment__title {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .commitment__title br {
+    display: none;
+  }
+}
+
+/* Tablet landscape */
+@media (max-width: 1024px) {
+  .hero {
+    padding: calc(var(--header-h) + 2.6rem) 0 4rem;
+  }
+
+  .hero__inner,
+  .about__inner {
+    gap: 2.4rem;
+  }
+
+  .team__inner {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+
+  .btn--block {
+    max-width: none;
+  }
+
+  .grid--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .reviews__stage {
+    max-width: 100%;
+  }
+
+  .review-card {
+    padding: 3.2rem 3rem;
+  }
+}
+
+/* Tablet portrait â€” nav collapses to a drawer */
+@media (max-width: 900px) {
+  :root {
+    --header-h: 4.4rem;
+  }
+
+  .nav__toggle {
+    display: grid;
+    place-items: center;
+    order: 3;
+  }
+
+  .header__inner {
+    justify-content: space-between;
+  }
+
+  .header__cta {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-inline: 0;
+    background: #fff;
+    border-top: 1px solid #eee;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .nav--open {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.4rem var(--gutter) 1rem;
+  }
+
+  .nav__link {
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 0.85rem;
+  }
+
+  .nav__link::after {
+    display: none;
+  }
+
+  /* In the drawer the panel is an inline accordion, not a floating box. */
+  .dropdown {
+    position: static;
+    min-width: 0;
+    padding: 0;
+    background: transparent;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+    display: none;
+  }
+
+  .nav__item--open > .dropdown {
+    display: block;
+  }
+
+  .nav__item--open > .nav__link .nav__caret {
+    transform: rotate(180deg);
+  }
+
+  .dropdown__link {
+    padding: 0.6rem 0 0.6rem 1rem;
+    border-bottom: 1px solid #f6f6f6;
+    color: #6b6b6b;
+    white-space: normal;
+  }
+
+  .hero__inner,
+  .about__inner,
+  .commitment__inner,
+  .welcome__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .service-strip__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero__media,
+  .about__media {
+    order: -1;
+  }
+
+  .about__text,
+  .hero__text {
+    max-width: none;
+  }
+
+  /* Restore the line breaks hidden by the 1200px rule, otherwise the
+     single-column heading renders as "We arecommitted toyour success". */
+  .commitment__title {
+    grid-column: auto;
+    text-align: left;
+  }
+
+  .commitment__title br {
+    display: inline;
+  }
+
+  .collage {
+    max-width: 32rem;
+  }
+
+  /* Stack the service-page columns; the image leads, as in the hero. */
+  .page__split {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Stacked, every image reads better as a landscape crop. */
+  .page__media img {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Stacked tabs read as an accordion-style list rather than a cramped row. */
+  .tabs__strip {
+    grid-auto-flow: row;
+  }
+
+  .tabs__tab--active {
+    border-bottom-color: #cfcfcf;
+  }
+
+  .tabs__panel {
+    margin-top: 0;
+  }
+
+  .stats__grid,
+  .badges__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .elig,
+  .ct-cards,
+  .ctf-hero__inner,
+  .ctf-support,
+  .ctf-faq {
+    grid-template-columns: 1fr;
+  }
+
+  /* Full-width hero here, so the title may wrap again. */
+  .ct-hero__title {
+    white-space: normal;
+  }
+
+  .ctf-serve,
+  .ctf-reviews,
+  .ctf-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ctf-steps::before {
+    display: none;
+  }
+
+  .ctf-statbar__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  :root {
+    --gutter: 18px;
+  }
+
+  /* Drop the hero image on phones — the copy takes the full width. */
+  .ct-hero .hero__media,
+  .vat-hero .hero__media {
+    display: none;
+  }
+
+  .section,
+  .commitment,
+  .team,
+  .reviews,
+  .about {
+    padding: 2.6rem 0;
+  }
+
+  .section__title {
+    margin-bottom: 1.8rem;
+  }
+
+  .hero {
+    padding: calc(var(--header-h) + 2rem) 0 3.2rem;
+  }
+
+  .grid--4,
+  .grid--3,
+  .team__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 2rem 1.4rem 2.2rem;
+  }
+
+  /* Arrows sit inside the card now, so the top padding must clear them. */
+  .review-card {
+    min-height: 0;
+    padding: 3.8rem 1.4rem 1.8rem;
+  }
+
+  .reviews__nav {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .stat {
+    padding: 2rem 1rem;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__bar-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .rail {
+    display: none;
+  }
+
+  .welcome__cards,
+  .service-strip__grid,
+  .badges__grid,
+  .elig,
+  .features3__grid,
+  .pricing,
+  .ct-cards,
+  .ctf-serve,
+  .ctf-regs,
+  .ctf-steps,
+  .ctf-vs,
+  .ctf-reviews,
+  .ctf-support__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ctf-statbar__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lead__head {
+    flex-direction: column;
+  }
+
+  .lead__price {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__cta {
+    padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+    font-size: 0;
+    gap: 0;
+  }
+
+  .header__cta .btn__trailing {
+    display: none;
+  }
+
+  .stats__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
