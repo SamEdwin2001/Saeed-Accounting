@@ -1,20 +1,18 @@
-import dotenv from 'dotenv'
+/* Imported first: it runs dotenv.config() before db.js (below) builds the MySQL
+   pool from DB_* at import time. ES module imports evaluate before top-level
+   code, so loading dotenv inline here would run too late. */
+import './env.js'
 import { dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { existsSync, statSync } from 'node:fs'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-/* Load backend/.env by absolute path so it works no matter which directory
-   the server is started from (npm run api launches from the project root). */
-dotenv.config({ path: join(__dirname, '.env') })
-
 import express from 'express'
 import cors from 'cors'
-import { seedAdmin } from './db.js'
+import { seedAdmin, init } from './db.js'
 import authRoutes from './routes/auth.js'
 import leadRoutes from './routes/leads.js'
 import whatsappRoutes from './routes/whatsapp.js'
 
+const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express()
 const PORT = process.env.PORT || 4000
 
@@ -73,5 +71,13 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'Something went wrong. Please try again.' })
 })
 
-seedAdmin()
-app.listen(PORT, () => console.log(`[api] listening on http://localhost:${PORT}`))
+/* Create tables + seed the admin, then start listening. If the database can't
+   be reached the process exits so PM2 restarts it rather than serving with a
+   broken DB. */
+init()
+  .then(seedAdmin)
+  .then(() => app.listen(PORT, () => console.log(`[api] listening on http://localhost:${PORT}`)))
+  .catch((err) => {
+    console.error('[startup] database init failed:', err)
+    process.exit(1)
+  })

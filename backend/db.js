@@ -1,71 +1,89 @@
-import Database from 'better-sqlite3'
+import mysql from 'mysql2/promise'
 import bcrypt from 'bcryptjs'
-import { mkdirSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
-const here = dirname(fileURLToPath(import.meta.url))
-const dataDir = join(here, 'data')
-mkdirSync(dataDir, { recursive: true })
+/* MySQL connection pool. Config comes from backend/.env (loaded by server.js
+   before this module is imported).
+   - dateStrings keeps DATETIME/DATE columns as plain strings, the way the old
+     SQLite layer returned them, so the dashboard + trend logic are unchanged.
+   - namedPlaceholders lets queries bind with :name (object) while plain ?
+     positional binding (array) still works. */
+export const pool = mysql.createPool({
+  host: process.env.DB_HOST || '127.0.0.1',
+  port: Number(process.env.DB_PORT) || 3306,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  dateStrings: true,
+  namedPlaceholders: true,
+})
 
-export const db = new Database(join(dataDir, 'app.db'))
-
-/* WAL lets the dashboard read while a form submission writes, instead of
-   the two blocking each other. */
-db.pragma('journal_mode = WAL')
-
-/* One-time migration: an earlier build of the WhatsApp feature stored a
-   `send_date` column; it now uses `day_of_week`. If the old shape is present,
-   drop it so the CREATE below rebuilds the table with the new columns. */
-const waCols = db.prepare("PRAGMA table_info('whatsapp_messages')").all()
-if (waCols.length && !waCols.some((c) => c.name === 'day_of_week')) {
-  db.exec('DROP TABLE whatsapp_messages')
+/* Thin helpers so the routes read almost like the old better-sqlite3 calls,
+   only async: all() → rows, get() → first row, run() → { insertId, changes }. */
+export async function all(sql, params) {
+  const [rows] = await pool.query(sql, params)
+  return rows
+}
+export async function get(sql, params) {
+  const [rows] = await pool.query(sql, params)
+  return rows[0]
+}
+export async function run(sql, params) {
+  const [result] = await pool.query(sql, params)
+  return { insertId: result.insertId, changes: result.affectedRows }
 }
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS leads (
-    id         INTEGER PRIMARY KEY AUTOINCREMENT,
-    name       TEXT    NOT NULL,
-    phone      TEXT    NOT NULL,
-    email      TEXT    NOT NULL,
-    message    TEXT    NOT NULL DEFAULT '',
-    source     TEXT    NOT NULL DEFAULT 'contact',
-    status     TEXT    NOT NULL DEFAULT 'new',
-    created_at TEXT    NOT NULL DEFAULT (datetime('now'))
-  );
+/* Create the tables on boot if they don't exist (MySQL dialect). */
+export async function init() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS leads (
+      id         INT AUTO_INCREMENT PRIMARY KEY,
+      name       VARCHAR(120) NOT NULL,
+      phone      VARCHAR(40)  NOT NULL,
+      email      VARCHAR(160) NOT NULL,
+      message    TEXT         NOT NULL,
+      source     VARCHAR(40)  NOT NULL DEFAULT 'contact',
+      status     VARCHAR(20)  NOT NULL DEFAULT 'new',
+      created_at DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      INDEX idx_leads_created (created_at)
+    )
+  `)
 
-  CREATE INDEX IF NOT EXISTS idx_leads_created ON leads (created_at DESC);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id            INT AUTO_INCREMENT PRIMARY KEY,
+      username      VARCHAR(120) NOT NULL UNIQUE,
+      password_hash VARCHAR(255) NOT NULL,
+      created_at    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `)
 
-  CREATE TABLE IF NOT EXISTS users (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    username      TEXT    NOT NULL UNIQUE,
-    password_hash TEXT    NOT NULL,
-    created_at    TEXT    NOT NULL DEFAULT (datetime('now'))
-  );
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS whatsapp_messages (
+      id          INT AUTO_INCREMENT PRIMARY KEY,
+      day_of_week VARCHAR(12)  NOT NULL,
+      name        VARCHAR(120) NOT NULL,
+      number      VARCHAR(20)  NOT NULL,
+      message     TEXT         NOT NULL,
+      active      TINYINT      NOT NULL DEFAULT 1,
+      created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `)
+}
 
-  CREATE TABLE IF NOT EXISTS whatsapp_messages (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    day_of_week TEXT    NOT NULL,
-    name        TEXT    NOT NULL,
-    number      TEXT    NOT NULL,
-    message     TEXT    NOT NULL DEFAULT '',
-    active      INTEGER NOT NULL DEFAULT 1,
-    created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
-  );
-`)
-
-/* Seed the single admin account on first run. Credentials come from .env so
-   the default password never has to survive into production. */
-export function seedAdmin() {
+/* Seed the single admin account on first run. Credentials come from .env so the
+   default password never has to survive into production. */
+export async function seedAdmin() {
   const username = process.env.ADMIN_USERNAME || 'admin'
   const password = process.env.ADMIN_PASSWORD || 'admin123'
 
-  const exists = db.prepare('SELECT 1 FROM users WHERE username = ?').get(username)
+  const exists = await get('SELECT 1 FROM users WHERE username = ?', [username])
   if (exists) return
 
-  db.prepare('INSERT INTO users (username, password_hash) VALUES (?, ?)').run(
+  await run('INSERT INTO users (username, password_hash) VALUES (?, ?)', [
     username,
-    bcrypt.hashSync(password, 10)
-  )
+    bcrypt.hashSync(password, 10),
+  ])
   console.log(`[db] seeded admin user "${username}"`)
 }

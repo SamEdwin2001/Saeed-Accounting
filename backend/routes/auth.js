@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { db } from '../db.js'
+import { get } from '../db.js'
 
 const router = Router()
 
@@ -21,13 +21,13 @@ export function requireAuth(req, res, next) {
   }
 }
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { username, password } = req.body || {}
   if (!username || !password) {
     return res.status(400).json({ error: 'Username and password are required.' })
   }
 
-  const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username)
+  const user = await get('SELECT * FROM users WHERE username = ?', [username])
 
   /* Same message whether the user is missing or the password is wrong, so
      the response can't be used to enumerate valid usernames. */

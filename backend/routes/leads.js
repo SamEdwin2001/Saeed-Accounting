@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { db } from '../db.js'
+import { all, get, run } from '../db.js'
 import { requireAuth } from './auth.js'
 import { sendLeadEmails } from '../mailer.js'
 
@@ -30,15 +30,14 @@ router.post('/', async (req, res) => {
     source: String(source).slice(0, 40),
   }
 
-  const info = db
-    .prepare(
-      `INSERT INTO leads (name, phone, email, message, source)
-       VALUES (@name, @phone, @email, @message, @source)`
-    )
-    .run(lead)
+  const info = await run(
+    `INSERT INTO leads (name, phone, email, message, source)
+     VALUES (:name, :phone, :email, :message, :source)`,
+    lead
+  )
 
   /* Respond immediately so the visitor isn't kept waiting on SMTP. */
-  res.status(201).json({ id: info.lastInsertRowid, ok: true })
+  res.status(201).json({ id: info.insertId, ok: true })
 
   /* Then send the office notification + customer thank-you in the background.
      The page URL is passed through (not stored). Failures are only logged —
@@ -46,7 +45,7 @@ router.post('/', async (req, res) => {
   sendLeadEmails({ ...lead, page: String(page).trim().slice(0, 300) })
     .then((mail) => {
       if (mail.skipped) console.warn('[mail] not sent:', mail.reason)
-      else console.log('[mail] lead', info.lastInsertRowid, mail)
+      else console.log('[mail] lead', info.insertId, mail)
     })
     .catch((err) => console.error('[mail] unexpected error:', err))
 })
@@ -54,36 +53,38 @@ router.post('/', async (req, res) => {
 router.use(requireAuth)
 
 /* Dashboard list, with optional status filter and search. */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const { status, q } = req.query
   const where = []
   const params = {}
 
   if (status && STATUSES.includes(status)) {
-    where.push('status = @status')
+    where.push('status = :status')
     params.status = status
   }
   if (q?.trim()) {
-    where.push('(name LIKE @q OR email LIKE @q OR phone LIKE @q)')
+    where.push('(name LIKE :q OR email LIKE :q OR phone LIKE :q)')
     params.q = `%${q.trim()}%`
   }
 
   const clause = where.length ? `WHERE ${where.join(' AND ')}` : ''
-  const leads = db
-    .prepare(`SELECT * FROM leads ${clause} ORDER BY created_at DESC, id DESC LIMIT 500`)
-    .all(params)
+  const leads = await all(
+    `SELECT * FROM leads ${clause} ORDER BY created_at DESC, id DESC LIMIT 500`,
+    params
+  )
 
   res.json({ leads })
 })
 
 /* Counters for the dashboard's stat tiles. */
-router.get('/stats', (_req, res) => {
-  const total = db.prepare('SELECT COUNT(*) AS n FROM leads').get().n
+router.get('/stats', async (_req, res) => {
+  const total = (await get('SELECT COUNT(*) AS n FROM leads')).n
   const byStatus = Object.fromEntries(
-    db.prepare('SELECT status, COUNT(*) AS n FROM leads GROUP BY status').all().map((r) => [r.status, r.n])
+    (await all('SELECT status, COUNT(*) AS n FROM leads GROUP BY status')).map((r) => [r.status, r.n])
   )
-  const today = db
-    .prepare("SELECT COUNT(*) AS n FROM leads WHERE date(created_at) = date('now')").get().n
+  const today = (
+    await get('SELECT COUNT(*) AS n FROM leads WHERE DATE(created_at) = CURDATE()')
+  ).n
 
   res.json({
     total,
@@ -96,15 +97,13 @@ router.get('/stats', (_req, res) => {
 
 /* Daily counts for the last 14 days, zero-filled so the sparklines have a
    continuous series even on days with no enquiries. */
-router.get('/trend', (_req, res) => {
-  const rows = db
-    .prepare(
-      `SELECT date(created_at) AS day, status, COUNT(*) AS n
-         FROM leads
-        WHERE created_at >= datetime('now', '-13 days')
-        GROUP BY day, status`
-    )
-    .all()
+router.get('/trend', async (_req, res) => {
+  const rows = await all(
+    `SELECT DATE(created_at) AS day, status, COUNT(*) AS n
+       FROM leads
+      WHERE created_at >= (NOW() - INTERVAL 13 DAY)
+      GROUP BY day, status`
+  )
 
   const days = []
   for (let i = 13; i >= 0; i--) {
@@ -127,20 +126,20 @@ router.get('/trend', (_req, res) => {
   })
 })
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', async (req, res) => {
   const { status } = req.body || {}
   if (!STATUSES.includes(status)) {
     return res.status(400).json({ error: `Status must be one of: ${STATUSES.join(', ')}` })
   }
 
-  const info = db.prepare('UPDATE leads SET status = ? WHERE id = ?').run(status, req.params.id)
+  const info = await run('UPDATE leads SET status = ? WHERE id = ?', [status, req.params.id])
   if (!info.changes) return res.status(404).json({ error: 'Lead not found.' })
 
   res.json({ ok: true })
 })
 
-router.delete('/:id', (req, res) => {
-  const info = db.prepare('DELETE FROM leads WHERE id = ?').run(req.params.id)
+router.delete('/:id', async (req, res) => {
+  const info = await run('DELETE FROM leads WHERE id = ?', [req.params.id])
   if (!info.changes) return res.status(404).json({ error: 'Lead not found.' })
 
   res.json({ ok: true })

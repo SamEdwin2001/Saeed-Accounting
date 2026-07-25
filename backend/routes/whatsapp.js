@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { db } from '../db.js'
+import { all, get, run } from '../db.js'
 import { requireAuth } from './auth.js'
 
 const router = Router()
@@ -34,7 +34,7 @@ const ORDER = `ORDER BY CASE day_of_week
    inactive or missing, returns the default number instead — the button is
    never left pointing at a dead / deactivated number. This route sits above
    requireAuth on purpose. */
-router.get('/today', (req, res) => {
+router.get('/today', async (req, res) => {
   /* Never cache this — the office can change today's number at any moment, and
      a stale cached response would keep the site pointing at an old number. */
   res.set('Cache-Control', 'no-store')
@@ -43,9 +43,10 @@ router.get('/today', (req, res) => {
      over at the viewer's own midnight; fall back to the server's day if it's
      missing or invalid. */
   const day = normalizeDay(req.query.day) || todayName()
-  const row = db
-    .prepare('SELECT * FROM whatsapp_messages WHERE day_of_week = ? AND active = 1 ORDER BY id DESC')
-    .get(day)
+  const row = await get(
+    'SELECT * FROM whatsapp_messages WHERE day_of_week = ? AND active = 1 ORDER BY id DESC',
+    [day]
+  )
 
   if (row) {
     return res.json({
@@ -65,13 +66,13 @@ router.get('/today', (req, res) => {
 router.use(requireAuth)
 
 /* List every scheduled message. */
-router.get('/', (_req, res) => {
-  const messages = db.prepare(`SELECT * FROM whatsapp_messages ${ORDER}`).all()
+router.get('/', async (_req, res) => {
+  const messages = await all(`SELECT * FROM whatsapp_messages ${ORDER}`)
   res.json({ messages })
 })
 
 /* Create a new scheduled message. */
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { day, name, number, message = '', active = true } = req.body || {}
 
   const validDay = normalizeDay(day)
@@ -80,26 +81,25 @@ router.post('/', (req, res) => {
     return res.status(400).json({ error: 'Day, name and WhatsApp number are required.' })
   }
 
-  const info = db
-    .prepare(
-      `INSERT INTO whatsapp_messages (day_of_week, name, number, message, active)
-       VALUES (@day_of_week, @name, @number, @message, @active)`
-    )
-    .run({
+  const info = await run(
+    `INSERT INTO whatsapp_messages (day_of_week, name, number, message, active)
+     VALUES (:day_of_week, :name, :number, :message, :active)`,
+    {
       day_of_week: validDay,
       name: clean(name, 120),
       number: cleanNumber,
       message: clean(message, 2000),
       active: active ? 1 : 0,
-    })
+    }
+  )
 
-  const row = db.prepare('SELECT * FROM whatsapp_messages WHERE id = ?').get(info.lastInsertRowid)
+  const row = await get('SELECT * FROM whatsapp_messages WHERE id = ?', [info.insertId])
   res.status(201).json({ message: row })
 })
 
 /* Partial update — used for both the edit form and the active/inactive toggle. */
-router.patch('/:id', (req, res) => {
-  const existing = db.prepare('SELECT * FROM whatsapp_messages WHERE id = ?').get(req.params.id)
+router.patch('/:id', async (req, res) => {
+  const existing = await get('SELECT * FROM whatsapp_messages WHERE id = ?', [req.params.id])
   if (!existing) return res.status(404).json({ error: 'Message not found.' })
 
   const { day, name, number, message, active } = req.body || {}
@@ -115,20 +115,21 @@ router.patch('/:id', (req, res) => {
     return res.status(400).json({ error: 'Day, name and WhatsApp number are required.' })
   }
 
-  db.prepare(
+  await run(
     `UPDATE whatsapp_messages
-        SET day_of_week = @day_of_week, name = @name, number = @number,
-            message = @message, active = @active
-      WHERE id = @id`
-  ).run({ ...next, id: existing.id })
+        SET day_of_week = :day_of_week, name = :name, number = :number,
+            message = :message, active = :active
+      WHERE id = :id`,
+    { ...next, id: existing.id }
+  )
 
-  const row = db.prepare('SELECT * FROM whatsapp_messages WHERE id = ?').get(existing.id)
+  const row = await get('SELECT * FROM whatsapp_messages WHERE id = ?', [existing.id])
   res.json({ message: row })
 })
 
 /* Delete a scheduled message. */
-router.delete('/:id', (req, res) => {
-  const info = db.prepare('DELETE FROM whatsapp_messages WHERE id = ?').run(req.params.id)
+router.delete('/:id', async (req, res) => {
+  const info = await run('DELETE FROM whatsapp_messages WHERE id = ?', [req.params.id])
   if (!info.changes) return res.status(404).json({ error: 'Message not found.' })
   res.json({ ok: true })
 })
