@@ -149,13 +149,13 @@ export const CORPORATE_TAX_REGISTRATION = {
 }
 
 /**
- * SEO landing variant at /corporate-tax-registration-consultant-uae.
+ * SEO landing variant at /uae-corporate-tax-registration.
  * Same layout as the registration page above, but the offer/price read
  * "Starts at" rather than "Starts @", and it closes with the stats band.
  */
 export const CORPORATE_TAX_CONSULTANT = {
   ...CORPORATE_TAX_REGISTRATION,
-  slug: 'corporate-tax-registration-consultant-uae',
+  slug: 'uae-corporate-tax-registration',
   heroOffer: 'Limited Offer Running Starts at Ð 149',
   priceAmount: 'Starts at Ð 149',
   showStats: true,

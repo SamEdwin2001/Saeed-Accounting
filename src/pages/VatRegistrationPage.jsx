@@ -39,7 +39,7 @@ const FEATURES = [
 ]
 
 const PRICING = [
-  { title: 'VAT Registration UAE', price: 'Starts @ Ð 149 Only', to: '/vat-registration-uae' },
+  { title: 'VAT Registration UAE', price: 'Starts @ Ð 149 Only', to: '/vat-registration-services' },
   { title: 'Corporate Tax Registration', price: 'Starts @ Ð 149 Only', to: '/corporate-tax-registration' },
 ]
 

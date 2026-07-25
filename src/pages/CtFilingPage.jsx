@@ -5,7 +5,7 @@ import Seo from '../components/Seo.jsx'
 import '../ctFiling.css'
 
 /**
- * /corporate-tax-filing-service-uae
+ * /file-corporate-tax-return
  *
  * Markup and class names mirror the live page exactly; the styles live in
  * ../ctFiling.css, ported from the live stylesheet and scoped under

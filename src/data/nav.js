@@ -19,7 +19,7 @@ export const NAV = [
   {
     label: 'VAT / TAX',
     children: [
-      { label: 'VAT Registration', to: '/vat-registration-uae' },
+      { label: 'VAT Registration', to: '/vat-registration-services' },
       { label: 'VAT Return Filling', to: '/vat-return-filling' },
       { label: 'VAT–De–Registration', to: '/vat-de-registration' },
       { label: 'VAT Audit', to: '/vat-audit' },
@@ -55,7 +55,7 @@ export const FOOTER_QUICK_LINKS = [
 ]
 
 export const FOOTER_SERVICES = [
-  { label: 'VAT Registration', to: '/vat-registration-uae' },
+  { label: 'VAT Registration', to: '/vat-registration-services' },
   { label: 'Corporate Tax Registration', to: '/corporate-tax-registration' },
   { label: 'Accounting and Bookkeeping', to: '/accounting-bookkeeping' },
   { label: 'Corporate Tax Filing', to: '/corporate-tax-filing' },

@@ -19,7 +19,7 @@ const HIGHLIGHTS = [
 ]
 
 const SERVICES = [
-  { Icon: GearIcon, label: 'VAT services', to: '/vat-registration-uae' },
+  { Icon: GearIcon, label: 'VAT services', to: '/vat-registration-services' },
   { Icon: InvoiceIcon, label: 'TAX services', to: '/corporate-tax-registration' },
   { Icon: EditIcon, label: 'Audit services', to: '/vat-audit' },
   { Icon: FileIcon, label: 'Accounting services', to: '/accounting-bookkeeping' },

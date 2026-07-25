@@ -36,7 +36,7 @@ const CorporateTaxFilingUae = lazy(() => import('./pages/CorporateTaxFilingUae.j
 
 /** Slugs that use a bespoke layout rather than the article template. */
 const CUSTOM_PAGES = {
-  'vat-registration-uae': <VatRegistrationPage />,
+  'vat-registration-services': <VatRegistrationPage />,
   'corporate-tax-filing': <CorporateTaxLanding data={CORPORATE_TAX_FILING} />,
   'corporate-tax-registration': <CorporateTaxLanding data={CORPORATE_TAX_REGISTRATION} />,
 }
@@ -84,14 +84,14 @@ function PublicSite() {
             ))}
 
             {/* SEO landing variants — not in SERVICES, so routed explicitly.
-                /vat-registrations-uae is a duplicate of /vat-registration-uae
+                /uae-vat-registration is a duplicate of /vat-registration-services
                 on the live site, so it renders the same page. */}
             <Route
-              path="/corporate-tax-registration-consultant-uae"
+              path="/uae-corporate-tax-registration"
               element={<CorporateTaxLanding data={CORPORATE_TAX_CONSULTANT} />}
             />
-            <Route path="/vat-registrations-uae" element={<VatRegistrationPage carouselReviews />} />
-            <Route path="/corporate-tax-filing-service-uae" element={<CtFilingPage />} />
+            <Route path="/uae-vat-registration" element={<VatRegistrationPage carouselReviews />} />
+            <Route path="/file-corporate-tax-return" element={<CtFilingPage />} />
             <Route path="/corporate-tax-filing-uae" element={<CorporateTaxFilingUae />} />
 
             <Route path="/about-us" element={<AboutPage />} />
