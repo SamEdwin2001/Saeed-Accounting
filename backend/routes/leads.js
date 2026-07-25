@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { db } from '../db.js'
 import { requireAuth } from './auth.js'
+import { sendLeadEmails } from '../mailer.js'
 
 const router = Router()
 
@@ -8,14 +9,25 @@ const STATUSES = ['new', 'contacted', 'closed']
 
 /* Public — the site's contact form posts here. Deliberately unauthenticated;
    everything below this route requires a token. */
-router.post('/', (req, res) => {
-  const { name, phone, email, message = '', source = 'contact' } = req.body || {}
+router.post('/', async (req, res) => {
+  const { name, phone, email = '', message = '', source = 'contact', page = '' } = req.body || {}
 
-  if (!name?.trim() || !phone?.trim() || !email?.trim()) {
-    return res.status(400).json({ error: 'Name, phone and email are required.' })
+  /* Name + phone are required; email is optional (some forms — e.g. the CT
+     filing card — only collect a WhatsApp number). Validate email only when
+     one is given. */
+  if (!name?.trim() || !phone?.trim()) {
+    return res.status(400).json({ error: 'Name and phone are required.' })
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address.' })
+  }
+
+  const lead = {
+    name: name.trim().slice(0, 120),
+    phone: phone.trim().slice(0, 40),
+    email: email.trim().slice(0, 160),
+    message: String(message).trim().slice(0, 5000),
+    source: String(source).slice(0, 40),
   }
 
   const info = db
@@ -23,15 +35,20 @@ router.post('/', (req, res) => {
       `INSERT INTO leads (name, phone, email, message, source)
        VALUES (@name, @phone, @email, @message, @source)`
     )
-    .run({
-      name: name.trim().slice(0, 120),
-      phone: phone.trim().slice(0, 40),
-      email: email.trim().slice(0, 160),
-      message: String(message).trim().slice(0, 5000),
-      source: String(source).slice(0, 40),
-    })
+    .run(lead)
 
+  /* Respond immediately so the visitor isn't kept waiting on SMTP. */
   res.status(201).json({ id: info.lastInsertRowid, ok: true })
+
+  /* Then send the office notification + customer thank-you in the background.
+     The page URL is passed through (not stored). Failures are only logged —
+     the lead is already saved and shows in the dashboard regardless. */
+  sendLeadEmails({ ...lead, page: String(page).trim().slice(0, 300) })
+    .then((mail) => {
+      if (mail.skipped) console.warn('[mail] not sent:', mail.reason)
+      else console.log('[mail] lead', info.lastInsertRowid, mail)
+    })
+    .catch((err) => console.error('[mail] unexpected error:', err))
 })
 
 router.use(requireAuth)

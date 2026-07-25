@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { api, clearToken } from './api.js'
 import Sparkline from './Sparkline.jsx'
+import WhatsAppPage from './WhatsApp.jsx'
 import {
   UserIcon,
   UsersIcon,
@@ -10,6 +11,7 @@ import {
   Mail,
   Menu,
   Close,
+  WhatsApp,
 } from '../components/Icons.jsx'
 
 const STATUSES = ['new', 'contacted', 'closed']
@@ -50,6 +52,7 @@ export default function Dashboard({ username, onSignOut }) {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [navOpen, setNavOpen] = useState(false)
+  const [page, setPage] = useState('enquiries') // 'enquiries' | 'whatsapp'
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -121,30 +124,52 @@ export default function Dashboard({ username, onSignOut }) {
 
         <nav className="adm-nav">
           <p className="adm-nav__label">Dashboard</p>
-          <button className="adm-nav__item is-active">
+          <button
+            className={`adm-nav__item ${page === 'enquiries' ? 'is-active' : ''}`}
+            onClick={() => {
+              setPage('enquiries')
+              setNavOpen(false)
+            }}
+          >
             <span className="adm-dot adm-dot--red" />
             Enquiries
           </button>
-
-          <p className="adm-nav__label">Filter</p>
           <button
-            className={`adm-nav__item ${status === '' ? 'is-active' : ''}`}
-            onClick={() => setStatus('')}
+            className={`adm-nav__item ${page === 'whatsapp' ? 'is-active' : ''}`}
+            onClick={() => {
+              setPage('whatsapp')
+              setNavOpen(false)
+            }}
           >
-            <span className="adm-dot adm-dot--dark" />
-            All leads
+            <span className="adm-nav__ico">
+              <WhatsApp />
+            </span>
+            WhatsApp
           </button>
-          {STATUSES.map((s) => (
-            <button
-              key={s}
-              className={`adm-nav__item ${status === s ? 'is-active' : ''}`}
-              onClick={() => setStatus(s)}
-            >
-              <span className={`adm-dot adm-dot--${s}`} />
-              <span className="adm-cap">{s}</span>
-              {stats && <span className="adm-nav__count">{stats[s] ?? 0}</span>}
-            </button>
-          ))}
+
+          {page === 'enquiries' && (
+            <>
+              <p className="adm-nav__label">Filter</p>
+              <button
+                className={`adm-nav__item ${status === '' ? 'is-active' : ''}`}
+                onClick={() => setStatus('')}
+              >
+                <span className="adm-dot adm-dot--dark" />
+                All leads
+              </button>
+              {STATUSES.map((s) => (
+                <button
+                  key={s}
+                  className={`adm-nav__item ${status === s ? 'is-active' : ''}`}
+                  onClick={() => setStatus(s)}
+                >
+                  <span className={`adm-dot adm-dot--${s}`} />
+                  <span className="adm-cap">{s}</span>
+                  {stats && <span className="adm-nav__count">{stats[s] ?? 0}</span>}
+                </button>
+              ))}
+            </>
+          )}
 
           <p className="adm-nav__label">Site</p>
           <a className="adm-nav__item" href="/" target="_blank" rel="noreferrer">
@@ -162,12 +187,16 @@ export default function Dashboard({ username, onSignOut }) {
             <Menu />
           </button>
 
-          <input
-            className="adm-search"
-            placeholder="Search name, email or phone…"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
+          {page === 'enquiries' ? (
+            <input
+              className="adm-search"
+              placeholder="Search name, email or phone…"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+          ) : (
+            <span className="adm-search-gap" />
+          )}
 
           <div className="adm-top__right">
             <span className="adm-avatar">{username.slice(0, 1).toUpperCase()}</span>
@@ -179,6 +208,10 @@ export default function Dashboard({ username, onSignOut }) {
         </header>
 
         <main className="adm-main">
+          {page === 'whatsapp' ? (
+            <WhatsAppPage />
+          ) : (
+            <>
           <div className="adm-head">
             <h1 className="adm-h1">Dashboard</h1>
             <p className="adm-crumb">Dashboard &mdash; Enquiries</p>
@@ -295,6 +328,8 @@ export default function Dashboard({ username, onSignOut }) {
               </table>
             </div>
           </section>
+            </>
+          )}
         </main>
       </div>
     </div>

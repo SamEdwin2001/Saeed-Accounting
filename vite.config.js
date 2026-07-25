@@ -13,5 +13,16 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    /* Build artifacts and large reports aren't source. On Windows they can be
+       locked by the OS (a zip mid-write, a report open elsewhere), which makes
+       the native file watcher throw EBUSY and crash the dev server. Skip them. */
+    watch: {
+      ignored: [
+        '**/dist/**',
+        '**/*.zip',
+        '**/*lighthouse-report*',
+        '**/backend/data/**',
+      ],
+    },
   },
 })

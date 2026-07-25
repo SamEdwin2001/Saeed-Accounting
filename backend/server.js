@@ -1,9 +1,16 @@
-import 'dotenv/config'
+import dotenv from 'dotenv'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+/* Load backend/.env by absolute path so it works no matter which directory
+   the server is started from (npm run api launches from the project root). */
+dotenv.config({ path: join(dirname(fileURLToPath(import.meta.url)), '.env') })
+
 import express from 'express'
 import cors from 'cors'
 import { seedAdmin } from './db.js'
 import authRoutes from './routes/auth.js'
 import leadRoutes from './routes/leads.js'
+import whatsappRoutes from './routes/whatsapp.js'
 
 const app = express()
 const PORT = process.env.PORT || 4000
@@ -14,6 +21,7 @@ app.use(express.json({ limit: '100kb' }))
 app.get('/api/health', (_req, res) => res.json({ ok: true }))
 app.use('/api/auth', authRoutes)
 app.use('/api/leads', leadRoutes)
+app.use('/api/whatsapp', whatsappRoutes)
 
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }))
 

@@ -691,3 +691,309 @@
     transition: none;
   }
 }
+
+/* ============================================================
+   WhatsApp scheduled-message manager
+   ============================================================ */
+
+/* Sidebar icon (used in place of a colour dot for the WhatsApp item). */
+.adm-nav__ico {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.adm-nav__ico svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Keeps the topbar right-group aligned when the search box is hidden. */
+.adm-search-gap {
+  flex: 1 1 auto;
+}
+
+.wa-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: var(--adm-red);
+  color: #fff;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.wa-add:hover {
+  background: var(--adm-red-dark);
+}
+
+.wa-add svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- Status badges ---------- */
+
+.wa-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.wa-badge--active {
+  border-color: #17a34a;
+  background: #e8f6ed;
+  color: #0e6b31;
+}
+
+.wa-badge--inactive {
+  border-color: #d7dae0;
+  background: #f1f2f4;
+  color: #6b7280;
+}
+
+.wa-badge--today {
+  margin-left: 0.5rem;
+  padding: 0.12rem 0.5rem;
+  background: #0e6b31;
+  color: #fff;
+  font-size: 0.68rem;
+}
+
+/* ---------- Row actions: toggle switch + icon buttons ---------- */
+
+.wa-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.wa-switch {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #cfd3da;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.wa-switch.is-on {
+  background: #17a34a;
+}
+
+.wa-switch__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.18s ease;
+}
+
+.wa-switch.is-on .wa-switch__knob {
+  transform: translateX(18px);
+}
+
+.wa-icon-btn {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.wa-icon-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Edit = blue, Delete = red — always coloured, not just on hover. */
+.wa-icon-btn--edit {
+  background: #eaf1fd;
+  color: #2f6fed;
+}
+
+.wa-icon-btn--edit:hover {
+  background: #d6e5fc;
+}
+
+.wa-icon-btn--danger {
+  background: #fdecea;
+  color: var(--adm-red);
+}
+
+.wa-icon-btn--danger:hover {
+  background: #f8d3ce;
+}
+
+/* ---------- Modal ---------- */
+
+.wa-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(16, 18, 22, 0.55);
+}
+
+.wa-dialog {
+  width: 100%;
+  max-width: 640px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: wa-pop 0.16s ease-out;
+}
+
+.wa-dialog--confirm {
+  max-width: 500px;
+}
+
+@keyframes wa-pop {
+  from {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.wa-dialog__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.05rem 1.3rem;
+  border-bottom: 1px solid var(--adm-line);
+}
+
+.wa-dialog__title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.wa-dialog__close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--adm-muted);
+  cursor: pointer;
+}
+
+.wa-dialog__close:hover {
+  background: var(--adm-bg);
+  color: var(--adm-ink);
+}
+
+.wa-dialog__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.wa-dialog__body {
+  padding: 1.3rem 1.5rem;
+}
+
+/* Confirmation dialog body (toggle / delete). */
+.wa-confirm {
+  padding: 1.4rem 1.5rem;
+}
+
+.wa-confirm__text {
+  margin: 0 0 1.4rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--adm-ink);
+}
+
+.wa-confirm .wa-dialog__foot {
+  margin-top: 0;
+}
+
+.wa-dialog__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.wa-save {
+  padding: 0.6rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: var(--adm-red);
+  color: #fff;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.wa-save:hover {
+  background: var(--adm-red-dark);
+}
+
+.wa-save:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Textarea + select match the field inputs (only inputs were styled before). */
+.adm-field textarea,
+.adm-field select {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 9px;
+  font: inherit;
+  background: #fff;
+}
+
+.adm-field textarea {
+  resize: vertical;
+}
+
+.adm-field select {
+  cursor: pointer;
+}
+
+.adm-field textarea:focus-visible,
+.adm-field select:focus-visible {
+  outline: 2px solid var(--adm-red);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-dialog {
+    animation: none;
+  }
+}

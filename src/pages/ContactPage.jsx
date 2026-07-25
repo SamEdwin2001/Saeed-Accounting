@@ -51,12 +51,10 @@ export default function ContactPage() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (values.captcha.trim().toLowerCase() !== code) {
-      setError('The verification code does not match. Please try again.')
-      refresh()
-      return
-    }
 
+    /* The verification code is optional — it's a light anti-spam hint, not a
+       gate. Name, phone and email stay required (enforced natively below and
+       again on the server). */
     setError('')
     setBusy(true)
     try {
@@ -66,11 +64,11 @@ export default function ContactPage() {
         email: values.email,
         message: values.message,
         source: 'contact',
+        page: window.location.href,
       })
       setSent(true)
     } catch (err) {
       setError(err.message || 'Could not send your message. Please try again.')
-      refresh()
     } finally {
       setBusy(false)
     }
@@ -156,7 +154,7 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-              <form className="ctc-form" onSubmit={onSubmit} noValidate>
+              <form className="ctc-form" onSubmit={onSubmit}>
                 <h2 className="ctc-form__title">Request a call back</h2>
                 <p className="ctc-form__sub">
                   Fill in the form and we&apos;ll be in touch. No obligation.
@@ -234,11 +232,10 @@ export default function ContactPage() {
                       id="c-cap"
                       type="text"
                       placeholder=" "
-                      required
                       value={values.captcha}
                       onChange={update('captcha')}
                     />
-                    <label htmlFor="c-cap">Enter the code</label>
+                    <label htmlFor="c-cap">Enter the code (optional)</label>
                   </div>
                 </div>
 

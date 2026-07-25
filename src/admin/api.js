@@ -47,4 +47,12 @@ export const api = {
   trend: () => request('/leads/trend'),
   setStatus: (id, status) => request(`/leads/${id}`, { method: 'PATCH', body: { status } }),
   remove: (id) => request(`/leads/${id}`, { method: 'DELETE' }),
+
+  /* WhatsApp scheduled-message manager (admin-only CRUD). */
+  whatsapp: {
+    list: () => request('/whatsapp'),
+    create: (data) => request('/whatsapp', { method: 'POST', body: data }),
+    update: (id, data) => request(`/whatsapp/${id}`, { method: 'PATCH', body: data }),
+    remove: (id) => request(`/whatsapp/${id}`, { method: 'DELETE' }),
+  },
 }

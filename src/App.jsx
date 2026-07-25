@@ -30,6 +30,10 @@ const NotFound = lazy(() => import('./pages/NotFound.jsx'))
    visitors. Lazy so none of it ships in the public bundle. */
 const AdminApp = lazy(() => import('./admin/AdminApp.jsx'))
 
+/* Landing page converted from a full HTML file. Its CSS is scoped under
+   .ctf-page, so it renders inside the normal site chrome (header + footer). */
+const CorporateTaxFilingUae = lazy(() => import('./pages/CorporateTaxFilingUae.jsx'))
+
 /** Slugs that use a bespoke layout rather than the article template. */
 const CUSTOM_PAGES = {
   'vat-registration-uae': <VatRegistrationPage />,
@@ -88,6 +92,7 @@ function PublicSite() {
             />
             <Route path="/vat-registrations-uae" element={<VatRegistrationPage carouselReviews />} />
             <Route path="/corporate-tax-filing-service-uae" element={<CtFilingPage />} />
+            <Route path="/corporate-tax-filing-uae" element={<CorporateTaxFilingUae />} />
 
             <Route path="/about-us" element={<AboutPage />} />
             <Route path="/contact-us" element={<ContactPage />} />

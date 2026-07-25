@@ -14,6 +14,14 @@ export const db = new Database(join(dataDir, 'app.db'))
    the two blocking each other. */
 db.pragma('journal_mode = WAL')
 
+/* One-time migration: an earlier build of the WhatsApp feature stored a
+   `send_date` column; it now uses `day_of_week`. If the old shape is present,
+   drop it so the CREATE below rebuilds the table with the new columns. */
+const waCols = db.prepare("PRAGMA table_info('whatsapp_messages')").all()
+if (waCols.length && !waCols.some((c) => c.name === 'day_of_week')) {
+  db.exec('DROP TABLE whatsapp_messages')
+}
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS leads (
     id         INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,6 +41,16 @@ db.exec(`
     username      TEXT    NOT NULL UNIQUE,
     password_hash TEXT    NOT NULL,
     created_at    TEXT    NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS whatsapp_messages (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    day_of_week TEXT    NOT NULL,
+    name        TEXT    NOT NULL,
+    number      TEXT    NOT NULL,
+    message     TEXT    NOT NULL DEFAULT '',
+    active      INTEGER NOT NULL DEFAULT 1,
+    created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
   );
 `)
 
