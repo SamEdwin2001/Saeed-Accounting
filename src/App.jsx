@@ -1,10 +1,13 @@
 import { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import FloatingActions from './components/FloatingActions.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
+import Seo from './components/Seo.jsx'
+
+import { seoFor, NOT_FOUND_SEO } from './data/seo.js'
 
 import { SERVICES } from './data/services.js'
 import {
@@ -59,10 +62,32 @@ export default function App() {
   )
 }
 
+/**
+ * Applies the meta for the current route from the ROUTE_SEO table.
+ *
+ * Sits outside the Suspense boundary so <title> and the description update as
+ * soon as the URL changes, rather than waiting for the lazy page chunk to
+ * arrive — a slow chunk otherwise leaves the previous page's title showing.
+ */
+function RouteSeo() {
+  const { pathname } = useLocation()
+  const meta = seoFor(pathname)
+
+  return (
+    <Seo
+      title={meta ? meta.title : NOT_FOUND_SEO.title}
+      description={meta ? meta.description : NOT_FOUND_SEO.description}
+      path={pathname}
+      noindex={!meta}
+    />
+  )
+}
+
 function PublicSite() {
   return (
     <>
       <ScrollToTop />
+      <RouteSeo />
       <Header />
 
       {/* Footer sits inside the Suspense boundary: if it painted while a lazy

@@ -4,7 +4,6 @@ import Reviews from '../components/Reviews.jsx'
 import ReviewsCarousel from '../components/ReviewsCarousel.jsx'
 import Stats from '../components/Stats.jsx'
 import Badges from '../components/Badges.jsx'
-import Seo from '../components/Seo.jsx'
 import { Accented } from './ServicePage.jsx'
 import { WhatsApp, CheckCircle } from '../components/Icons.jsx'
 
@@ -52,8 +51,6 @@ export default function CorporateTaxLanding({ data }) {
 
   return (
     <div className="ct-page">
-      <Seo title={heroTitle} description={heroSub} />
-
       {/* Hero */}
       <section className="hero ct-hero">
         <div className="container hero__inner">

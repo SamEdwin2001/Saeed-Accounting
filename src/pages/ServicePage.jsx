@@ -1,5 +1,4 @@
 import PageBanner from '../components/PageBanner.jsx'
-import Seo from '../components/Seo.jsx'
 import Img from '../components/Img.jsx'
 import Tabs from '../components/Tabs.jsx'
 import Accordion from '../components/Accordion.jsx'
@@ -88,19 +87,6 @@ function SplitHeading({ text, accent, upper, left }) {
  * page ends with tabs, a check-list, or a plain bullet list depending on which
  * of `tabs` / `listImage` / `listItems` it supplies.
  */
-/**
- * First real sentence of the page's own copy, trimmed to a sensible meta
- * length. `intro`/`body` entries are either a string (paragraph) or an object
- * (inline heading / list / image), so only strings are usable here.
- */
-function metaDescription({ lead, intro = [], body = [], title }) {
-  const source =
-    lead || [...intro, ...body].find((b) => typeof b === 'string' && b.length > 40)
-
-  if (!source) return `${title} in the UAE from Saeed Accounting.`
-  return source.length > 158 ? `${source.slice(0, 155).trimEnd()}…` : source
-}
-
 export default function ServicePage({ service }) {
   const {
     title,
@@ -171,7 +157,6 @@ export default function ServicePage({ service }) {
 
   return (
     <>
-      <Seo title={title} description={metaDescription(service)} />
       <PageBanner title={title} />
 
       <article className="page">
