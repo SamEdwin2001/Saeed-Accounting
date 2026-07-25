@@ -22,6 +22,17 @@ const BRAND = {
   site: 'https://www.saeedaccounting.com',
 }
 
+/* People CC'd on the internal enquiry notification only. The customer
+   thank-you email is never CC'd, so visitors never see these addresses.
+   Override via LEADS_CC in .env (comma-separated) if this list changes. */
+const DEFAULT_LEADS_CC = [
+  'vatfiling@thevatconsultant.com',
+  'marketing@thevatconsultant.com',
+  'vf@thevatconsultant.com',
+  'tech3@thevatconsultant.com',
+  'tech2@thevatconsultant.com',
+]
+
 /* dotenv is loaded by server.js before this module reads process.env, so the
    transporter picks up whatever's in backend/.env. */
 function mailConfig() {
@@ -34,6 +45,9 @@ function mailConfig() {
     fromName: process.env.MAIL_FROM_NAME || BRAND.name,
     fromAddr: process.env.MAIL_FROM || process.env.SMTP_USER || BRAND.email,
     leadsInbox: process.env.LEADS_INBOX || process.env.SMTP_USER || BRAND.email,
+    leadsCc: (process.env.LEADS_CC
+      ? process.env.LEADS_CC.split(',').map((a) => a.trim()).filter(Boolean)
+      : DEFAULT_LEADS_CC),
   }
 }
 
@@ -221,6 +235,9 @@ export async function sendLeadEmails(lead) {
     const notify = {
       from,
       to: c.leadsInbox,
+      // CC the team on the internal enquiry only — the customer thank-you
+      // below is never CC'd, so visitors never see these addresses.
+      ...(c.leadsCc.length ? { cc: c.leadsCc } : {}),
       subject: `New enquiry from ${lead.name} — website`,
       text: plain([
         'New website enquiry',
