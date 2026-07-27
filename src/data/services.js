@@ -301,7 +301,7 @@ export const SERVICES = [
     heading: 'VAT Refund',
     headingAccent: 'VAT',
     headingUpper: true,
-    introImage: '/images/services/vat-refund-1.jpg',
+    introImage: 'https://res.cloudinary.com/dekhukonj/image/upload/v1785151044/VAT-REFUND_kytk3q.webp',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -313,7 +313,11 @@ export const SERVICES = [
       'know here Vat return filing date in UAE, The VAT Return must be received by the FTA no later than the 28th day following the end of the Tax Period concerned or by such other date as directed by the FTA. Where a payment is due to the FTA, it must be received by the FTA by the same deadline.',
       { heading: 'Understanding tax liability' },
       "Below are some key terms with respect to the operation of VAT, and how these could impact a Taxable Person's tax liability.",
-      { image: '/images/services/vat-refund-2.jpg', caption: 'VAT Return Filing in UAE' },
+      {
+        image:
+          'https://res.cloudinary.com/dekhukonj/image/upload/v1785151246/vat_consultant_in_dubai_cmd22f.webp',
+        caption: 'VAT Return Filing in UAE',
+      },
       { heading: 'Output Tax' },
       '"Output tax" is the VAT a Taxable Person calculates and charges on its supplies of goods and services once it is registered for VAT. Output tax must generally be calculated on supplies made to other persons; however, in certain situations VAT might be required to be charged on supplies which were deemed to occur for VAT purposes or on supplies which are subject to the reverse charge provisions. The obligation to account for output tax arises at the tax point of the supply, i.e. at the date of supply. Once the date of the supply has taken place, the Taxable Person must account for the output tax in the VAT Return covering that Tax Period',
       { heading: 'Input Tax' },
