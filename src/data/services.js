@@ -336,7 +336,8 @@ export const SERVICES = [
     heading: 'VAT Amendment',
     headingAccent: 'VAT',
     headingUpper: true,
-    introImage: '/images/services/vat-amendment-1.jpg',
+    introImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785152176/VAT-AMENDMENT_kdgoxt.webp',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
