@@ -451,7 +451,8 @@ export const SERVICES = [
     heading: 'Corporate Tax Implementation',
     headingAccent: 'Corporate Tax',
     headingUpper: true,
-    introImage: '/images/services/corporate-tax-implementation-1.jpg',
+    introImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785152438/Implementation_ujnal7.webp',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
