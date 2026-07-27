@@ -164,7 +164,7 @@ export const SERVICES = [
     introImageRatio: '9 / 10',
     /* Same artwork as the intro image — the page shows it twice. */
     listImage:
-      'https://res.cloudinary.com/dekhukonj/image/upload/v1785148800/WhatsApp-Image-2022-09-16-at-3.22.20-PM-rhpdihuendka805lz9jd43espplosg0j74q3wfz568_iclemy.webp',
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785148955/cfo_fyyvnm.webp',
     listImageRatio: '1 / 1',
     listHeadingAccent: 'Our Outsourced CFO',
     listHeadingUpper: true,
@@ -228,7 +228,8 @@ export const SERVICES = [
     heading: 'VAT Return Filling Services in Dubai and UAE',
     headingAccent: 'VAT Return Filling Services',
     headingUpper: true,
-    introImage: '/images/services/vat-return-filling-1.jpg',
+    introImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785150811/VAT-Return-Filing-Services-In-Oman_hb4hbi.webp',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
