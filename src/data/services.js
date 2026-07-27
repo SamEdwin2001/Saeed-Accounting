@@ -108,7 +108,7 @@ export const SERVICES = [
     heading: 'Services Dubai and UAE',
     headingAccent: 'Services',
     headingUpper: true,
-    introImage: '/images/services/accounting-bookkeeping-1.jpg',
+    introImage: 'https://res.cloudinary.com/dekhukonj/image/upload/v1785148512/ab_hkjywu.webp',
     introImageRatio: '7 / 5',
     listHeadingAccent: 'Our Accounting and Bookkeeping Services',
     listHeadingUpper: true,
