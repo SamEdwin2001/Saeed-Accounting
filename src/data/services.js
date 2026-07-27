@@ -525,9 +525,7 @@ export const SERVICES = [
     heading: 'Company Registration in Dubai - An Overview',
     headingAccent: 'Company Registration in Dubai',
     headingUpper: true,
-    introImage: '/images/services/business-formation-1.jpg',
-    introImageSide: 'left',
-    introImageRatio: '3 / 2',
+    /* No intro image — the copy runs full width. */
     intro: [
       'Dubai is one of the largest cities in the Middle East, having a multitude of opportunities to allow foreign investors to set up different forms of companies. This city has expanded its opportunities to ensure that there is constant development of trade and business in the arena. Apart from this, the Middle East is one of the largest oil exporters in the world.',
       'Dubai has accelerated the pace of its diversification and sustainable economic growth. The city issued 45,653 new business licences in the first half of the year 2022, which is significantly higher than the licenses issued in the first half of the previous year (2021), i.e. 36,647, which shows 25 % growth in the company registration. The main reason for the growth is the business-friendly government policies and programmes, tax regimes, and infrastructure to name a few.',
