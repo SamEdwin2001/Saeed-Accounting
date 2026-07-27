@@ -4,7 +4,6 @@ import Accordion from '../components/Accordion.jsx'
 import Reviews from '../components/Reviews.jsx'
 import ReviewsCarousel from '../components/ReviewsCarousel.jsx'
 import Badges from '../components/Badges.jsx'
-import Seo from '../components/Seo.jsx'
 import { IMAGES } from '../images.js'
 import { WhatsApp, CheckCircle, LedgerIcon, Star, UsersIcon } from '../components/Icons.jsx'
 
@@ -77,11 +76,6 @@ const WHATSAPP = WHATSAPP_FALLBACK_HREF
 export default function VatRegistrationPage({ carouselReviews = false }) {
   return (
     <div className="vat-page">
-      <Seo
-        title="FTA VAT Registration UAE — from Ð 149"
-        description="FTA VAT registration in the UAE starting at Ð 149. Get your TRN quickly with expert guidance on eligibility, documents and submission for mainland and free zone businesses."
-      />
-
       {/* Hero */}
       <section className="hero vat-hero">
         <div className="container hero__inner">

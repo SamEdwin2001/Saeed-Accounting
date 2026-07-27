@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { CT_FILING as D } from '../data/ctFiling.js'
 import Reviews from '../components/Reviews.jsx'
-import Seo from '../components/Seo.jsx'
 import '../ctFiling.css'
 
 /**
@@ -189,11 +188,6 @@ export default function CtFilingPage() {
   // reserve its height or the hero renders underneath it.
   return (
     <div className="ctf-page" style={{ paddingTop: 'var(--header-h)' }}>
-      <Seo
-        title="Corporate Tax Filing Service UAE — from AED 999"
-        description="FTA-compliant corporate tax filing in the UAE from AED 999. We handle financial statement review through to FTA portal submission for mainland, free zone and sole establishments."
-      />
-
       {/* Hero */}
       <section className="hero">
         <div className="hero-bg" />

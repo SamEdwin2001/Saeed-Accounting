@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Seo from '../components/Seo.jsx'
 import { MapPin, Mail, Phone, WhatsApp, ArrowRight, Check } from '../components/Icons.jsx'
 import { api } from '../admin/api.js'
 import { WHATSAPP_FALLBACK_HREF, handleWhatsappClick } from '../whatsapp.js'
@@ -76,11 +75,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Seo
-        title="Contact Us"
-        description="Get in touch with Saeed Accounting for accounting, VAT and corporate tax support in the UAE. Call, email or message us on WhatsApp for a free consultation."
-      />
-
       <section className="ctc">
         <div className="ctc__inner">
           {/* Dark rail — contact channels and trust cues */}

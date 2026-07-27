@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import PageBanner from '../components/PageBanner.jsx'
-import Seo from '../components/Seo.jsx'
 import Img from '../components/Img.jsx'
 import { IMAGES } from '../images.js'
 import { LedgerIcon, FileIcon, GearIcon, InvoiceIcon, EditIcon } from '../components/Icons.jsx'
@@ -28,10 +27,6 @@ const SERVICES = [
 export default function AboutPage() {
   return (
     <>
-      <Seo
-        title="About Us"
-        description="Saeed Accounting is a UAE-based team of accountants and tax consultants supporting mainland and free zone businesses with bookkeeping, VAT, corporate tax and PRO services."
-      />
       <PageBanner title="About Us" />
 
       {/* Welcome — collage left, copy right */}
