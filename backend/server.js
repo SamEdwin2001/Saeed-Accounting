@@ -19,6 +19,15 @@ const PORT = process.env.PORT || 4000
 app.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173' }))
 app.use(express.json({ limit: '100kb' }))
 
+/* API responses are dynamic and must never be cached. Without this the browser
+   (or a reverse proxy) can replay a stale GET after an edit/toggle — e.g. the
+   WhatsApp admin re-reads the list, gets the cached body, and keeps showing the
+   old Active/number even though the server was already updated. */
+app.use('/api', (_req, res, next) => {
+  res.set('Cache-Control', 'no-store')
+  next()
+})
+
 app.get('/api/health', (_req, res) => res.json({ ok: true }))
 app.use('/api/auth', authRoutes)
 app.use('/api/leads', leadRoutes)

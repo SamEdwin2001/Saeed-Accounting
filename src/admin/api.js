@@ -17,6 +17,9 @@ async function request(path, { method = 'GET', body, auth = true } = {}) {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
+    /* Never serve API data from the browser's HTTP cache — after an edit/toggle
+       the admin re-fetches and must see the just-saved value, not a stale copy. */
+    cache: 'no-store',
   })
 
   /* An expired token should bounce the user to the login screen rather than
