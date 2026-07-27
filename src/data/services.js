@@ -162,7 +162,9 @@ export const SERVICES = [
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785148800/WhatsApp-Image-2022-09-16-at-3.22.20-PM-rhpdihuendka805lz9jd43espplosg0j74q3wfz568_iclemy.webp',
     introImageRatio: '9 / 10',
-    listImage: '/images/services/cfo-2.jpg',
+    /* Same artwork as the intro image — the page shows it twice. */
+    listImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785148800/WhatsApp-Image-2022-09-16-at-3.22.20-PM-rhpdihuendka805lz9jd43espplosg0j74q3wfz568_iclemy.webp',
     listImageRatio: '1 / 1',
     listHeadingAccent: 'Our Outsourced CFO',
     listHeadingUpper: true,
