@@ -473,7 +473,8 @@ export const SERVICES = [
     heading: 'Corporate Tax Advisory Services',
     headingAccent: 'Corporate Tax',
     headingUpper: true,
-    introImage: '/images/services/corporate-tax-advisory-1.jpg',
+    introImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785155094/Voluntary-VAT-Registration-The-Advantages-and-Disadvantages_1_qy0ead.webp',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
