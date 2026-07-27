@@ -65,7 +65,8 @@ export const SERVICES = [
     heading: 'Customized Accounts Payable Services in Dubai and UAE',
     headingAccent: 'Customized Accounts Payable',
     headingUpper: true,
-    introImage: '/images/services/accounts-payable-1.jpg',
+    introImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785148321/Voluntary-VAT-Registration-The-Advantages-and-Disadvantages_aymfa0.webp',
     introImageSide: 'left',
     listHeadingAccent: 'Our Accounts Payable Services',
     listHeadingUpper: true,
