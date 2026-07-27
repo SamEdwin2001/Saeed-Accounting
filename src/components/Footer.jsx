@@ -1,22 +1,18 @@
 import { Link } from 'react-router-dom'
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Facebook,
-  XLogo,
-  Instagram,
-  LinkedIn,
-  YouTube,
-} from './Icons.jsx'
+import { MapPin, Phone, Mail, XLogo, Pinterest, LinkedIn, Instagram } from './Icons.jsx'
 import { FOOTER_QUICK_LINKS, FOOTER_SERVICES } from '../data/nav.js'
 
+/* The X link is the profile itself, not the login-redirect URL it was given
+   as — that would bounce signed-in visitors through a login screen. */
 const SOCIALS = [
-  { Icon: Facebook, label: 'Facebook', href: '#' },
-  { Icon: XLogo, label: 'X', href: '#' },
-  { Icon: Instagram, label: 'Instagram', href: '#' },
-  { Icon: LinkedIn, label: 'LinkedIn', href: '#' },
-  { Icon: YouTube, label: 'YouTube', href: '#' },
+  { Icon: XLogo, label: 'X', href: 'https://x.com/saeedaccntng' },
+  { Icon: Pinterest, label: 'Pinterest', href: 'https://in.pinterest.com/saeedaccntng/' },
+  {
+    Icon: LinkedIn,
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/saeed-accounting/',
+  },
+  { Icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/saeedaccounting/' },
 ]
 
 export default function Footer() {
@@ -82,7 +78,7 @@ export default function Footer() {
           <ul className="footer__socials">
             {SOCIALS.map(({ Icon, label, href }) => (
               <li key={label}>
-                <a href={href} aria-label={label}>
+                <a href={href} aria-label={label} target="_blank" rel="noreferrer">
                   <Icon />
                 </a>
               </li>

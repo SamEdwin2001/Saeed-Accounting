@@ -2782,20 +2782,19 @@ a.ctc-ch__value:hover {
   opacity: 0.82;
 }
 
+/* Brand colours, in the order SOCIALS is declared in Footer.jsx:
+   X, Pinterest, LinkedIn, Instagram. */
 .footer__socials li:nth-child(1) a {
-  background: #1877f2;
-}
-.footer__socials li:nth-child(2) a {
   background: #000;
 }
-.footer__socials li:nth-child(3) a {
-  background: #e1306c;
+.footer__socials li:nth-child(2) a {
+  background: #e60023;
 }
-.footer__socials li:nth-child(4) a {
+.footer__socials li:nth-child(3) a {
   background: #0a66c2;
 }
-.footer__socials li:nth-child(5) a {
-  background: #ff0000;
+.footer__socials li:nth-child(4) a {
+  background: #e1306c;
 }
 
 /* ------------------------------------------------------------
