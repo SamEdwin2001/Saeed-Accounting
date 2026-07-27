@@ -159,7 +159,8 @@ export const SERVICES = [
     headingUpper: true,
     subheading: 'Across Dubai And UAE',
     subheadingAccent: 'Across Dubai',
-    introImage: '/images/services/cfo-1.jpg',
+    introImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785148800/WhatsApp-Image-2022-09-16-at-3.22.20-PM-rhpdihuendka805lz9jd43espplosg0j74q3wfz568_iclemy.webp',
     introImageRatio: '9 / 10',
     listImage: '/images/services/cfo-2.jpg',
     listImageRatio: '1 / 1',
