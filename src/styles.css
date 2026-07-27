@@ -2745,12 +2745,15 @@ a.ctc-ch__value:hover {
   border-top: 1px solid #cbe8e8;
 }
 
+/* The copyright and the socials sit at the far edges of a 1710px container,
+   so on a wide screen the gutter alone left them looking pinned to the
+   window. This pulls both ends in off the edge. */
 .footer__bar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.9rem 0;
+  padding: 0.9rem 2.5rem;
 }
 
 .footer__copy {
@@ -3181,9 +3184,12 @@ a.ctc-ch__value:hover {
     grid-template-columns: 1fr;
   }
 
+  /* Stacked and centred on a phone, so the wide-screen side padding that
+     kept the two ends off the edge is no longer doing anything. */
   .footer__bar-inner {
     flex-direction: column;
     text-align: center;
+    padding-inline: 0;
   }
 
   .rail {
