@@ -183,7 +183,7 @@ button {
 
 .section__title {
   text-align: center;
-  font-size: clamp(1.75rem, 2.9vw, 3.6rem);
+  font-size: clamp(1.50rem, 2.9vw, 3.6rem);
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.25;
@@ -1514,14 +1514,14 @@ a.ctc-ch__value:hover {
   padding: 0.9rem 1.2rem;
 }
 
-.badge__name {
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.badge__rating {
-  font-size: 0.7rem;
-  color: #6b6b6b;
+/* The logos arrive at differing intrinsic sizes and aspect ratios, so they are
+   capped by height and left to size their own width — that keeps the four
+   reading as one row rather than as four different scales. */
+.badge__logo {
+  width: auto;
+  height: 2.2rem;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 /* Two eligibility blurbs on the left, the document checklist on the right. */
@@ -1898,68 +1898,13 @@ a.ctc-ch__value:hover {
   padding: 0.4rem 1.4rem;
 }
 
-.badges__box .badge__mark {
-  width: 1.7rem;
-  height: 1.7rem;
-}
-
-.badges__box .badge__name {
-  font-size: 1.15rem;
-}
-
-.badges__box .badge__rating {
-  font-size: 0.82rem;
-}
-
-.badges__box .badge__stars svg {
-  width: 0.78rem;
-  height: 0.78rem;
-}
-
-.badges__box .badge--wordmark .badge__name {
-  font-size: 1.7rem;
+/* Inside the single white box the logos run a little larger. */
+.badges__box .badge__logo {
+  height: 2.6rem;
 }
 
 .badges__box .badge + .badge {
   border-left: 1px solid #ececec;
-}
-
-.badge__mark {
-  flex: none;
-}
-
-.badge__body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-.badge__name--green {
-  color: #0caa41;
-}
-
-.badge__meta {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.badge__stars {
-  display: flex;
-  gap: 1px;
-  color: #ffc107;
-}
-
-.badge__stars svg {
-  width: 0.6rem;
-  height: 0.6rem;
-}
-
-.badge--wordmark .badge__name {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #00234b;
-  letter-spacing: -0.02em;
 }
 
 .ct-title {
@@ -2974,9 +2919,10 @@ a.ctc-ch__value:hover {
     justify-content: space-between;
   }
 
+  /* Mobile header keeps just the logo and the menu toggle — the WhatsApp CTA
+     is still reachable from the hero and the contact page. */
   .header__cta {
-    order: 2;
-    margin-left: auto;
+    display: none;
   }
 
   .nav {
@@ -3109,6 +3055,12 @@ a.ctc-ch__value:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Two cards per row on a phone leaves each about half the gutter width, so
+     the generous desktop gap comes down with it. */
+  .badges__grid {
+    gap: 0.7rem;
+  }
+
   .elig,
   .ct-cards,
   .ctf-hero__inner,
@@ -3150,9 +3102,39 @@ a.ctc-ch__value:hover {
   }
 
   /* Drop the hero image on phones — the copy takes the full width. */
-  .ct-hero .hero__media,
-  .vat-hero .hero__media {
+  .ct-hero .hero__media {
     display: none;
+  }
+
+  /* The two-column split is desktop-only. On phones the copy and the banner
+     stack instead, each at full width. */
+  .vat-hero .hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  /* The 900px rule lifts .hero__media above the copy; this hero reads the
+     other way round — headline and offer first, banner under them. */
+  .vat-hero .hero__media {
+    order: 0;
+  }
+
+  /* With the image gone the hero CTA is the only thing under the offer line,
+     so it gets the roomier .hero__actions sizing rather than the compact
+     inline pill it inherits from .btn. */
+  .vat-hero .btn--whatsapp {
+    padding: 0.5rem 1.7rem 0.5rem 0.5rem;
+    gap: 0.7rem;
+    font-size: 0.88rem;
+  }
+
+  .vat-hero .btn__icon-circle {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .vat-hero .btn__icon-circle svg {
+    width: 1.3rem;
+    height: 1.3rem;
   }
 
   .section,
@@ -3160,7 +3142,7 @@ a.ctc-ch__value:hover {
   .team,
   .reviews,
   .about {
-    padding: 2.6rem 0;
+    padding: 30px 0;
   }
 
   .section__title {
@@ -3209,9 +3191,10 @@ a.ctc-ch__value:hover {
     display: none;
   }
 
+  /* .badges__grid stays 2-up here — the cards are short enough to pair on a
+     phone, and stacking all four pushed the page content too far down. */
   .welcome__cards,
   .service-strip__grid,
-  .badges__grid,
   .elig,
   .features3__grid,
   .pricing,
@@ -3239,16 +3222,6 @@ a.ctc-ch__value:hover {
 }
 
 @media (max-width: 480px) {
-  .header__cta {
-    padding: 0.3rem 0.8rem 0.3rem 0.3rem;
-    font-size: 0;
-    gap: 0;
-  }
-
-  .header__cta .btn__trailing {
-    display: none;
-  }
-
   .stats__grid {
     grid-template-columns: 1fr;
   }

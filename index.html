@@ -21,6 +21,32 @@
 
   <!--Start of Tawk.to Script (0.9.3)--><script id="tawk-script" type="text/javascript">var Tawk_API = Tawk_API || {};var Tawk_LoadStart=new Date();(function(){ var s1 = document.createElement( 'script' ),s0=document.getElementsByTagName( 'script' )[0]; s1.async = true; s1.src = 'https://embed.tawk.to/6530e52ba84dd54dc482d5ca/1hd3fucq6'; s1.charset = 'UTF-8'; s1.setAttribute( 'crossorigin','*' ); s0.parentNode.insertBefore( s1, s0 );})();</script><!--End of Tawk.to Script (0.9.3)-->
 
+  <!-- Tawk renders into its own iframes, so CSS in this page can't reach it —
+       hiding it on mobile has to go through the widget's own API. onLoad fires
+       once the widget is ready; the media-query listener also covers a desktop
+       window being resized down (and back up) without a reload. -->
+  <script type="text/javascript">
+    (function () {
+      var mq = window.matchMedia('(max-width: 900px)')
+      var ready = false
+
+      function sync() {
+        if (!ready) return
+        if (mq.matches) Tawk_API.hideWidget()
+        else Tawk_API.showWidget()
+      }
+
+      Tawk_API.onLoad = function () {
+        ready = true
+        sync()
+      }
+
+      /* addListener is the pre-2019 Safari fallback for addEventListener. */
+      if (mq.addEventListener) mq.addEventListener('change', sync)
+      else mq.addListener(sync)
+    })()
+  </script>
+
   <script type='text/javascript'> window.smartlook||(function(d) { var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0]; var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript'; c.charset='utf-8';c.src='https://web-sdk.smartlook.com/recorder.js';h.appendChild(c); })(document); smartlook('init', 'df3cf8ee9e8b68c991cc5ad27536d7bb6a7019ee', { region: 'eu' }); smartlook('record', { forms: true, numbers: true, emails: true, ips: true }); </script>
   <script
   defer
