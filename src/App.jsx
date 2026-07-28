@@ -116,8 +116,8 @@ function PublicSite() {
               element={<CorporateTaxLanding data={CORPORATE_TAX_CONSULTANT} />}
             />
             <Route path="/uae-vat-registration" element={<VatRegistrationPage carouselReviews />} />
-            <Route path="/file-corporate-tax-return" element={<CtFilingPage />} />
-            <Route path="/corporate-tax-filing-uae" element={<CorporateTaxFilingUae />} />
+            <Route path="/corporate-tax-filing-uae" element={<CtFilingPage />} />
+            <Route path="/file-corporate-tax-return" element={<CorporateTaxFilingUae />} />
 
             <Route path="/about-us" element={<AboutPage />} />
             <Route path="/contact-us" element={<ContactPage />} />

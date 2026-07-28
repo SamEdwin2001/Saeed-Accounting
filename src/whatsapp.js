@@ -12,11 +12,15 @@
 const DEFAULT_NUMBER = '971508365223'
 const DEFAULT_MESSAGE = 'Hello Saeed Accounting, We are Seeking for VAT Services.'
 
-/* The CT-filing landing page (/corporate-tax-filing-uae) has its own dedicated
+/* The CT-filing landing page (/file-corporate-tax-return) has its own dedicated
    WhatsApp line. Every WhatsApp button on that route uses it, independent of
    the weekday schedule that drives the rest of the site. Checked at click time,
-   so it also holds after client-side navigation onto the page. */
-const LANDING_PATH = '/corporate-tax-filing-uae'
+   so it also holds after client-side navigation onto the page.
+
+   The path follows the CorporateTaxFilingUae component, which the two SEO
+   landing routes swapped between — the number belongs to that page, not to
+   whichever URL happens to sit in front of it. */
+const LANDING_PATH = '/file-corporate-tax-return'
 const LANDING_NUMBER = '971569205600'
 const LANDING_MESSAGE = 'Hello Saeed Accounting, We are Seeking for Corporate Tax Filing Service'
 
