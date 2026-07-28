@@ -23,7 +23,8 @@ export const CORPORATE_TAX_FILING = {
     'Our corporate tax filing services ensure complete compliance with the latest regulations while maximizing efficiency',
   heroChecks: HERO_CHECKS,
   heroOffer: 'Limited-time offer – starting from Ð 999',
-  heroImage: '/images/services/corporate-tax-filing-hero.png',
+  heroImage:
+    'https://res.cloudinary.com/dekhukonj/image/upload/v1785212341/young-aspiring-businesswoman-looking-confident-glasses-suit-standing-like-professional-white-ba-3_compressed-1-scaled_cyxrpr.webp',
   penaltyLine: null,
 
   heading: 'Corporate TAX Filing',
