@@ -654,7 +654,8 @@ export const SERVICES = [
     heading: 'Local sponsor in Dubai Everything you need to know',
     headingAccent: 'Local sponsor in Dubai',
     headingUpper: true,
-    introImage: '/images/services/local-sponsor-1.jpg',
+    introImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785214527/RERA-certified-local-sponsor_1_wyuopb.webp',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
