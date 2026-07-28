@@ -448,6 +448,12 @@ button {
   flex: none;
 }
 
+/* With the nav gone there is nothing between the logo and the CTA to push
+   them apart, so the CTA claims the gap itself and stays on the right. */
+.header--bare .header__cta {
+  margin-left: auto;
+}
+
 .nav__toggle {
   display: none;
   color: var(--ink);

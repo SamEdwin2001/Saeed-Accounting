@@ -22,7 +22,7 @@ export default function Header() {
   const bareHeader = pathname === '/register-for-vat-online-uae'
 
   return (
-    <header className="header">
+    <header className={`header ${bareHeader ? 'header--bare' : ''}`}>
       <div className="container header__inner">
         <Link className="logo" to="/" aria-label="Saeed Accounting home" onClick={closeAll}>
           <img src={IMAGES.logo} alt="Saeed Accounting" className="logo__img" />
