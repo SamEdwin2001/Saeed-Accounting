@@ -1,8 +1,16 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Star, Quote } from './Icons.jsx'
 
 const REVIEWS = [
-  { text: 'Good Service .Good staff and very very supportive. feel nice to work with UAE Vat Registration', stars: 5 },
+  {
+    text: 'Good Service .Good staff and very very supportive. feel nice to work with UAE Vat Registration',
+    stars: 5,
+    /* Names the old service wording, which the online-registration landing
+       page has moved away from. Reviews are customers' own words, so it is
+       held back there rather than edited. */
+    hideOnLanding: true,
+  },
   { text: 'Very professional team. They handled our corporate tax registration quickly and kept us informed at every step.', stars: 5 },
   { text: 'Reliable bookkeeping and always on time with the VAT returns. Highly recommended for new businesses in Dubai.', stars: 5 },
 ]
@@ -10,9 +18,17 @@ const REVIEWS = [
 /** Single-card review carousel with prev/next arrows. */
 export default function ReviewsCarousel() {
   const [index, setIndex] = useState(0)
-  const review = REVIEWS[index]
+  const { pathname } = useLocation()
 
-  const go = (step) => setIndex((i) => (i + step + REVIEWS.length) % REVIEWS.length)
+  const reviews =
+    pathname === '/register-for-vat-online-uae' ? REVIEWS.filter((r) => !r.hideOnLanding) : REVIEWS
+
+  /* Wrapped rather than clamped, so an index carried over from the unfiltered
+     list still lands on a real review. */
+  const current = index % reviews.length
+  const review = reviews[current]
+
+  const go = (step) => setIndex(() => (current + step + reviews.length) % reviews.length)
 
   return (
     <section className="section reviews">

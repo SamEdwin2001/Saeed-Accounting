@@ -17,6 +17,10 @@ export default function Header() {
     setOpenIndex(null)
   }
 
+  /* A conversion landing page: the nav would only offer ways off it, so the
+     header keeps just the logo and the WhatsApp CTA. */
+  const bareHeader = pathname === '/register-for-vat-online-uae'
+
   return (
     <header className="header">
       <div className="container header__inner">
@@ -24,62 +28,66 @@ export default function Header() {
           <img src={IMAGES.logo} alt="Saeed Accounting" className="logo__img" />
         </Link>
 
-        <nav
-          className={`nav ${menuOpen ? 'nav--open' : ''}`}
-          onKeyDown={(e) => e.key === 'Escape' && setOpenIndex(null)}
-        >
-          <ul className="nav__list">
-            {NAV.map((item, i) => {
-              // A parent with children owns no page of its own — it only opens
-              // a submenu, so it renders as a button rather than a link.
-              if (item.children) {
-                const active = item.children.some((c) => c.to === pathname)
+        {!bareHeader && (
+          <nav
+            className={`nav ${menuOpen ? 'nav--open' : ''}`}
+            onKeyDown={(e) => e.key === 'Escape' && setOpenIndex(null)}
+          >
+            <ul className="nav__list">
+              {NAV.map((item, i) => {
+                // A parent with children owns no page of its own — it only opens
+                // a submenu, so it renders as a button rather than a link.
+                if (item.children) {
+                  const active = item.children.some((c) => c.to === pathname)
+                  return (
+                    <li
+                      key={item.label}
+                      className={`nav__item nav__item--has-menu ${
+                        openIndex === i ? 'nav__item--open' : ''
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        className={`nav__link ${active ? 'nav__link--active' : ''}`}
+                        aria-haspopup="true"
+                        aria-expanded={openIndex === i}
+                        onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                      >
+                        {item.label}
+                        <ChevronDown className="nav__caret" />
+                      </button>
+
+                      <ul className="dropdown">
+                        {item.children.map((child) => (
+                          <li key={child.to}>
+                            <Link className="dropdown__link" to={child.to} onClick={closeAll}>
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  )
+                }
+
                 return (
-                  <li
-                    key={item.label}
-                    className={`nav__item nav__item--has-menu ${
-                      openIndex === i ? 'nav__item--open' : ''
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      className={`nav__link ${active ? 'nav__link--active' : ''}`}
-                      aria-haspopup="true"
-                      aria-expanded={openIndex === i}
-                      onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                  <li className="nav__item" key={item.label}>
+                    <NavLink
+                      to={item.to}
+                      end={item.to === '/'}
+                      className={({ isActive }) =>
+                        `nav__link ${isActive ? 'nav__link--active' : ''}`
+                      }
+                      onClick={closeAll}
                     >
                       {item.label}
-                      <ChevronDown className="nav__caret" />
-                    </button>
-
-                    <ul className="dropdown">
-                      {item.children.map((child) => (
-                        <li key={child.to}>
-                          <Link className="dropdown__link" to={child.to} onClick={closeAll}>
-                            {child.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    </NavLink>
                   </li>
                 )
-              }
-
-              return (
-                <li className="nav__item" key={item.label}>
-                  <NavLink
-                    to={item.to}
-                    end={item.to === '/'}
-                    className={({ isActive }) => `nav__link ${isActive ? 'nav__link--active' : ''}`}
-                    onClick={closeAll}
-                  >
-                    {item.label}
-                  </NavLink>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+              })}
+            </ul>
+          </nav>
+        )}
 
         <a
           className="btn btn--whatsapp header__cta"
@@ -94,14 +102,17 @@ export default function Header() {
           WhatsApp us
         </a>
 
-        <button
-          className="nav__toggle"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          {menuOpen ? <Close /> : <Menu />}
-        </button>
+        {/* The drawer toggle goes with the nav it opens. */}
+        {!bareHeader && (
+          <button
+            className="nav__toggle"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? <Close /> : <Menu />}
+          </button>
+        )}
       </div>
     </header>
   )

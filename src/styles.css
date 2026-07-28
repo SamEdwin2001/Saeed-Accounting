@@ -1493,6 +1493,12 @@ a.ctc-ch__value:hover {
   color: var(--ink);
 }
 
+/* The landing route leads on the price, so its offer line runs larger than
+   the same line on the two service routes. */
+.vat-page--landing .vat-hero__offer {
+  font-size: clamp(1.35rem, 1.9vw, 1.9rem);
+}
+
 .badges {
   background: #ebebeb;
   padding: 1.6rem 0;
@@ -2686,6 +2692,17 @@ a.ctc-ch__value:hover {
   background: var(--cyan);
   color: #2b2b2b;
   padding-top: 3.6rem;
+}
+
+/* With the column block gone the footer is just the copyright bar, so the
+   run-up to it and the rule above it both come off. */
+.footer--bare {
+  padding-top: 0;
+}
+
+.footer--bare .footer__bar {
+  margin-top: 0;
+  border-top: 0;
 }
 
 .footer__grid {

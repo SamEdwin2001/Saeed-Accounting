@@ -118,7 +118,18 @@ function PublicSite() {
             <Route path="/uae-vat-registration" element={<VatRegistrationPage carouselReviews />} />
             <Route
               path="/register-for-vat-online-uae"
-              element={<VatRegistrationPage carouselReviews />}
+              element={
+                <VatRegistrationPage
+                  carouselReviews
+                  heroTitle={
+                    <>
+                      Register for VAT
+                      <br />
+                      Online in the UAE
+                    </>
+                  }
+                />
+              }
             />
             <Route path="/corporate-tax-filing-uae" element={<CtFilingPage />} />
             <Route path="/file-corporate-tax-return" element={<CorporateTaxFilingUae />} />
