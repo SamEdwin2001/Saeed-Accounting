@@ -5,6 +5,7 @@ import Commitment from '../components/Commitment.jsx'
 import TeamCta from '../components/TeamCta.jsx'
 import Reviews from '../components/Reviews.jsx'
 import Stats from '../components/Stats.jsx'
+import { Dirham } from '../components/Icons.jsx'
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       <div className="penalty">
         <div className="container">
           <p className="penalty__text">
-            Avoid Ð 10,000 penalty by registering for Corporate Tax today!
+            Avoid <Dirham /> 10,000 penalty by registering for Corporate Tax today!
           </p>
         </div>
       </div>

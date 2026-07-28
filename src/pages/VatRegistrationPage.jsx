@@ -5,7 +5,8 @@ import Reviews from '../components/Reviews.jsx'
 import ReviewsCarousel from '../components/ReviewsCarousel.jsx'
 import Badges from '../components/Badges.jsx'
 import { IMAGES } from '../images.js'
-import { WhatsApp, CheckCircle, LedgerIcon, Star, UsersIcon } from '../components/Icons.jsx'
+import { WhatsApp, CheckCircle, LedgerIcon, Star, UsersIcon, Dirham } from '../components/Icons.jsx'
+import Price from '../components/Price.jsx'
 
 const ELIGIBILITY = [
   {
@@ -86,7 +87,8 @@ export default function VatRegistrationPage({ carouselReviews = false }) {
               Registration UAE
             </h1>
             <p className="vat-hero__offer">
-              Limited Offer Running Starts @ Ð <span className="vat-hero__price">149</span>
+              Limited Offer Running Starts @ <Dirham />{' '}
+              <span className="vat-hero__price">149</span>
             </p>
 
             <a className="btn btn--whatsapp" href={WHATSAPP} onClick={handleWhatsappClick} target="_blank" rel="noreferrer">
@@ -176,7 +178,9 @@ export default function VatRegistrationPage({ carouselReviews = false }) {
                 <LedgerIcon />
               </span>
               <h3 className="price-card__title">{p.title}</h3>
-              <p className="price-card__price">{p.price}</p>
+              <p className="price-card__price">
+                <Price>{p.price}</Price>
+              </p>
             </Link>
           ))}
         </div>

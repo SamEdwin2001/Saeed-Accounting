@@ -7,6 +7,7 @@ import Badges from '../components/Badges.jsx'
 import { Accented } from './ServicePage.jsx'
 import { WhatsApp, CheckCircle } from '../components/Icons.jsx'
 
+import Price from '../components/Price.jsx'
 import { WHATSAPP_FALLBACK_HREF, handleWhatsappClick } from '../whatsapp.js'
 
 const WHATSAPP = WHATSAPP_FALLBACK_HREF
@@ -68,7 +69,9 @@ export default function CorporateTaxLanding({ data }) {
               ))}
             </ul>
 
-            <p className="ct-hero__offer">{heroOffer}</p>
+            <p className="ct-hero__offer">
+              <Price>{heroOffer}</Price>
+            </p>
             <WhatsAppButton />
           </div>
 
@@ -92,7 +95,9 @@ export default function CorporateTaxLanding({ data }) {
       {penaltyLine && (
         <div className="penalty">
           <div className="container">
-            <p className="penalty__text">{penaltyLine}</p>
+            <p className="penalty__text">
+              <Price>{penaltyLine}</Price>
+            </p>
           </div>
         </div>
       )}
@@ -236,7 +241,9 @@ export default function CorporateTaxLanding({ data }) {
 
           <div className="ct-price">
             <h3 className="ct-price__title">{priceTitle}</h3>
-            <p className="ct-price__amount">{priceAmount}</p>
+            <p className="ct-price__amount">
+              <Price>{priceAmount}</Price>
+            </p>
             <WhatsAppButton />
           </div>
         </div>

@@ -4,7 +4,8 @@
  * date-of-entry + price → reviews) but differ in card shape and whether
  * they carry a penalty line, a third card, or an FAQ accordion.
  *
- * `Ð` is the dirham glyph the live site renders; kept verbatim.
+ * `Ð` stands in for the dirham mark, which has no glyph in the site's font.
+ * <Price> swaps it for the real symbol at render time — see components/Price.jsx.
  */
 
 const FEATURES = ['Assured Quality', 'Result Driven', 'Dedicated Support']
