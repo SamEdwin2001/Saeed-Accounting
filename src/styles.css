@@ -1499,6 +1499,12 @@ a.ctc-ch__value:hover {
   color: var(--ink);
 }
 
+/* The landing headline is two long lines rather than the service pages'
+   short ones, so it needs the tighter leading to read as one block. */
+.vat-page--landing .vat-hero__title {
+  line-height: 1.4em;
+}
+
 /* The landing route leads on the price, so its offer line runs larger than
    the same line on the two service routes. */
 .vat-page--landing .vat-hero__offer {

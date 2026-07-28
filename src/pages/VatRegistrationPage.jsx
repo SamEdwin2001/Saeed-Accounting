@@ -8,13 +8,19 @@ import { IMAGES } from '../images.js'
 import { WhatsApp, CheckCircle, LedgerIcon, Star, UsersIcon, Dirham } from '../components/Icons.jsx'
 import Price from '../components/Price.jsx'
 
+/* Cards carry a `landingTitle` where /register-for-vat-online-uae words them
+   differently — here, framed as eligibility rather than as two kinds of
+   registration. Anything without one falls back to `title`, and the two
+   service routes always use `title`. */
 const ELIGIBILITY = [
   {
     title: 'Voluntary VAT Registration',
+    landingTitle: 'Voluntary VAT Eligibility',
     text: 'In the UAE, businesses are eligible for VAT registration if they have a business location in the UAE and have made taxable supplies worth over AED 187,500 to member states in the past year. Additionally, companies can apply for VAT registration online if they expect their supply value to exceed the voluntary registration threshold of AED 187,500 within the upcoming 30 days.',
   },
   {
     title: 'Mandatory VAT Registration',
+    landingTitle: 'Mandatory VAT Eligibility',
     text: 'Businesses are obligated to register for VAT in the UAE if they have a business location within a UAE emirate and have provided goods worth over AED 375,000 to member states in the last 12 months. Additionally, companies must complete the VAT registration process online if they expect the value of their supplies to surpass the mandatory registration threshold of AED 375,000 within the coming 30 days.',
   },
 ]
@@ -39,7 +45,12 @@ const FEATURES = [
 ]
 
 const PRICING = [
-  { title: 'VAT Registration UAE', price: 'Starts @ Ð 149 Only', to: '/vat-registration-services' },
+  {
+    title: 'VAT Registration UAE',
+    landingTitle: 'Online VAT Services UAE',
+    price: 'Starts @ Ð 149 Only',
+    to: '/vat-registration-services',
+  },
   { title: 'Corporate Tax Registration', price: 'Starts @ Ð 149 Only', to: '/corporate-tax-registration' },
 ]
 
@@ -183,14 +194,18 @@ export default function VatRegistrationPage({
       <section className="section section--tight">
         <div className="container">
           <h2 className="section__title">
-            {term('Eligibility Criteria and Necessary Documents for VAT Registration UAE')}
+            {landing
+              ? 'Eligibility Criteria and Required Documents for UAE VAT Compliance'
+              : 'Eligibility Criteria and Necessary Documents for VAT Registration UAE'}
           </h2>
 
           <div className="elig">
             <div className="elig__col">
               {ELIGIBILITY.map((e) => (
                 <article className="elig-card" key={e.title}>
-                  <h3 className="elig-card__head elig-card__head--orange">{term(e.title)}</h3>
+                  <h3 className="elig-card__head elig-card__head--orange">
+                    {landing ? e.landingTitle || e.title : e.title}
+                  </h3>
                   <p className="elig-card__text">{term(e.text)}</p>
                 </article>
               ))}
@@ -249,7 +264,9 @@ export default function VatRegistrationPage({
               <span className="card__icon">
                 <LedgerIcon />
               </span>
-              <h3 className="price-card__title">{term(p.title)}</h3>
+              <h3 className="price-card__title">
+                {landing ? p.landingTitle || p.title : p.title}
+              </h3>
               <p className="price-card__price">
                 <Price>{p.price}</Price>
               </p>
