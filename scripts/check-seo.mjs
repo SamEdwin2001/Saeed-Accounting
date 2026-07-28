@@ -16,6 +16,7 @@ const EXTRA_ROUTES = [
   '',
   'uae-corporate-tax-registration',
   'uae-vat-registration',
+  'register-for-vat-online-uae',
   'file-corporate-tax-return',
   'corporate-tax-filing-uae',
   'about-us',

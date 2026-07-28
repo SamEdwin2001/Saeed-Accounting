@@ -127,6 +127,11 @@ export const ROUTE_SEO = {
     description:
       'Register for UAE VAT without the guesswork. We confirm your threshold, compile documents and file with the FTA so your TRN arrives without resubmissions.',
   },
+  'register-for-vat-online-uae': {
+    title: 'Register for VAT Online in the UAE',
+    description:
+      'Complete your UAE VAT registration online from AED 149. Eligibility checked, documents prepared and the application submitted through the FTA portal for you.',
+  },
   'uae-corporate-tax-registration': {
     title: 'UAE Corporate Tax Registration',
     description:
