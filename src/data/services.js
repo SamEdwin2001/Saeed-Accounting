@@ -683,8 +683,7 @@ export const SERVICES = [
     listHeadingUpper: true,
     listIntro:
       'If you are setting up in Dubai or any other part of the UAE mainland in the following industries, you will require a local sponsor',
-    listImage: '/images/services/local-sponsor-2.jpg',
-    listImageRatio: '1 / 1',
+    /* No list image — the industries run as a plain check-list. */
     listItems: [
       'Oil exploration and production',
       'Security and military services',
@@ -707,7 +706,8 @@ export const SERVICES = [
     headingUpper: true,
     headingLeft: true,
     lead: "By outsourcing your company's Corporate PRO services in Dubai, Abu Dhabi, Sharjah, and the rest of the UAE, you avail the following benefits",
-    introImage: '/images/services/pro-services-1.jpg',
+    introImage:
+      'https://res.cloudinary.com/dekhukonj/image/upload/v1785214911/68656727-double-exposure-of-professional-businessman-connecting-cloud-technology-on-hand-with-cloud-and-sky-i_qihl0s.webp',
     introImageSide: 'left',
     introImageRatio: '11 / 9',
     // The benefits render as an orange check-list beside the image.
