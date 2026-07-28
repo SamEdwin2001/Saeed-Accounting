@@ -8,20 +8,24 @@ import { IMAGES } from '../images.js'
 import { WhatsApp, CheckCircle, LedgerIcon, Star, UsersIcon, Dirham } from '../components/Icons.jsx'
 import Price from '../components/Price.jsx'
 
-/* Cards carry a `landingTitle` where /register-for-vat-online-uae words them
-   differently — here, framed as eligibility rather than as two kinds of
-   registration. Anything without one falls back to `title`, and the two
-   service routes always use `title`. */
+/* Cards carry `landingTitle` / `landingText` where /register-for-vat-online-uae
+   words them differently — framed as eligibility, and phrased around the verb
+   "register" rather than the noun. Anything without an override falls back to
+   the original, and the two service routes always use the original. */
 const ELIGIBILITY = [
   {
     title: 'Voluntary VAT Registration',
     landingTitle: 'Voluntary VAT Eligibility',
     text: 'In the UAE, businesses are eligible for VAT registration if they have a business location in the UAE and have made taxable supplies worth over AED 187,500 to member states in the past year. Additionally, companies can apply for VAT registration online if they expect their supply value to exceed the voluntary registration threshold of AED 187,500 within the upcoming 30 days.',
+    landingText:
+      'You may register by choice once your taxable supplies pass AED 187,500 over the past year, provided your business is based in the UAE. The same applies if you expect to cross that threshold within the next 30 days — you can apply online without waiting for the mandatory limit. Many businesses do so to reclaim the VAT they pay on their own purchases.',
   },
   {
     title: 'Mandatory VAT Registration',
     landingTitle: 'Mandatory VAT Eligibility',
     text: 'Businesses are obligated to register for VAT in the UAE if they have a business location within a UAE emirate and have provided goods worth over AED 375,000 to member states in the last 12 months. Additionally, companies must complete the VAT registration process online if they expect the value of their supplies to surpass the mandatory registration threshold of AED 375,000 within the coming 30 days.',
+    landingText:
+      'You must register once your taxable supplies pass AED 375,000 over the previous 12 months, or as soon as you expect to cross that figure within the next 30 days. The application goes through the FTA portal, and the deadline is firm — a late filing carries an AED 10,000 penalty.',
   },
 ]
 
@@ -206,7 +210,9 @@ export default function VatRegistrationPage({
                   <h3 className="elig-card__head elig-card__head--orange">
                     {landing ? e.landingTitle || e.title : e.title}
                   </h3>
-                  <p className="elig-card__text">{term(e.text)}</p>
+                  <p className="elig-card__text">
+                    {landing ? e.landingText || term(e.text) : e.text}
+                  </p>
                 </article>
               ))}
             </div>
