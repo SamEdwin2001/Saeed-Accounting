@@ -54,7 +54,7 @@ export const NAV = [
  * page, so the header drops it and the footer drops its four-column block.
  */
 export const BARE_CHROME_PATHS = [
-  '/register-for-vat-online-uae',
+  '/vat-services-uae',
   '/uae-corporate-tax-registration',
 ]
 

@@ -117,7 +117,7 @@ function PublicSite() {
             />
             <Route path="/uae-vat-registration" element={<VatRegistrationPage carouselReviews />} />
             <Route
-              path="/register-for-vat-online-uae"
+              path="/vat-services-uae"
               element={
                 <VatRegistrationPage
                   carouselReviews

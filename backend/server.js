@@ -36,8 +36,19 @@ app.use('/api/whatsapp', whatsappRoutes)
 /* In production this same process also serves the built frontend (dist/), so a
    single CloudPanel reverse-proxy target covers the whole site. In development
    dist/ doesn't exist and Vite serves the UI, so this whole block is skipped. */
+/* Routes that have moved. A 301 keeps existing inbound links and the search
+   ranking they carry pointing at the current URL. */
+const MOVED = {
+  '/register-for-vat-online-uae': '/vat-services-uae',
+}
+
 const DIST = join(__dirname, '..', 'dist')
 if (existsSync(join(DIST, 'index.html'))) {
+  app.use((req, res, next) => {
+    const to = MOVED[req.path.replace(/\/+$/, '') || '/']
+    return to ? res.redirect(301, to) : next()
+  })
+
   const isFile = (p) => {
     try {
       return statSync(p).isFile()

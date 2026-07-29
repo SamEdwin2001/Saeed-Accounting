@@ -8,7 +8,7 @@ import { IMAGES } from '../images.js'
 import { WhatsApp, CheckCircle, LedgerIcon, Star, UsersIcon, Dirham } from '../components/Icons.jsx'
 import Price from '../components/Price.jsx'
 
-/* Cards carry `landingTitle` / `landingText` where /register-for-vat-online-uae
+/* Cards carry `landingTitle` / `landingText` where /vat-services-uae
    words them differently — framed as eligibility, and phrased around the verb
    "register" rather than the noun. Anything without an override falls back to
    the original, and the two service routes always use the original. */
@@ -130,7 +130,7 @@ const WHATSAPP = WHATSAPP_FALLBACK_HREF
 
 /* The three routes onto this page share everything but the H1, which tracks
    the URL each one is targeting. Defaults to the original wording, so only
-   /register-for-vat-online-uae passes anything. */
+   /vat-services-uae passes anything. */
 export default function VatRegistrationPage({
   carouselReviews = false,
   heroTitle = (
@@ -144,7 +144,7 @@ export default function VatRegistrationPage({
   /* The landing route runs a louder offer line than the two service routes;
      scoped here so the CSS can target it without touching the others. */
   const { pathname } = useLocation()
-  const landing = pathname === '/register-for-vat-online-uae'
+  const landing = pathname === '/vat-services-uae'
 
   /* That route targets "online VAT registration", so it leads on that phrase
      wherever the shared copy says plain "VAT registration". Case is kept, so
