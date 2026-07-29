@@ -55,7 +55,14 @@ const PRICING = [
     price: 'Starts @ Ð 149 Only',
     to: '/vat-registration-services',
   },
-  { title: 'Corporate Tax Registration', price: 'Starts @ Ð 149 Only', to: '/corporate-tax-registration' },
+  {
+    title: 'Corporate Tax Registration',
+    price: 'Starts @ Ð 149 Only',
+    to: '/corporate-tax-registration',
+    /* Dropped on /register-for-vat-online-uae — that route stays on VAT and
+       does not send visitors sideways to the corporate tax service. */
+    landingHidden: true,
+  },
 ]
 
 const FAQS = [
@@ -218,7 +225,7 @@ export default function VatRegistrationPage({
             </div>
 
             <article className="elig-card elig__col">
-              <h3 className="elig-card__head elig-card__head--dark">Required Documents To Register For It</h3>
+              <h3 className="elig-card__head elig-card__head--dark">Documents Required For Your Application</h3>
               <ul className="doc-list">
                 {DOCUMENTS.map((d) => (
                   <li key={d}>
@@ -265,7 +272,7 @@ export default function VatRegistrationPage({
       {/* Pricing */}
       <section className="section section--tight">
         <div className="container pricing">
-          {PRICING.map((p) => (
+          {PRICING.filter((p) => !(landing && p.landingHidden)).map((p) => (
             <Link className="price-card" to={p.to} key={p.title}>
               <span className="card__icon">
                 <LedgerIcon />

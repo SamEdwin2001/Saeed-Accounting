@@ -123,7 +123,7 @@ function PublicSite() {
                   carouselReviews
                   heroTitle={
                     <>
-                      Register for VAT
+                      Apply for VAT
                       <br />
                       Online in the UAE
                     </>
