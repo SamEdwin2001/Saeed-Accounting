@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { MapPin, Phone, Mail, XLogo, Pinterest, LinkedIn, Instagram } from './Icons.jsx'
-import { FOOTER_QUICK_LINKS, FOOTER_SERVICES } from '../data/nav.js'
+import { FOOTER_QUICK_LINKS, FOOTER_SERVICES, BARE_CHROME_PATHS } from '../data/nav.js'
 
 /* The X link is the profile itself, not the login-redirect URL it was given
    as — that would bounce signed-in visitors through a login screen. */
@@ -20,7 +20,7 @@ export default function Footer() {
 
   /* Matches the bare header on the same route — a conversion landing page
      drops the whole four-column block and ends on the copyright bar. */
-  const bareFooter = pathname === '/register-for-vat-online-uae'
+  const bareFooter = BARE_CHROME_PATHS.includes(pathname)
 
   return (
     <footer className={`footer ${bareFooter ? 'footer--bare' : ''}`} id="contact">

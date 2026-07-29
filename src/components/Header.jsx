@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ChevronDown, WhatsApp, Menu, Close } from './Icons.jsx'
 import { IMAGES } from '../images.js'
-import { NAV } from '../data/nav.js'
+import { NAV, BARE_CHROME_PATHS } from '../data/nav.js'
 import { WHATSAPP_FALLBACK_HREF, handleWhatsappClick } from '../whatsapp.js'
 
 export default function Header() {
@@ -17,9 +17,9 @@ export default function Header() {
     setOpenIndex(null)
   }
 
-  /* A conversion landing page: the nav would only offer ways off it, so the
-     header keeps just the logo and the WhatsApp CTA. */
-  const bareHeader = pathname === '/register-for-vat-online-uae'
+  /* On a conversion landing page the header keeps just the logo and the
+     WhatsApp CTA. */
+  const bareHeader = BARE_CHROME_PATHS.includes(pathname)
 
   return (
     <header className={`header ${bareHeader ? 'header--bare' : ''}`}>

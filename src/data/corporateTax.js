@@ -162,4 +162,30 @@ export const CORPORATE_TAX_CONSULTANT = {
   priceAmount: 'Starts at Ð 149',
   showStats: true,
   carouselReviews: true,
+
+  /* Its own list rather than the spread one: the questions here are phrased
+     without "register"/"registration", so the wording stays off this page
+     while /corporate-tax-registration keeps the original set. */
+  faqs: [
+    {
+      q: 'How to apply for Corporate Tax in UAE?',
+      a: 'To register for corporate tax in the UAE, businesses must use the EmaraTax platform for the CT registration process.',
+    },
+    {
+      q: 'What is the Corporate Tax UAE deadline?',
+      a: 'The Federal Tax Authority (FTA) sets the corporate tax registration deadline in the UAE based on the date your business license was issued.',
+    },
+    {
+      q: 'What is the eligibility for Corporate Tax in UAE?',
+      a: 'Generally, businesses operating with a valid trade license must complete corporate tax registration. All Free Zone entities are also required to register.',
+    },
+    {
+      q: 'Can I apply under a Corporate Tax group in UAE?',
+      a: 'If your business comprises multiple entities under common control, you may be eligible for corporate tax group registration.',
+    },
+    {
+      q: 'Amendment can be done in the existing profile?',
+      a: 'If you need to make changes or update details in your FTA profile, we will guide you through the amendment process.',
+    },
+  ],
 }

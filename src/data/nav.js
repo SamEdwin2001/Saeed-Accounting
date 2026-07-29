@@ -48,6 +48,16 @@ export const NAV = [
   { label: 'Contact Us', to: '/contact-us' },
 ]
 
+/**
+ * Conversion landing pages, which strip the site chrome down to the logo, the
+ * WhatsApp CTA and the copyright bar. Their nav would only offer ways off the
+ * page, so the header drops it and the footer drops its four-column block.
+ */
+export const BARE_CHROME_PATHS = [
+  '/register-for-vat-online-uae',
+  '/uae-corporate-tax-registration',
+]
+
 export const FOOTER_QUICK_LINKS = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about-us' },
