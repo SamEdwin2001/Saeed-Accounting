@@ -57,11 +57,9 @@ const PRICING = [
   },
   {
     title: 'Corporate Tax Registration',
+    landingTitle: 'Corporate Tax Filing UAE',
     price: 'Starts @ Ð 149 Only',
     to: '/corporate-tax-registration',
-    /* Dropped on /register-for-vat-online-uae — that route stays on VAT and
-       does not send visitors sideways to the corporate tax service. */
-    landingHidden: true,
   },
 ]
 
@@ -272,7 +270,7 @@ export default function VatRegistrationPage({
       {/* Pricing */}
       <section className="section section--tight">
         <div className="container pricing">
-          {PRICING.filter((p) => !(landing && p.landingHidden)).map((p) => (
+          {PRICING.map((p) => (
             <Link className="price-card" to={p.to} key={p.title}>
               <span className="card__icon">
                 <LedgerIcon />
