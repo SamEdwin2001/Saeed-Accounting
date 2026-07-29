@@ -48,19 +48,10 @@ const FEATURES = [
   { Icon: UsersIcon, label: 'Dedicated Support' },
 ]
 
+/* Only rendered off the landing route, so no landingTitle overrides here. */
 const PRICING = [
-  {
-    title: 'VAT Registration UAE',
-    landingTitle: 'Online Tax Services UAE',
-    price: 'Starts @ Ð 149 Only',
-    to: '/vat-registration-services',
-  },
-  {
-    title: 'Corporate Tax Registration',
-    landingTitle: 'Corporate Tax Filing UAE',
-    price: 'Starts @ Ð 149 Only',
-    to: '/corporate-tax-registration',
-  },
+  { title: 'VAT Registration UAE', price: 'Starts @ Ð 149 Only', to: '/vat-registration-services' },
+  { title: 'Corporate Tax Registration', price: 'Starts @ Ð 149 Only', to: '/corporate-tax-registration' },
 ]
 
 const FAQS = [
@@ -267,24 +258,25 @@ export default function VatRegistrationPage({
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="section section--tight">
-        <div className="container pricing">
-          {PRICING.map((p) => (
-            <Link className="price-card" to={p.to} key={p.title}>
-              <span className="card__icon">
-                <LedgerIcon />
-              </span>
-              <h3 className="price-card__title">
-                {landing ? p.landingTitle || p.title : p.title}
-              </h3>
-              <p className="price-card__price">
-                <Price>{p.price}</Price>
-              </p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* Pricing — dropped on /vat-services-uae, which keeps the visitor on the
+          WhatsApp CTA rather than offering links off to the service pages. */}
+      {!landing && (
+        <section className="section section--tight">
+          <div className="container pricing">
+            {PRICING.map((p) => (
+              <Link className="price-card" to={p.to} key={p.title}>
+                <span className="card__icon">
+                  <LedgerIcon />
+                </span>
+                <h3 className="price-card__title">{p.title}</h3>
+                <p className="price-card__price">
+                  <Price>{p.price}</Price>
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="section section--tight">
