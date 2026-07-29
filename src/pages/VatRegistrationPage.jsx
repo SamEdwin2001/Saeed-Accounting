@@ -15,14 +15,14 @@ import Price from '../components/Price.jsx'
 const ELIGIBILITY = [
   {
     title: 'Voluntary VAT Registration',
-    landingTitle: 'Voluntary VAT Eligibility',
+    landingTitle: 'Voluntary Eligibility',
     text: 'In the UAE, businesses are eligible for VAT registration if they have a business location in the UAE and have made taxable supplies worth over AED 187,500 to member states in the past year. Additionally, companies can apply for VAT registration online if they expect their supply value to exceed the voluntary registration threshold of AED 187,500 within the upcoming 30 days.',
     landingText:
-      'You may register by choice once your taxable supplies pass AED 187,500 over the past year, provided your business is based in the UAE. The same applies if you expect to cross that threshold within the next 30 days — you can apply online without waiting for the mandatory limit. Many businesses do so to reclaim the VAT they pay on their own purchases.',
+      'You may register by choice once your taxable supplies pass AED 187,500 over the past year, provided your business is based in the UAE. The same applies if you expect to cross that threshold within the next 30 days — you can apply online without waiting for the mandatory limit. Many businesses do so to reclaim the tax they pay on their own purchases.',
   },
   {
     title: 'Mandatory VAT Registration',
-    landingTitle: 'Mandatory VAT Eligibility',
+    landingTitle: 'Mandatory Eligibility',
     text: 'Businesses are obligated to register for VAT in the UAE if they have a business location within a UAE emirate and have provided goods worth over AED 375,000 to member states in the last 12 months. Additionally, companies must complete the VAT registration process online if they expect the value of their supplies to surpass the mandatory registration threshold of AED 375,000 within the coming 30 days.',
     landingText:
       'You must register once your taxable supplies pass AED 375,000 over the previous 12 months, or as soon as you expect to cross that figure within the next 30 days. The application goes through the FTA portal, and the deadline is firm — a late filing carries an AED 10,000 penalty.',
@@ -51,7 +51,7 @@ const FEATURES = [
 const PRICING = [
   {
     title: 'VAT Registration UAE',
-    landingTitle: 'Online VAT Services UAE',
+    landingTitle: 'Online Tax Services UAE',
     price: 'Starts @ Ð 149 Only',
     to: '/vat-registration-services',
   },
@@ -204,7 +204,7 @@ export default function VatRegistrationPage({
         <div className="container">
           <h2 className="section__title">
             {landing
-              ? 'Eligibility Criteria and Required Documents for UAE VAT Compliance'
+              ? 'Eligibility Criteria and Required Documents for UAE Tax Compliance'
               : 'Eligibility Criteria and Necessary Documents for VAT Registration UAE'}
           </h2>
 

@@ -123,9 +123,9 @@ function PublicSite() {
                   carouselReviews
                   heroTitle={
                     <>
-                      Apply for VAT
+                      Speak with Our
                       <br />
-                      Online in the UAE
+                      Tax Experts Today
                     </>
                   }
                 />

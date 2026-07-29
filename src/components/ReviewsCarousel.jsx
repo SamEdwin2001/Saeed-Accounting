@@ -3,8 +3,8 @@ import { ChevronLeft, ChevronRight, Star, Quote } from './Icons.jsx'
 
 const REVIEWS = [
   { text: 'Good Service .Good staff and very very supportive. feel nice to work with', stars: 5 },
-  { text: 'Very professional team. They handled our corporate tax registration quickly and kept us informed at every step.', stars: 5 },
-  { text: 'Reliable bookkeeping and always on time with the VAT returns. Highly recommended for new businesses in Dubai.', stars: 5 },
+  { text: 'Very professional team. They handled our corporate tax filing quickly and kept us informed at every step.', stars: 5 },
+  { text: 'Reliable bookkeeping and always on time with the tax returns. Highly recommended for new businesses in Dubai.', stars: 5 },
 ]
 
 /** Single-card review carousel with prev/next arrows. */
