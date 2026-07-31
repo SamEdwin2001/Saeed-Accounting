@@ -65,6 +65,12 @@ if (existsSync(join(DIST, 'index.html'))) {
       maxAge: '1y',
       setHeaders: (res, filePath) => {
         if (filePath.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache')
+        /* Express types .xsl as application/xml, which browsers will not apply
+           as a stylesheet — the sitemap then renders as a raw document tree. */
+        if (filePath.endsWith('.xsl')) res.setHeader('Content-Type', 'text/xsl; charset=utf-8')
+        /* The sitemap must revalidate too, or a year-long cache would pin
+           crawlers to the URL list from whichever deploy they first saw. */
+        if (filePath.endsWith('sitemap.xml')) res.setHeader('Cache-Control', 'no-cache')
       },
     })
   )
