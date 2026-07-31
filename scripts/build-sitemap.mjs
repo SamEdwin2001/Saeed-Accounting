@@ -48,7 +48,10 @@ if (duplicates.length) {
    content changing, and a build timestamp would do exactly that. */
 const lastmod = new Date().toISOString().slice(0, 10)
 
+/* The stylesheet is presentation only — browsers render the table, crawlers
+   ignore the PI and read the XML underneath. */
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${paths
   .map((p) =>
