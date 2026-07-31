@@ -1,3 +1,4 @@
+import DeadlineMarquee from '../components/DeadlineMarquee.jsx'
 import Img from '../components/Img.jsx'
 import Accordion from '../components/Accordion.jsx'
 import Reviews from '../components/Reviews.jsx'
@@ -40,7 +41,7 @@ function WhatsAppButton() {
  * Sections keyed off the data: `penaltyLine`, `cardBottom` and `faqs` are
  * optional and their sections disappear when null.
  */
-export default function CorporateTaxLanding({ data }) {
+export default function CorporateTaxLanding({ data, marquee = false }) {
   const {
     pill, heroTitle, heroSub, heroChecks, heroOffer, heroImage, penaltyLine,
     heading, headingAccent, lead,
@@ -52,6 +53,8 @@ export default function CorporateTaxLanding({ data }) {
 
   return (
     <div className="ct-page">
+      {marquee && <DeadlineMarquee />}
+
       {/* Hero */}
       <section className="hero ct-hero">
         <div className="container hero__inner">

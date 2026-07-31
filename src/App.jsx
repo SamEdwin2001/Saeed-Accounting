@@ -40,7 +40,7 @@ const CorporateTaxFilingUae = lazy(() => import('./pages/CorporateTaxFilingUae.j
 /** Slugs that use a bespoke layout rather than the article template. */
 const CUSTOM_PAGES = {
   'vat-registration-services': <VatRegistrationPage />,
-  'corporate-tax-filing': <CorporateTaxLanding data={CORPORATE_TAX_FILING} />,
+  'corporate-tax-filing': <CorporateTaxLanding data={CORPORATE_TAX_FILING} marquee />,
   'corporate-tax-registration': <CorporateTaxLanding data={CORPORATE_TAX_REGISTRATION} />,
 }
 

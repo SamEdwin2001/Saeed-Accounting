@@ -295,14 +295,65 @@ button {
    --header-h to its top padding to make room. */
 .header {
   position: absolute;
-  /* Pages that render a bar above the header (the CT filing marquee) set
-     --marquee-h on <body> while mounted, which drops the header below it.
-     Unset everywhere else, so this resolves to the usual top: 0. */
+  /* Routes that render <DeadlineMarquee> set --marquee-h on <body> while it is
+     mounted, which drops the header below the bar. Unset everywhere else, so
+     this resolves to the usual top: 0. */
   top: var(--marquee-h, 0px);
   left: 0;
   right: 0;
   z-index: 50;
   background: transparent;
+}
+
+/* ------------------------------------------------------------
+   1a. Deadline marquee
+   ------------------------------------------------------------ */
+/* Sits above the absolute header, so it needs the higher z-index. */
+.marquee {
+  position: relative;
+  z-index: 60;
+  background: #dc2626;
+  overflow: hidden;
+  padding: 9px 0;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  /* Two copies of the text, so -50% lands the second exactly where the first
+     began — the loop never shows an empty bar. */
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+/* A full viewport of space after each copy, so one message clears the screen
+   before the next arrives rather than running back-to-back. */
+.marquee__item {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  padding-right: 100vw;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Reduced motion: show the message, hold it still. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
 }
 
 .header__inner {
@@ -482,7 +533,9 @@ button {
     #fddfc2 68%,
     rgba(253, 244, 227, 0) 86%
   );
-  padding: calc(var(--header-h) + 3.4rem) 0 5rem;
+  /* --marquee-h is 0 unless the route renders the deadline bar above the
+     header, in which case the hero has to start below both. */
+  padding: calc(var(--header-h) + var(--marquee-h, 0px) + 3.4rem) 0 5rem;
 }
 
 .hero__inner {
@@ -1791,7 +1844,9 @@ a.ctc-ch__value:hover {
 .ct-hero {
   background-color: #fdeee0;
   background-image: linear-gradient(115deg, #fbe0c8 0%, #fdeade 40%, #fdf1e6 75%, #fdf6ee 100%);
-  padding-top: calc(var(--header-h) + 1.4rem);
+  /* --marquee-h is 0 unless the route renders the deadline bar above the
+     header, in which case the hero has to start below both. */
+  padding-top: calc(var(--header-h) + var(--marquee-h, 0px) + 1.4rem);
   padding-bottom: 0px;
 }
 
