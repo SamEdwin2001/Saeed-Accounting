@@ -45,6 +45,50 @@
             overflow-x: hidden;
         }
 
+        /* ── DEADLINE MARQUEE ── */
+        .ctf-page .ctf-marquee {
+            background: var(--red);
+            overflow: hidden;
+            padding: 9px 0;
+        }
+
+        .ctf-page .ctf-marquee-track {
+            display: flex;
+            width: max-content;
+            /* The track holds two copies of the text, so translating it by half
+               its width lands the second copy exactly where the first began. */
+            animation: ctf-marquee-scroll 28s linear infinite;
+        }
+
+        .ctf-page .ctf-marquee:hover .ctf-marquee-track {
+            animation-play-state: paused;
+        }
+
+        .ctf-page .ctf-marquee-item {
+            color: var(--white);
+            font-size: .95rem;
+            font-weight: 700;
+            white-space: nowrap;
+            padding-right: 3.5rem;
+        }
+
+        @keyframes ctf-marquee-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Respect a reduced-motion preference: show the message, hold it still. */
+        @media (prefers-reduced-motion: reduce) {
+            .ctf-page .ctf-marquee-track {
+                animation: none;
+            }
+        }
+
         /* ── TOPBAR ── */
         .ctf-page .topbar {
             background: var(--cobalt2);
