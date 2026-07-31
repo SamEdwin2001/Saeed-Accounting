@@ -295,7 +295,10 @@ button {
    --header-h to its top padding to make room. */
 .header {
   position: absolute;
-  top: 0;
+  /* Pages that render a bar above the header (the CT filing marquee) set
+     --marquee-h on <body> while mounted, which drops the header below it.
+     Unset everywhere else, so this resolves to the usual top: 0. */
+  top: var(--marquee-h, 0px);
   left: 0;
   right: 0;
   z-index: 50;

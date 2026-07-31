@@ -45,8 +45,15 @@
             overflow-x: hidden;
         }
 
-        /* ── DEADLINE MARQUEE ── */
+        /* ── DEADLINE MARQUEE ──
+           The site header is position:absolute at top:0, so the bar has to sit
+           above it in the stacking order and the hero's header-clearing padding
+           has to start below the bar — otherwise the nav lands on top of the
+           scrolling text. Both are handled here rather than in styles.css so
+           only this page is affected. */
         .ctf-page .ctf-marquee {
+            position: relative;
+            z-index: 60;
             background: var(--red);
             overflow: hidden;
             padding: 9px 0;
@@ -64,12 +71,14 @@
             animation-play-state: paused;
         }
 
+        /* A full viewport of empty space after each copy, so one message clears
+           the screen before the next arrives instead of running back-to-back. */
         .ctf-page .ctf-marquee-item {
             color: var(--white);
             font-size: .95rem;
             font-weight: 700;
             white-space: nowrap;
-            padding-right: 3.5rem;
+            padding-right: 100vw;
         }
 
         @keyframes ctf-marquee-scroll {
@@ -293,6 +302,14 @@
             /* Clear the site's transparent absolute header so the hero content
                starts below it (the hero-bg still fills behind the header). */
             padding: var(--header-h, 5.8rem) 0 0;
+        }
+
+        /* The site header is absolute at top:0, so it would sit on top of the
+           marquee. The page sets --marquee-h on <body> while it is mounted and
+           styles.css offsets .header by it, which also shifts the hero padding
+           down in step. */
+        .ctf-page .hero {
+            padding-top: calc(var(--header-h, 5.8rem) + var(--marquee-h, 0px));
         }
 
         .ctf-page .hero-bg {

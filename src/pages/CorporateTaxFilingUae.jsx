@@ -14,6 +14,27 @@ import './corporateTaxFilingUae.css'
  * onclick="openWhatsApp(...)" / onclick="toggleFaq(this)" keep working.
  */
 export default function CorporateTaxFilingUae() {
+  /* The marquee sits above the site header, which is absolute at top:0.
+     Publishing its measured height as --marquee-h drops the header (and the
+     hero's top padding) below the bar. Measured rather than hardcoded so a
+     wrapped line on a narrow screen still clears. */
+  useEffect(() => {
+    const bar = document.querySelector('.ctf-marquee')
+    if (!bar) return undefined
+
+    const apply = () =>
+      document.body.style.setProperty('--marquee-h', `${bar.offsetHeight}px`)
+    apply()
+
+    const ro = new ResizeObserver(apply)
+    ro.observe(bar)
+
+    return () => {
+      ro.disconnect()
+      document.body.style.removeProperty('--marquee-h')
+    }
+  }, [])
+
   useEffect(() => {
     window.openWhatsApp = (text) => {
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
