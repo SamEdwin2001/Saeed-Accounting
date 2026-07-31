@@ -136,19 +136,8 @@ export default function CorporateTaxFilingUae() {
   return <div className="ctf-page" dangerouslySetInnerHTML={{ __html: HTML }} />
 }
 
-/* Original page markup, preserved verbatim, with the deadline marquee added
-   above it. The text is duplicated because the track scrolls a full 50% —
-   the second copy is what's on screen as the first one leaves, so the loop
-   reads as continuous rather than snapping back to an empty bar. */
-const HTML = `<!-- DEADLINE MARQUEE -->
-    <div class="ctf-marquee">
-        <div class="ctf-marquee-track">
-            <span class="ctf-marquee-item">⚠️ Avoid Penalties - ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!</span>
-            <span class="ctf-marquee-item" aria-hidden="true">⚠️ Avoid Penalties - ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!</span>
-        </div>
-    </div>
-
-    <!-- TOPBAR -->
+/* Original page markup, preserved verbatim. */
+const HTML = `<!-- TOPBAR -->
     <!-- <div class="topbar">
         <div class="topbar-inner">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber2)" stroke-width="2.5"
