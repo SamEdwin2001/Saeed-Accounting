@@ -164,8 +164,8 @@ export default function CorporateTaxFilingUae() {
 const HTML = `<!-- DEADLINE MARQUEE -->
     <div class="ctf-marquee">
         <div class="ctf-marquee-track">
-            <span class="ctf-marquee-item">⚠️ Avoid Penalties - ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!</span>
-            <span class="ctf-marquee-item" aria-hidden="true">⚠️ Avoid Penalties - ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!</span>
+            <span class="ctf-marquee-item">⚠️ Avoid Penalties ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!</span>
+            <span class="ctf-marquee-item" aria-hidden="true">⚠️ Avoid Penalties ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!</span>
         </div>
     </div>
 

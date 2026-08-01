@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 const MESSAGE =
-  "⚠️ Avoid Penalties - ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!"
+  "⚠️ Avoid Penalties ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!"
 
 /**
  * Red deadline bar that scrolls above the site header.
