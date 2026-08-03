@@ -204,9 +204,11 @@ export const ROUTE_SEO = {
   /* The listing only. Each /blog/<slug> article carries meta drawn from the
      post itself — see pages/BlogPostPage.jsx. */
   blog: {
-    title: 'Blog - VAT, Corporate Tax & Accounting Updates UAE',
+    title: 'UAE Accounting & Tax Blog | VAT, Corporate Tax Insights',
     description:
-      'Read the latest UAE VAT, corporate tax and bookkeeping updates from Saeed Accounting — FTA deadlines, compliance guidance and practical advice for businesses.',
+      "Expert insights on UAE VAT, corporate tax, bookkeeping & business compliance. Practical guides from Saeed Accounting's tax consultants in Dubai.",
+    keywords:
+      'UAE accounting blog, UAE VAT insights, corporate tax updates UAE, bookkeeping tips Dubai, tax compliance guides UAE, Saeed Accounting blog',
   },
 }
 
