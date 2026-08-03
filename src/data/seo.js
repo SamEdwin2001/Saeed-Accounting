@@ -10,113 +10,114 @@
  *
  * Keyed by pathname WITHOUT the leading slash; '' is the homepage.
  *
- * Length targets: title ≤ 60 chars including the " | Saeed Accounting" suffix
- * that Seo.jsx appends (19 chars, so keep `title` ≤ 41); description 120–160.
- * Both are enforced by scripts/check-seo.mjs.
+ * Titles are stored complete: Seo.jsx renders them verbatim rather than
+ * appending a brand suffix, so the ones that carry " | Saeed Accounting" say so
+ * here. Length targets — title ≤ 60 chars, description 120–160 — are warnings
+ * in scripts/check-seo.mjs, since these strings come from the client's SEO
+ * sheet and their wording wins over fitting the pixel width.
  */
 
-/** Appended to every title by Seo.jsx — kept here so the checker can measure. */
+/** Brand suffix used by the titles that carry one. */
 export const TITLE_SUFFIX = ' | Saeed Accounting'
 
 export const ROUTE_SEO = {
   '': {
-    // Home passes no title, so Seo.jsx uses its own default full-brand string.
-    title: null,
+    title: 'Accounting Firm in UAE | VAT, Corporate Tax & Bookkeeping',
     description:
-      'Accounting, bookkeeping, VAT and corporate tax services across the UAE — FTA-compliant registration, filing and advisory for mainland and free zone firms.',
+      'Trusted accounting firm in UAE offering VAT, corporate tax, bookkeeping & CFO services. FTA-registered tax agents helping Dubai businesses stay compliant. Get a free consultation.',
   },
 
   /* ---- Accounting ---- */
   'accounting-bookkeeping': {
-    title: 'Accounting & Bookkeeping Services UAE',
+    title: 'Accounting & Bookkeeping Services in UAE',
     description:
-      'Outsourced accounting and bookkeeping for UAE businesses — ledgers, reconciliations and management reports kept audit-ready and FTA-compliant year round.',
+      'Professional accounting and bookkeeping services in UAE for SMEs and large businesses. Accurate records, financial reports & FTA-compliant books. Book a free demo.',
   },
   'accounts-receivable-services': {
-    title: 'Accounts Receivable Services UAE',
+    title: 'Accounts Receivable Services in UAE',
     description:
-      'Accounts receivable management for UAE businesses — invoicing, credit control and collections handled so cash flow stays steady and overdue balances get chased.',
+      'Improve cash flow with professional accounts receivable services in UAE. We manage invoicing, collections & credit control for businesses in Dubai. Contact us today.',
   },
   'accounts-payable-services': {
-    title: 'Accounts Payable Services UAE',
+    title: 'Accounts Payable Services in UAE',
     description:
-      'Outsourced accounts payable for UAE companies — supplier invoices verified, approvals tracked and payments scheduled to avoid late fees and duplicate billing.',
+      'Streamline vendor payments with expert accounts payable services in UAE. We handle invoice processing, approvals & payment management for Dubai businesses.',
   },
   'cfo-services': {
-    title: 'Outsourced CFO Services UAE',
+    title: 'CFO Services in UAE | Virtual & Outsourced CFO',
     description:
-      'Part-time and outsourced CFO services in the UAE — budgeting, cash flow forecasting, reporting and board-level advice without a full-time finance chief.',
+      'Get expert virtual CFO services in UAE without the full-time cost. Financial strategy, forecasting & reporting for growing businesses in Dubai. Talk to our team.',
   },
 
   /* ---- VAT ---- */
   'vat-registration-services': {
-    title: 'FTA VAT Registration UAE from AED 149',
+    title: 'VAT Registration Services in UAE | FTA Experts',
     description:
-      'FTA VAT registration in the UAE from AED 149. Get your TRN fast with expert help on eligibility, documents and submission for mainland and free zone firms.',
+      'Register your business for VAT in the UAE with FTA-approved consultants. Fast, accurate VAT registration and TRN issuance for mainland & free zone companies.',
   },
   'vat-return-filling': {
-    title: 'VAT Return Filing Services UAE',
+    title: 'VAT Return Filing Services in UAE',
     description:
-      'Accurate VAT return filing for UAE businesses — input and output tax reviewed and returns filed with the FTA before deadline, avoiding late-filing penalties.',
+      'Timely and accurate VAT return filing services in UAE. Avoid FTA penalties with expert quarterly VAT filing support for Dubai businesses. Get started today.',
   },
   'vat-de-registration': {
-    title: 'VAT De-Registration Services UAE',
+    title: 'VAT De-Registration Services in UAE | Saeed Accounting',
     description:
-      'VAT de-registration in the UAE — cancel your registration and suspend your TRN correctly, with FTA applications filed inside the 20-business-day window.',
+      'Need to cancel your VAT registration? Our tax agents handle VAT deregistration with the FTA quickly and correctly, avoiding delays and penalties in the UAE.',
   },
   'vat-audit': {
-    title: 'VAT Audit Services UAE',
+    title: 'VAT Audit Services in UAE | FTA Audit Support | Saeed Accounting',
     description:
-      'VAT audit support in the UAE — records and returns reviewed before the FTA examines them, with gaps found and documents prepared to defend your filings.',
+      'Prepare for an FTA VAT audit with confidence. Our VAT audit services in UAE review your records, identify risks and ensure full compliance. Contact us now.',
   },
   'vat-refund': {
-    title: 'VAT Refund Services UAE',
+    title: 'VAT Refund Services in UAE | Saeed Accounting',
     description:
-      'Claim your UAE VAT refund with confidence — recoverable input tax identified, evidence assembled and the FTA refund application tracked through to payment.',
+      'Recover eligible input VAT with our VAT refund services in UAE. We manage the FTA refund application process end-to-end for businesses in Dubai.',
   },
   'vat-amendment': {
-    title: 'VAT Amendment Services UAE',
+    title: 'VAT Amendment Services in UAE | Saeed Accounting',
     description:
-      'Correct errors in a filed UAE VAT return — voluntary disclosures and amendment requests prepared for the FTA to limit penalties and keep records accurate.',
+      'Update your VAT registration details correctly with our VAT amendment services in UAE. We manage FTA amendment applications for businesses across Dubai.',
   },
 
   /* ---- Corporate tax ---- */
   'corporate-tax-registration': {
-    title: 'Corporate Tax Registration UAE',
+    title: 'Corporate Tax Registration Services in UAE',
     description:
-      'UAE corporate tax registration handled end to end — eligibility confirmed, documents prepared and your Tax Registration Number secured via FTA EmaraTax.',
+      'Register your business for UAE corporate tax with FTA-registered experts. Fast, compliant corporate tax registration for mainland & free zone companies.',
   },
   'corporate-tax-filing': {
-    title: 'Corporate Tax Filing Services UAE',
+    title: 'Corporate Tax Filing Services in UAE',
     description:
-      'UAE corporate tax filing done right — taxable income, deductions and reliefs calculated and your return filed with the FTA within nine months of year end.',
+      'Accurate, on-time corporate tax return filing services in UAE. Stay compliant with FTA deadlines and avoid penalties. Speak with our tax experts today.',
   },
   'corporate-tax-implementation': {
-    title: 'Corporate Tax Implementation UAE',
+    title: 'Corporate Tax Implementation Services in UAE | Saeed Accounting',
     description:
-      'Get your UAE business corporate-tax ready — impact assessment, chart of accounts alignment and process changes before your first taxable period begins.',
+      'Get your business corporate tax ready in UAE. We help implement systems, processes & documentation to meet FTA corporate tax requirements. Contact us today.',
   },
   'corporate-tax-advisory': {
-    title: 'Corporate Tax Advisory UAE',
+    title: 'Corporate Tax Advisory Services in UAE | Saeed Accounting',
     description:
-      'UAE corporate tax advisory from qualified consultants — group structuring, free zone qualifying income, exemptions and reliefs assessed under the 9% regime.',
+      'Strategic corporate tax advisory services in UAE from experienced consultants. Tax planning, structuring & compliance guidance for Dubai businesses.',
   },
 
   /* ---- Business setup ---- */
   'business-formation': {
-    title: 'Business Formation Services Dubai',
+    title: 'Business Formation Services in UAE | Company Setup | Saeed Accounting',
     description:
-      'Company formation in Dubai and across the UAE — mainland, free zone and offshore setup with licensing, trade name reservation and bank account opening.',
+      'Start your business in the UAE with expert business formation services. Mainland, free zone & offshore company setup handled end-to-end. Get a free quote.',
   },
   'local-sponsor': {
-    title: 'Local Sponsor Services Dubai',
+    title: 'Local Sponsor Services in UAE | Local Service Agent | Saeed Accounting',
     description:
-      'Local sponsor and corporate nominee services in Dubai — structured so you keep operational control while meeting UAE mainland ownership requirements.',
+      'Reliable local sponsor and local service agent services in UAE for mainland company setup. Compliant, transparent partnerships for Dubai businesses.',
   },
   'pro-services': {
-    title: 'PRO Services Dubai & Abu Dhabi',
+    title: 'PRO Services in UAE | Government Liaison Services',
     description:
-      'Outsourced PRO services across Dubai, Abu Dhabi and Sharjah — visas, Emirates ID, labour cards and licence renewals processed without counter queues.',
+      'Save time on paperwork with professional PRO services in UAE. Visa processing, license renewals & government approvals handled for you in Dubai.',
   },
 
   /* ---- SEO landing variants ----
@@ -150,14 +151,14 @@ export const ROUTE_SEO = {
 
   /* ---- Site pages ---- */
   'about-us': {
-    title: 'About Us — UAE Tax Consultants',
+    title: 'About Us - Accounting & Tax Consultants UAE | Saeed Accounting',
     description:
-      'Saeed Accounting is a UAE team of accountants and tax consultants supporting mainland and free zone businesses with bookkeeping, VAT, corporate tax and PRO.',
+      'Learn about Saeed Accounting, an FTA-approved accounting and tax consultancy serving businesses across the UAE with VAT, corporate tax & bookkeeping expertise.',
   },
   'contact-us': {
-    title: 'Contact Us — Free Consultation',
+    title: 'Contact Us - VAT & Corporate Tax Consultants UAE | Saeed Accounting',
     description:
-      'Talk to Saeed Accounting about accounting, VAT and corporate tax in the UAE. Call, email or WhatsApp us for a free consultation with a qualified consultant.',
+      'Get in touch with Saeed Accounting for VAT, corporate tax, bookkeeping & business setup services in the UAE. Book your free consultation today.',
   },
 }
 

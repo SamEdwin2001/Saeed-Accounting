@@ -38,18 +38,19 @@ for (const route of expected) {
     continue
   }
 
-  if (meta.title != null) {
-    const full = meta.title + TITLE_SUFFIX
-    if (full.length > TITLE_MAX) {
-      errors.push(`/${route} — title ${full.length} chars (max ${TITLE_MAX}): "${full}"`)
-    }
+  /* Titles are stored complete — Seo.jsx no longer appends a brand suffix, so
+     measure the string as written. Over-length is a warning: Google truncates
+     the tail in results but still indexes the whole title, and the client's
+     wording takes priority over fitting the pixel width. */
+  if (meta.title != null && meta.title.length > TITLE_MAX) {
+    warnings.push(`/${route} — title ${meta.title.length} chars (over ${TITLE_MAX}): "${meta.title}"`)
   }
 
   const d = meta.description
   if (!d) {
     errors.push(`/${route} — no description`)
   } else {
-    if (d.length > DESC_MAX) errors.push(`/${route} — description ${d.length} chars (max ${DESC_MAX})`)
+    if (d.length > DESC_MAX) warnings.push(`/${route} — description ${d.length} chars (over ${DESC_MAX})`)
     else if (d.length < DESC_MIN) warnings.push(`/${route} — description only ${d.length} chars (aim ${DESC_MIN}+)`)
     if (/…|\.\.\.$/.test(d)) errors.push(`/${route} — description is truncated copy`)
   }

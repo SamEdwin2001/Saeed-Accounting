@@ -44,7 +44,9 @@ function setProp(property, content) {
  */
 export default function Seo({ title, description, path, noindex = false }) {
   useEffect(() => {
-    const full = title ? `${title} | ${SITE}` : DEFAULT_TITLE
+    /* Titles arrive complete from data/seo.js — the brand suffix is written
+       into the ones that want it, rather than appended to all of them. */
+    const full = title || DEFAULT_TITLE
     document.title = full
 
     setMeta('description', description)
