@@ -4,7 +4,7 @@ export default function FloatingActions() {
   return (
     /* Left-edge quick-contact rail */
     <aside className="rail" aria-label="Quick contact">
-      <a className="rail__btn" href="tel:+971508365223" aria-label="Call us">
+      <a className="rail__btn" href="tel:+971501035519" aria-label="Call us">
         <Phone />
       </a>
       <a className="rail__btn" href="mailto:info@saeedaccounting.com" aria-label="Email us">

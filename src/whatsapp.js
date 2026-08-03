@@ -9,7 +9,7 @@
  * missing — we fall back to the main number + default message, so the button
  * is never dead. */
 
-const DEFAULT_NUMBER = '971508365223'
+const DEFAULT_NUMBER = '971501035519'
 const DEFAULT_MESSAGE = 'Hello Saeed Accounting, We are Seeking for VAT Services.'
 
 /* The CT-filing landing page (/file-corporate-tax-return) has its own dedicated

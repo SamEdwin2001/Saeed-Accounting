@@ -68,7 +68,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Phone className="footer__contact-icon" />
-                  <a href="tel:+971508365223">+971 50 83 65 223</a>
+                  <a href="tel:+971501035519">+971 50 10 35 519</a>
                 </li>
                 <li>
                   <Mail className="footer__contact-icon" />

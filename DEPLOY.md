@@ -109,7 +109,7 @@ MAIL_FROM_NAME=Saeed Accounting
 MAIL_FROM=info@saeedaccounting.com
 LEADS_INBOX=info@saeedaccounting.com
 
-WHATSAPP_DEFAULT_NUMBER=971508365223
+WHATSAPP_DEFAULT_NUMBER=971501035519
 WHATSAPP_DEFAULT_MESSAGE="Hello Saeed Accounting, We are Seeking for VAT Services."
 ```
 
