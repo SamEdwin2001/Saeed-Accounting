@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# The dashboard is behind a login and the API returns JSON — neither belongs
+# in an index. Everything else is open.
+Disallow: /admin
+Disallow: /api/
+
 Sitemap: https://saeedaccounting.com/sitemap.xml
