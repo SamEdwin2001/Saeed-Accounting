@@ -25,7 +25,9 @@ export default function Header() {
     <header className={`header ${bareHeader ? 'header--bare' : ''}`}>
       <div className="container header__inner">
         <Link className="logo" to="/" aria-label="Saeed Accounting home" onClick={closeAll}>
-          <img src={IMAGES.logo} alt="Saeed Accounting" className="logo__img" />
+          {/* The link already carries aria-label, so a repeated alt would have
+              a screen reader announce the brand name twice. */}
+          <img src={IMAGES.logo} alt="" className="logo__img" />
         </Link>
 
         {!bareHeader && (

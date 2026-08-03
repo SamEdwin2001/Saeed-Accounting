@@ -26,6 +26,7 @@ export const CORPORATE_TAX_FILING = {
   heroOffer: 'Limited-time offer – starting from Ð 999',
   heroImage:
     'https://res.cloudinary.com/dekhukonj/image/upload/v1785212341/young-aspiring-businesswoman-looking-confident-glasses-suit-standing-like-professional-white-ba-3_compressed-1-scaled_cyxrpr.webp',
+  heroImageAlt: 'Corporate tax consultant at Saeed Accounting, arms folded and smiling',
   penaltyLine: null,
 
   heading: 'Corporate TAX Filing',
@@ -78,6 +79,8 @@ export const CORPORATE_TAX_REGISTRATION = {
   heroChecks: HERO_CHECKS,
   heroOffer: 'Limited Offer Running Starts @ Ð 149',
   heroImage: '/images/hero-meeting.jpg',
+  heroImageAlt:
+    'Adviser and business owner reviewing corporate tax registration on a tablet in a Dubai office',
   penaltyLine: 'Avoid Ð 10,000 penalty by registering for Corporate Tax today!',
 
   heading: 'Corporate TAX Registration',

@@ -27,7 +27,9 @@ function Block({ block }) {
   if (block.image) {
     return (
       <figure className="page__inline-figure">
-        <Img src={block.image} alt={block.caption || ''} label="Image" />
+        {/* `alt` describes the image, `caption` is the visible line under it —
+            reusing the caption here would just repeat it to a screen reader. */}
+        <Img src={block.image} alt={block.alt || block.caption || ''} label="Image" />
         {block.caption && <figcaption className="page__caption">{block.caption}</figcaption>}
       </figure>
     )
@@ -100,6 +102,7 @@ export default function ServicePage({ service }) {
     intro = [],
     introChecks,
     introImage,
+    introImageAlt,
     introImageSide = 'right',
     introImageRatio,
     imageCaption,
@@ -109,6 +112,7 @@ export default function ServicePage({ service }) {
     listHeadingUpper,
     listIntro,
     listImage,
+    listImageAlt,
     listImageRatio,
     listItems = [],
     tabs,
@@ -126,7 +130,9 @@ export default function ServicePage({ service }) {
       className="page__media"
       style={{ '--ratio': introImageRatio || (imageFirst ? '7 / 5' : '9 / 10') }}
     >
-      <Img src={introImage} alt={imageCaption || title} label="Service image" />
+      {/* Alt describes the photograph; the caption and the H1 are already read
+          out on their own, so repeating either here says nothing new. */}
+      <Img src={introImage} alt={introImageAlt || `${title} in the UAE`} label="Service image" />
       {imageCaption && <figcaption className="page__caption">{imageCaption}</figcaption>}
     </figure>
   )
@@ -198,7 +204,13 @@ export default function ServicePage({ service }) {
               <div className={`page__split ${listImage ? '' : 'page__split--single'}`}>
                 {listImage && (
                   <figure className="page__media" style={{ '--ratio': listImageRatio || '7 / 6' }}>
-                    <Img src={listImage} alt={listHeading} label="Service image" />
+                    {/* listHeading is optional, so falling back to it could
+                        emit an <img> with no alt at all. */}
+                    <Img
+                      src={listImage}
+                      alt={listImageAlt || `${title} team at Saeed Accounting`}
+                      label="Service image"
+                    />
                   </figure>
                 )}
 

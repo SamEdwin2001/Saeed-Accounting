@@ -13,8 +13,12 @@ const placeholder = (label) =>
 /**
  * Drop-in <img> that falls back to a neutral grey placeholder of the
  * identical box size when the real asset is missing.
+ *
+ * `alt` has no default: a decorative image must opt in with alt="" explicitly,
+ * so omitting it stays visible to a11y linters instead of silently shipping a
+ * content image no screen reader can describe.
  */
-export default function Img({ src, alt = '', label = 'Replace image', ...rest }) {
+export default function Img({ src, alt, label = 'Replace image', ...rest }) {
   const [failed, setFailed] = useState(false)
   return (
     <img

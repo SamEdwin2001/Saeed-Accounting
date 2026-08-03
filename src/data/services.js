@@ -28,7 +28,11 @@ export const SERVICES = [
     // Leading words of the centred heading render orange.
     titleAccent: 'Accounts receivable',
     introImage: '/images/services/accounts-receivable-1.jpg',
+    introImageAlt:
+      'Notebook with "accounts receivable" written on it beside a sales chart and reading glasses',
     listImage: '/images/services/accounts-receivable-2.jpg',
+    listImageAlt:
+      'Two accountants reconciling an invoice ledger with a calculator and laptop',
     // Must match the source casing of `listHeading`; CSS does the uppercasing.
     listHeadingAccent: 'Our Accounts Receivable Services',
     listHeadingUpper: true,
@@ -65,8 +69,12 @@ export const SERVICES = [
     heading: 'Customized Accounts Payable Services in Dubai and UAE',
     headingAccent: 'Customized Accounts Payable',
     headingUpper: true,
+    /* The Cloudinary filename is left over from another page — the picture is a
+       calculator on financial statements, which is what the alt describes. */
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785148321/Voluntary-VAT-Registration-The-Advantages-and-Disadvantages_aymfa0.webp',
+    introImageAlt:
+      'Accountant totalling supplier invoices on a calculator beside printed financial statements',
     introImageSide: 'left',
     listHeadingAccent: 'Our Accounts Payable Services',
     listHeadingUpper: true,
@@ -109,6 +117,8 @@ export const SERVICES = [
     headingAccent: 'Services',
     headingUpper: true,
     introImage: 'https://res.cloudinary.com/dekhukonj/image/upload/v1785148512/ab_hkjywu.webp',
+    introImageAlt:
+      'Bookkeepers checking figures on a calculator in front of a laptop showing revenue charts',
     introImageRatio: '7 / 5',
     listHeadingAccent: 'Our Accounting and Bookkeeping Services',
     listHeadingUpper: true,
@@ -161,10 +171,14 @@ export const SERVICES = [
     subheadingAccent: 'Across Dubai',
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785148800/WhatsApp-Image-2022-09-16-at-3.22.20-PM-rhpdihuendka805lz9jd43espplosg0j74q3wfz568_iclemy.webp',
+    introImageAlt:
+      'Finance director reviewing a growth chart at a desk of performance reports and a laptop',
     introImageRatio: '9 / 10',
     /* Same artwork as the intro image — the page shows it twice. */
     listImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785148955/cfo_fyyvnm.webp',
+    listImageAlt:
+      'Illustration of CFO responsibilities — budgeting, forecasting, cash flow and reporting icons',
     listImageRatio: '1 / 1',
     listHeadingAccent: 'Our Outsourced CFO',
     listHeadingUpper: true,
@@ -230,6 +244,8 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785150811/VAT-Return-Filing-Services-In-Oman_hb4hbi.webp',
+    introImageAlt:
+      'Two colleagues working through VAT return figures on paper between two laptops',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -302,6 +318,8 @@ export const SERVICES = [
     headingAccent: 'VAT',
     headingUpper: true,
     introImage: 'https://res.cloudinary.com/dekhukonj/image/upload/v1785151044/VAT-REFUND_kytk3q.webp',
+    introImageAlt:
+      'Close-up of hands calculating a VAT refund claim on a desk calculator over a printed return',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -316,6 +334,7 @@ export const SERVICES = [
       {
         image:
           'https://res.cloudinary.com/dekhukonj/image/upload/v1785151246/vat_consultant_in_dubai_cmd22f.webp',
+        alt: 'Consultant completing a VAT return form, beside a panel reading "VAT Return Filing in UAE"',
         caption: 'VAT Return Filing in UAE',
       },
       { heading: 'Output Tax' },
@@ -338,6 +357,8 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785152176/VAT-AMENDMENT_kdgoxt.webp',
+    introImageAlt:
+      'Two advisers comparing a printed VAT return against a laptop to identify an error to amend',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -453,6 +474,8 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785152438/Implementation_ujnal7.webp',
+    introImageAlt:
+      'Handshake over a signed contract at a meeting table with corporate tax reports',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -475,6 +498,8 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785155094/Voluntary-VAT-Registration-The-Advantages-and-Disadvantages_1_qy0ead.webp',
+    introImageAlt:
+      'Tax adviser working through corporate tax figures on a calculator over financial reports',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -527,6 +552,8 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785155793/RERA-certified-local-sponsor_a2ge6n.webp',
+    introImageAlt:
+      'Business owner discussing a company set-up with two consultants in a Dubai office',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -656,6 +683,8 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785214527/RERA-certified-local-sponsor_1_wyuopb.webp',
+    introImageAlt:
+      'Emirati local sponsor meeting two investors to agree a mainland company arrangement',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -708,6 +737,8 @@ export const SERVICES = [
     lead: "By outsourcing your company's Corporate PRO services in Dubai, Abu Dhabi, Sharjah, and the rest of the UAE, you avail the following benefits",
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785214911/68656727-double-exposure-of-professional-businessman-connecting-cloud-technology-on-hand-with-cloud-and-sky-i_qihl0s.webp',
+    introImageAlt:
+      'Businessman holding a cloud icon, representing PRO document processing handled online',
     introImageSide: 'left',
     introImageRatio: '11 / 9',
     // The benefits render as an orange check-list beside the image.

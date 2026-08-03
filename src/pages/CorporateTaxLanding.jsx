@@ -43,7 +43,7 @@ function WhatsAppButton() {
  */
 export default function CorporateTaxLanding({ data, marquee = false }) {
   const {
-    pill, heroTitle, heroSub, heroChecks, heroOffer, heroImage, penaltyLine,
+    pill, heroTitle, heroSub, heroChecks, heroOffer, heroImage, heroImageAlt, penaltyLine,
     heading, headingAccent, lead,
     cardLeft, cardRight, cardBottom,
     features, faqs, faqHeading, faqHeadingAccent,
@@ -81,9 +81,11 @@ export default function CorporateTaxLanding({ data, marquee = false }) {
           <div className="hero__media">
             {/* Not the LCP element on mobile (the hero copy is), so it loads
                 eagerly but must not outrank the fonts/CSS for bandwidth. */}
+            {/* Describes the photo. Falling back to heroTitle would repeat the
+                <h1> above it word for word. */}
             <Img
               src={heroImage}
-              alt={heroTitle}
+              alt={heroImageAlt || `${heroTitle} services at Saeed Accounting`}
               className="ct-hero__image"
               label="Hero image"
               loading="eager"

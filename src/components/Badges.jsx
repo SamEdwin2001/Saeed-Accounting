@@ -19,7 +19,9 @@ const BADGES = [
   },
   {
     name: 'Gartner',
-    alt: 'Gartner',
+    /* No rating in this one — the artwork is the bare wordmark, unlike the
+       three above, so there is nothing further for alt to carry. */
+    alt: 'Gartner logo',
     src: 'https://res.cloudinary.com/dekhukonj/image/upload/v1785133939/Gartner_logo.svg-removebg-preview-768x176_sckn6l.webp',
   },
 ]

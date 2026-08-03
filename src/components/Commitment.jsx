@@ -36,7 +36,7 @@ export default function Commitment() {
         <div className="collage">
           <Img
             src={IMAGES.collage}
-            alt="The Saeed Accounting team at work"
+            alt="Collage of the Saeed Accounting team on client calls and working at laptops"
             className="collage__image"
             label="Collage image"
           />

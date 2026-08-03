@@ -33,7 +33,11 @@ export default function AboutPage() {
       <section className="section welcome">
         <div className="container welcome__inner">
           <div className="welcome__media">
-            <Img src={IMAGES.collage} alt="The Saeed Accounting team at work" label="Collage image" />
+            <Img
+              src={IMAGES.collage}
+              alt="Collage of Saeed Accounting staff advising clients and reviewing accounts"
+              label="Collage image"
+            />
           </div>
 
           <div className="welcome__copy">

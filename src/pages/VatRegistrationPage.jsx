@@ -178,9 +178,11 @@ export default function VatRegistrationPage({
           </div>
 
           <div className="hero__media">
+            {/* Describes the photograph itself — it is the same meeting shot
+                used on the home page, not artwork specific to VAT. */}
             <Img
               src={IMAGES.hero}
-              alt={term('VAT registration consultation')}
+              alt="Adviser and business owner reviewing VAT paperwork on a tablet in a Dubai office"
               className="hero__image"
               label="Hero image"
             />

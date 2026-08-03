@@ -7,7 +7,11 @@ export default function About() {
     <section className="section about" id="about">
       <div className="container about__inner">
         <div className="about__media">
-          <Img src={IMAGES.about} alt="Saeed Accounting advisory team" label="About image" />
+          <Img
+            src={IMAGES.about}
+            alt="Saeed Accounting advisers in a boardroom meeting with UAE business clients"
+            label="About image"
+          />
         </div>
 
         <div className="about__copy">
