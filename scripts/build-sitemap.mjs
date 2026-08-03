@@ -21,6 +21,10 @@ const EXTRA_ROUTES = [
   '',
   'about-us',
   'contact-us',
+  /* The listing only. Individual /blog/<slug> posts live in the database and
+     are created after a build, so they can't be enumerated here — a crawler
+     reaches them by following the links on this page. */
+  'blog',
   'uae-corporate-tax-registration',
   'uae-vat-registration',
   'vat-services-uae',

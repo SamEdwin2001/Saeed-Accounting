@@ -44,6 +44,7 @@ export const NAV = [
       { label: 'PRO Services', to: '/pro-services' },
     ],
   },
+  { label: 'Blog', to: '/blog' },
   { label: 'About Us', to: '/about-us' },
   { label: 'Contact Us', to: '/contact-us' },
 ]
@@ -61,6 +62,7 @@ export const BARE_CHROME_PATHS = [
 export const FOOTER_QUICK_LINKS = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about-us' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact-us' },
 ]
 

@@ -26,6 +26,8 @@ const CorporateTaxLanding = lazy(() => import('./pages/CorporateTaxLanding.jsx')
 const CtFilingPage = lazy(() => import('./pages/CtFilingPage.jsx'))
 const AboutPage = lazy(() => import('./pages/AboutPage.jsx'))
 const ContactPage = lazy(() => import('./pages/ContactPage.jsx'))
+const BlogPage = lazy(() => import('./pages/BlogPage.jsx'))
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound.jsx'))
 
 /* The dashboard is a separate app behind a login — it renders without the
@@ -71,6 +73,12 @@ export default function App() {
  */
 function RouteSeo() {
   const { pathname } = useLocation()
+
+  /* A blog post's title and description belong to the post, not to a static
+     table, and only exist once it has loaded — BlogPostPage renders its own
+     <Seo>. Bowing out here keeps the two from overwriting each other. */
+  if (/^\/blog\/.+/.test(pathname)) return null
+
   const meta = seoFor(pathname)
 
   return (
@@ -136,6 +144,12 @@ function PublicSite() {
 
             <Route path="/about-us" element={<AboutPage />} />
             <Route path="/contact-us" element={<ContactPage />} />
+
+            {/* Posts are written in the admin panel, so the slug is only known
+                at runtime — one dynamic route rather than one per post. */}
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

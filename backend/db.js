@@ -70,6 +70,31 @@ export async function init() {
       created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
   `)
+
+  /* Blog posts written in the admin panel and rendered at /blog and
+     /blog/<slug>.
+     - slug is UNIQUE because it *is* the public URL: two posts sharing one
+       would make the second unreachable.
+     - categories is a comma-separated list rather than its own table. The
+       filter chips on /blog are the only consumer, the set is small and
+       author-typed, and a join table would buy nothing here.
+     - published_at is a DATE, not DATETIME: the card and the article show a
+       day, and the admin form's date input has no time part to store. */
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS blog_posts (
+      id           INT AUTO_INCREMENT PRIMARY KEY,
+      title        VARCHAR(200) NOT NULL,
+      slug         VARCHAR(200) NOT NULL UNIQUE,
+      categories   VARCHAR(255) NOT NULL DEFAULT '',
+      image        VARCHAR(255) NOT NULL DEFAULT '',
+      content      MEDIUMTEXT   NOT NULL,
+      published    TINYINT      NOT NULL DEFAULT 1,
+      published_at DATE         NULL,
+      created_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      INDEX idx_blog_listing (published, published_at)
+    )
+  `)
 }
 
 /* Seed the single admin account on first run. Credentials come from .env so the

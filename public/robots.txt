@@ -3,7 +3,10 @@ Allow: /
 
 # The dashboard is behind a login and the API returns JSON — neither belongs
 # in an index. Everything else is open.
+# Blog post images are the exception: they are served from /api/uploads/ and
+# should stay eligible for image search. The longer rule wins over the block.
 Disallow: /admin
 Disallow: /api/
+Allow: /api/uploads/
 
 Sitemap: https://saeedaccounting.com/sitemap.xml

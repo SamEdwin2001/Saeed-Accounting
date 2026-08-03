@@ -3,6 +3,7 @@ dist
 dist.zip
 backend/.env
 backend/data/
+backend/uploads/
 *.db
 *.db-wal
 *.db-shm

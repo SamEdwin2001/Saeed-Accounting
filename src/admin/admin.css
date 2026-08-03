@@ -997,3 +997,148 @@
     animation: none;
   }
 }
+
+/* ============================================================
+   Blog manager
+   ============================================================ */
+
+/* The post body needs a tall textarea, so the editor replaces the page rather
+   than sitting in a modal: image column on the left, fields on the right. */
+.blg-form {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: start;
+  gap: 1.6rem;
+  padding: 1.5rem;
+  background: var(--adm-card);
+  border: 1px solid var(--adm-line);
+  border-radius: 14px;
+}
+
+.blg-form__media {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.blg-form__fields {
+  max-width: 640px;
+}
+
+/* Shared by the form's preview and the list's row thumbnails, so an image
+   reads the same in both places. */
+.blg-thumb {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 44px;
+  flex: none;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f7ede1;
+}
+
+.blg-thumb--lg {
+  width: 100%;
+  height: 130px;
+  border-radius: 10px;
+}
+
+.blg-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blg-thumb__empty {
+  padding: 0 0.4rem;
+  color: var(--adm-muted);
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.blg-upload {
+  width: 100%;
+}
+
+.blg-remove {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--adm-red);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.blg-remove:hover {
+  text-decoration: underline;
+}
+
+/* Field hints sit inside the <span> label, so they must not inherit its
+   weight — otherwise the parenthetical reads as loud as the label. */
+.blg-hint {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--adm-muted);
+}
+
+/* Live preview of the address the post will get. */
+.blg-slug {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--adm-muted);
+  font-size: 0.78rem;
+  word-break: break-all;
+}
+
+.blg-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.blg-check input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--adm-red);
+  cursor: pointer;
+}
+
+.blg-form__foot {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ---------- List ---------- */
+
+.blg-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 220px;
+}
+
+.blg-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.blg-cat {
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 999px;
+  background: var(--adm-bg);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .blg-form {
+    grid-template-columns: 1fr;
+  }
+}

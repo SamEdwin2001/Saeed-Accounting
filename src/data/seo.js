@@ -160,6 +160,14 @@ export const ROUTE_SEO = {
     description:
       'Get in touch with Saeed Accounting for VAT, corporate tax, bookkeeping & business setup services in the UAE. Book your free consultation today.',
   },
+
+  /* The listing only. Each /blog/<slug> article carries meta drawn from the
+     post itself — see pages/BlogPostPage.jsx. */
+  blog: {
+    title: 'Blog - VAT, Corporate Tax & Accounting Updates UAE',
+    description:
+      'Read the latest UAE VAT, corporate tax and bookkeeping updates from Saeed Accounting — FTA deadlines, compliance guidance and practical advice for businesses.',
+  },
 }
 
 /** Shown on unmatched routes. noindex, so length rules do not apply. */

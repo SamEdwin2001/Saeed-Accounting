@@ -21,6 +21,7 @@ const EXTRA_ROUTES = [
   'corporate-tax-filing-uae',
   'about-us',
   'contact-us',
+  'blog',
 ]
 
 const TITLE_MAX = 60

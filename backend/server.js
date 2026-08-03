@@ -11,13 +11,33 @@ import { seedAdmin, init } from './db.js'
 import authRoutes from './routes/auth.js'
 import leadRoutes from './routes/leads.js'
 import whatsappRoutes from './routes/whatsapp.js'
+import blogRoutes, { UPLOAD_DIR } from './routes/blog.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express()
 const PORT = process.env.PORT || 4000
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173' }))
-app.use(express.json({ limit: '100kb' }))
+
+/* Lead and admin payloads are small, so 100kb is a deliberate ceiling on what
+   the API will read. Blog posts are the one exception: a long article — more so
+   one with an inline data: image pasted into its HTML — runs past it honestly,
+   and rejecting the save would lose the author's work. */
+const jsonSmall = express.json({ limit: '100kb' })
+const jsonPost = express.json({ limit: '4mb' })
+app.use((req, res, next) =>
+  (req.path.startsWith('/api/blog/admin/posts') ? jsonPost : jsonSmall)(req, res, next)
+)
+
+/* Blog post images. Mounted above the no-store rule below because these are
+   static files, not API data: their names are random and never reused, so a
+   long immutable cache is safe and saves re-downloading every image on each
+   visit. Lives under /api only so Vite's dev proxy forwards it — in production
+   it is the same origin either way. */
+app.use(
+  '/api/uploads',
+  express.static(UPLOAD_DIR, { maxAge: '1y', immutable: true, index: false, fallthrough: false })
+)
 
 /* API responses are dynamic and must never be cached. Without this the browser
    (or a reverse proxy) can replay a stale GET after an edit/toggle — e.g. the
@@ -32,6 +52,7 @@ app.get('/api/health', (_req, res) => res.json({ ok: true }))
 app.use('/api/auth', authRoutes)
 app.use('/api/leads', leadRoutes)
 app.use('/api/whatsapp', whatsappRoutes)
+app.use('/api/blog', blogRoutes)
 
 /* In production this same process also serves the built frontend (dist/), so a
    single CloudPanel reverse-proxy target covers the whole site. In development

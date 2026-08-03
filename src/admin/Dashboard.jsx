@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { api, clearToken } from './api.js'
 import Sparkline from './Sparkline.jsx'
 import WhatsAppPage from './WhatsApp.jsx'
+import BlogPage from './Blog.jsx'
 import {
   UserIcon,
   UsersIcon,
@@ -12,6 +13,7 @@ import {
   Menu,
   Close,
   WhatsApp,
+  BookIcon,
 } from '../components/Icons.jsx'
 
 const STATUSES = ['new', 'contacted', 'closed']
@@ -52,7 +54,7 @@ export default function Dashboard({ username, onSignOut }) {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [navOpen, setNavOpen] = useState(false)
-  const [page, setPage] = useState('enquiries') // 'enquiries' | 'whatsapp'
+  const [page, setPage] = useState('enquiries') // 'enquiries' | 'whatsapp' | 'blog'
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -146,6 +148,18 @@ export default function Dashboard({ username, onSignOut }) {
             </span>
             WhatsApp
           </button>
+          <button
+            className={`adm-nav__item ${page === 'blog' ? 'is-active' : ''}`}
+            onClick={() => {
+              setPage('blog')
+              setNavOpen(false)
+            }}
+          >
+            <span className="adm-nav__ico">
+              <BookIcon />
+            </span>
+            Blog
+          </button>
 
           {page === 'enquiries' && (
             <>
@@ -210,6 +224,8 @@ export default function Dashboard({ username, onSignOut }) {
         <main className="adm-main">
           {page === 'whatsapp' ? (
             <WhatsAppPage />
+          ) : page === 'blog' ? (
+            <BlogPage />
           ) : (
             <>
           <div className="adm-head">
