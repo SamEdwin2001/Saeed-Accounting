@@ -182,7 +182,7 @@ export default function VatRegistrationPage({
                 used on the home page, not artwork specific to VAT. */}
             <Img
               src={IMAGES.hero}
-              alt="Adviser and business owner reviewing VAT paperwork on a tablet in a Dubai office"
+              alt="Business consultant assisting a client with VAT registration in the UAE"
               className="hero__image"
               label="Hero image"
             />

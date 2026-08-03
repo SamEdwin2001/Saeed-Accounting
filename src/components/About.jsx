@@ -9,7 +9,7 @@ export default function About() {
         <div className="about__media">
           <Img
             src={IMAGES.about}
-            alt="Saeed Accounting advisers in a boardroom meeting with UAE business clients"
+            alt="Professional accounting and tax advisory team at Saeed Accounting, UAE"
             label="About image"
           />
         </div>

@@ -28,11 +28,10 @@ export const SERVICES = [
     // Leading words of the centred heading render orange.
     titleAccent: 'Accounts receivable',
     introImage: '/images/services/accounts-receivable-1.jpg',
-    introImageAlt:
-      'Notebook with "accounts receivable" written on it beside a sales chart and reading glasses',
+    introImageAlt: 'Accountant reviewing accounts receivable and invoice tracking for a UAE business',
     listImage: '/images/services/accounts-receivable-2.jpg',
     listImageAlt:
-      'Two accountants reconciling an invoice ledger with a calculator and laptop',
+      'Accounts receivable management and outstanding payment collection services in Dubai',
     // Must match the source casing of `listHeading`; CSS does the uppercasing.
     listHeadingAccent: 'Our Accounts Receivable Services',
     listHeadingUpper: true,
@@ -73,8 +72,7 @@ export const SERVICES = [
        calculator on financial statements, which is what the alt describes. */
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785148321/Voluntary-VAT-Registration-The-Advantages-and-Disadvantages_aymfa0.webp',
-    introImageAlt:
-      'Accountant totalling supplier invoices on a calculator beside printed financial statements',
+    introImageAlt: 'Accounts payable management and vendor payment processing services in the UAE',
     introImageSide: 'left',
     listHeadingAccent: 'Our Accounts Payable Services',
     listHeadingUpper: true,
@@ -118,7 +116,7 @@ export const SERVICES = [
     headingUpper: true,
     introImage: 'https://res.cloudinary.com/dekhukonj/image/upload/v1785148512/ab_hkjywu.webp',
     introImageAlt:
-      'Bookkeepers checking figures on a calculator in front of a laptop showing revenue charts',
+      'Professional bookkeeping and accounting services for small businesses in Dubai',
     introImageRatio: '7 / 5',
     listHeadingAccent: 'Our Accounting and Bookkeeping Services',
     listHeadingUpper: true,
@@ -171,14 +169,13 @@ export const SERVICES = [
     subheadingAccent: 'Across Dubai',
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785148800/WhatsApp-Image-2022-09-16-at-3.22.20-PM-rhpdihuendka805lz9jd43espplosg0j74q3wfz568_iclemy.webp',
-    introImageAlt:
-      'Finance director reviewing a growth chart at a desk of performance reports and a laptop',
+    introImageAlt: 'Virtual CFO consultation for strategic financial planning in the UAE',
     introImageRatio: '9 / 10',
     /* Same artwork as the intro image — the page shows it twice. */
     listImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785148955/cfo_fyyvnm.webp',
     listImageAlt:
-      'Illustration of CFO responsibilities — budgeting, forecasting, cash flow and reporting icons',
+      'Outsourced CFO services helping UAE businesses with financial strategy and growth',
     listImageRatio: '1 / 1',
     listHeadingAccent: 'Our Outsourced CFO',
     listHeadingUpper: true,
@@ -244,8 +241,7 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785150811/VAT-Return-Filing-Services-In-Oman_hb4hbi.webp',
-    introImageAlt:
-      'Two colleagues working through VAT return figures on paper between two laptops',
+    introImageAlt: 'VAT return filing services for businesses in Oman',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -319,7 +315,7 @@ export const SERVICES = [
     headingUpper: true,
     introImage: 'https://res.cloudinary.com/dekhukonj/image/upload/v1785151044/VAT-REFUND_kytk3q.webp',
     introImageAlt:
-      'Close-up of hands calculating a VAT refund claim on a desk calculator over a printed return',
+      'VAT refund claim processing and consultancy services in the UAE',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -334,7 +330,7 @@ export const SERVICES = [
       {
         image:
           'https://res.cloudinary.com/dekhukonj/image/upload/v1785151246/vat_consultant_in_dubai_cmd22f.webp',
-        alt: 'Consultant completing a VAT return form, beside a panel reading "VAT Return Filing in UAE"',
+        alt: 'VAT consultant in Dubai assisting a client with a VAT refund claim',
         caption: 'VAT Return Filing in UAE',
       },
       { heading: 'Output Tax' },
@@ -357,8 +353,7 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785152176/VAT-AMENDMENT_kdgoxt.webp',
-    introImageAlt:
-      'Two advisers comparing a printed VAT return against a laptop to identify an error to amend',
+    introImageAlt: 'VAT amendment and registration update services for UAE businesses',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -474,8 +469,7 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785152438/Implementation_ujnal7.webp',
-    introImageAlt:
-      'Handshake over a signed contract at a meeting table with corporate tax reports',
+    introImageAlt: 'Corporate tax implementation and compliance setup for UAE companies',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -498,8 +492,7 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785155094/Voluntary-VAT-Registration-The-Advantages-and-Disadvantages_1_qy0ead.webp',
-    introImageAlt:
-      'Tax adviser working through corporate tax figures on a calculator over financial reports',
+    introImageAlt: 'Corporate tax advisory consultation for UAE business owners',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -552,8 +545,7 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785155793/RERA-certified-local-sponsor_a2ge6n.webp',
-    introImageAlt:
-      'Business owner discussing a company set-up with two consultants in a Dubai office',
+    introImageAlt: 'Business formation and company setup consultancy services in the UAE',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -683,8 +675,7 @@ export const SERVICES = [
     headingUpper: true,
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785214527/RERA-certified-local-sponsor_1_wyuopb.webp',
-    introImageAlt:
-      'Emirati local sponsor meeting two investors to agree a mainland company arrangement',
+    introImageAlt: 'RERA-certified local sponsor services for company setup in Dubai',
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
@@ -737,8 +728,7 @@ export const SERVICES = [
     lead: "By outsourcing your company's Corporate PRO services in Dubai, Abu Dhabi, Sharjah, and the rest of the UAE, you avail the following benefits",
     introImage:
       'https://res.cloudinary.com/dekhukonj/image/upload/v1785214911/68656727-double-exposure-of-professional-businessman-connecting-cloud-technology-on-hand-with-cloud-and-sky-i_qihl0s.webp',
-    introImageAlt:
-      'Businessman holding a cloud icon, representing PRO document processing handled online',
+    introImageAlt: 'PRO services for visa, licensing and government document processing in the UAE',
     introImageSide: 'left',
     introImageRatio: '11 / 9',
     // The benefits render as an orange check-list beside the image.

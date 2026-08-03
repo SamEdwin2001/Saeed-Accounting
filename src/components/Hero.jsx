@@ -48,7 +48,7 @@ export default function Hero() {
         <div className="hero__media">
           <Img
             src={IMAGES.hero}
-            alt="Accountant and Emirati client reviewing figures on a tablet in a Dubai office"
+            alt="Saeed Accounting team meeting with a client to discuss accounting and tax services in Dubai"
             className="hero__image"
             label="Hero image"
           />
