@@ -85,6 +85,7 @@ function RouteSeo() {
     <Seo
       title={meta ? meta.title : NOT_FOUND_SEO.title}
       description={meta ? meta.description : NOT_FOUND_SEO.description}
+      keywords={meta ? meta.keywords : null}
       path={pathname}
       noindex={!meta}
     />

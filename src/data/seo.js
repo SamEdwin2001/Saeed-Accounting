@@ -25,6 +25,8 @@ export const ROUTE_SEO = {
     title: 'Accounting Firm in UAE | VAT, Corporate Tax & Bookkeeping',
     description:
       'Trusted accounting firm in UAE offering VAT, corporate tax, bookkeeping & CFO services. FTA-registered tax agents helping Dubai businesses stay compliant. Get a free consultation.',
+    keywords:
+      'accounting firm in UAE, accounting company Dubai, tax consultants UAE, accounting and bookkeeping services UAE, VAT and corporate tax consultants Dubai, best accounting firm in Dubai',
   },
 
   /* ---- Accounting ---- */
@@ -32,21 +34,29 @@ export const ROUTE_SEO = {
     title: 'Accounting & Bookkeeping Services in UAE',
     description:
       'Professional accounting and bookkeeping services in UAE for SMEs and large businesses. Accurate records, financial reports & FTA-compliant books. Book a free demo.',
+    keywords:
+      'accounting and bookkeeping services UAE, bookkeeping services Dubai, outsourced accounting services UAE, small business bookkeeping Dubai, monthly bookkeeping services UAE, accounting services for SMEs',
   },
   'accounts-receivable-services': {
     title: 'Accounts Receivable Services in UAE',
     description:
       'Improve cash flow with professional accounts receivable services in UAE. We manage invoicing, collections & credit control for businesses in Dubai. Contact us today.',
+    keywords:
+      'accounts receivable services UAE, accounts receivable management Dubai, AR outsourcing services, receivables management company UAE, credit control services Dubai',
   },
   'accounts-payable-services': {
     title: 'Accounts Payable Services in UAE',
     description:
       'Streamline vendor payments with expert accounts payable services in UAE. We handle invoice processing, approvals & payment management for Dubai businesses.',
+    keywords:
+      'accounts payable services UAE, accounts payable outsourcing Dubai, AP management services, vendor payment processing UAE, accounts payable management company',
   },
   'cfo-services': {
     title: 'CFO Services in UAE | Virtual & Outsourced CFO',
     description:
       'Get expert virtual CFO services in UAE without the full-time cost. Financial strategy, forecasting & reporting for growing businesses in Dubai. Talk to our team.',
+    keywords:
+      'CFO services UAE, virtual CFO services Dubai, outsourced CFO UAE, part time CFO services, financial advisory services UAE, fractional CFO Dubai',
   },
 
   /* ---- VAT ---- */
@@ -54,31 +64,43 @@ export const ROUTE_SEO = {
     title: 'VAT Registration Services in UAE | FTA Experts',
     description:
       'Register your business for VAT in the UAE with FTA-approved consultants. Fast, accurate VAT registration and TRN issuance for mainland & free zone companies.',
+    keywords:
+      'VAT registration UAE, VAT registration Dubai, FTA VAT registration, VAT registration consultants UAE, TRN registration UAE, how to register for VAT in UAE',
   },
   'vat-return-filling': {
     title: 'VAT Return Filing Services in UAE',
     description:
       'Timely and accurate VAT return filing services in UAE. Avoid FTA penalties with expert quarterly VAT filing support for Dubai businesses. Get started today.',
+    keywords:
+      'VAT return filing UAE, VAT filing services Dubai, VAT return submission UAE, quarterly VAT return filing, FTA VAT return, VAT compliance services UAE',
   },
   'vat-de-registration': {
     title: 'VAT De-Registration Services in UAE | Saeed Accounting',
     description:
       'Need to cancel your VAT registration? Our tax agents handle VAT deregistration with the FTA quickly and correctly, avoiding delays and penalties in the UAE.',
+    keywords:
+      'VAT deregistration UAE, VAT deregistration services Dubai, VAT cancellation UAE, FTA VAT deregistration, cancel VAT registration UAE',
   },
   'vat-audit': {
     title: 'VAT Audit Services in UAE | FTA Audit Support | Saeed Accounting',
     description:
       'Prepare for an FTA VAT audit with confidence. Our VAT audit services in UAE review your records, identify risks and ensure full compliance. Contact us now.',
+    keywords:
+      'VAT audit services UAE, VAT audit Dubai, FTA VAT audit assistance, tax audit services UAE, VAT health check UAE',
   },
   'vat-refund': {
     title: 'VAT Refund Services in UAE | Saeed Accounting',
     description:
       'Recover eligible input VAT with our VAT refund services in UAE. We manage the FTA refund application process end-to-end for businesses in Dubai.',
+    keywords:
+      'VAT refund services UAE, VAT refund Dubai, VAT reclaim UAE, input VAT recovery services, VAT refund for tourists UAE, VAT refund application FTA',
   },
   'vat-amendment': {
     title: 'VAT Amendment Services in UAE | Saeed Accounting',
     description:
       'Update your VAT registration details correctly with our VAT amendment services in UAE. We manage FTA amendment applications for businesses across Dubai.',
+    keywords:
+      'VAT amendment services UAE, VAT registration amendment Dubai, amend VAT details FTA, update VAT registration UAE, VAT certificate amendment',
   },
 
   /* ---- Corporate tax ---- */
@@ -86,21 +108,29 @@ export const ROUTE_SEO = {
     title: 'Corporate Tax Registration Services in UAE',
     description:
       'Register your business for UAE corporate tax with FTA-registered experts. Fast, compliant corporate tax registration for mainland & free zone companies.',
+    keywords:
+      'corporate tax registration UAE, UAE corporate tax registration services, FTA corporate tax registration, corporate tax registration for free zone companies, register for corporate tax UAE',
   },
   'corporate-tax-filing': {
     title: 'Corporate Tax Filing Services in UAE',
     description:
       'Accurate, on-time corporate tax return filing services in UAE. Stay compliant with FTA deadlines and avoid penalties. Speak with our tax experts today.',
+    keywords:
+      'corporate tax filing UAE, corporate tax return filing Dubai, UAE corporate tax return services, corporate tax filing consultants, corporate tax compliance UAE',
   },
   'corporate-tax-implementation': {
     title: 'Corporate Tax Implementation Services in UAE | Saeed Accounting',
     description:
       'Get your business corporate tax ready in UAE. We help implement systems, processes & documentation to meet FTA corporate tax requirements. Contact us today.',
+    keywords:
+      'corporate tax implementation UAE, corporate tax implementation services Dubai, corporate tax readiness UAE, corporate tax setup for business, corporate tax transition services',
   },
   'corporate-tax-advisory': {
     title: 'Corporate Tax Advisory Services in UAE | Saeed Accounting',
     description:
       'Strategic corporate tax advisory services in UAE from experienced consultants. Tax planning, structuring & compliance guidance for Dubai businesses.',
+    keywords:
+      'corporate tax advisory UAE, corporate tax consultants Dubai, corporate tax planning UAE, corporate tax advisory services, UAE corporate tax consultancy',
   },
 
   /* ---- Business setup ---- */
@@ -108,16 +138,22 @@ export const ROUTE_SEO = {
     title: 'Business Formation Services in UAE | Company Setup | Saeed Accounting',
     description:
       'Start your business in the UAE with expert business formation services. Mainland, free zone & offshore company setup handled end-to-end. Get a free quote.',
+    keywords:
+      'business setup services UAE, company formation Dubai, business formation consultants UAE, mainland company formation, free zone company setup UAE, new business registration Dubai',
   },
   'local-sponsor': {
     title: 'Local Sponsor Services in UAE | Local Service Agent | Saeed Accounting',
     description:
       'Reliable local sponsor and local service agent services in UAE for mainland company setup. Compliant, transparent partnerships for Dubai businesses.',
+    keywords:
+      'local sponsor UAE, local service agent Dubai, UAE local sponsor for mainland company, local sponsor services Dubai, local partner for LLC UAE',
   },
   'pro-services': {
     title: 'PRO Services in UAE | Government Liaison Services',
     description:
       'Save time on paperwork with professional PRO services in UAE. Visa processing, license renewals & government approvals handled for you in Dubai.',
+    keywords:
+      'PRO services UAE, PRO services Dubai, government liaison services UAE, visa and PRO services, company documentation services Dubai, PRO services company',
   },
 
   /* ---- SEO landing variants ----
@@ -151,14 +187,18 @@ export const ROUTE_SEO = {
 
   /* ---- Site pages ---- */
   'about-us': {
-    title: 'About Us - Accounting & Tax Consultants UAE | Saeed Accounting',
+    title: 'About Us | Saeed Accounting - Accounting & Tax Consultants UAE',
     description:
       'Learn about Saeed Accounting, an FTA-approved accounting and tax consultancy serving businesses across the UAE with VAT, corporate tax & bookkeeping expertise.',
+    keywords:
+      'accounting firm in Dubai about, Saeed Accounting company profile, tax consultancy UAE team, FTA approved tax agents Dubai, accounting firm history UAE',
   },
   'contact-us': {
-    title: 'Contact Us - VAT & Corporate Tax Consultants UAE | Saeed Accounting',
+    title: 'Contact Us | Saeed Accounting - VAT & Corporate Tax Consultants UAE',
     description:
       'Get in touch with Saeed Accounting for VAT, corporate tax, bookkeeping & business setup services in the UAE. Book your free consultation today.',
+    keywords:
+      'accounting firm Dubai contact, contact tax consultant Dubai, book accounting consultation UAE, VAT consultant contact number, get in touch Saeed Accounting',
   },
 
   /* The listing only. Each /blog/<slug> article carries meta drawn from the

@@ -42,7 +42,7 @@ function setProp(property, content) {
  * @param path      Route pathname, used for canonical/og:url. Falsy → skipped.
  * @param noindex   Set on pages that must stay out of the index (404).
  */
-export default function Seo({ title, description, path, noindex = false }) {
+export default function Seo({ title, description, keywords, path, noindex = false }) {
   useEffect(() => {
     /* Titles arrive complete from data/seo.js — the brand suffix is written
        into the ones that want it, rather than appended to all of them. */
@@ -50,6 +50,10 @@ export default function Seo({ title, description, path, noindex = false }) {
     document.title = full
 
     setMeta('description', description)
+    /* Google has ignored meta keywords since 2009; carried because the client's
+       SEO sheet specifies them per page, and some smaller engines still read
+       them. It costs a tag and changes nothing about how Google ranks a page. */
+    setMeta('keywords', keywords)
 
     /* Canonical: the site serves duplicate content on paired routes
        (/uae-vat-registration mirrors /vat-registration-services), so each
@@ -72,7 +76,7 @@ export default function Seo({ title, description, path, noindex = false }) {
        explicitly reset to "index" on indexable pages, or a visit to the 404
        would leave every later route noindexed for that session. */
     setMeta('robots', noindex ? 'noindex, follow' : 'index, follow')
-  }, [title, description, path, noindex])
+  }, [title, description, keywords, path, noindex])
 
   return null
 }
