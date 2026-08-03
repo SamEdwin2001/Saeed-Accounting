@@ -13,15 +13,13 @@ import {
   GearIcon,
 } from './Icons.jsx'
 
-/* `to` is the page each card's "Read more" opens, per the client's link sheet.
-   Accounts Receivable points at /accounting-bookkeeping there rather than its
-   own page — kept as supplied. */
+/* `to` is the page each card's "Read more" opens. */
 const ACCOUNTING = [
   {
     icon: UserIcon,
     title: 'Accounts Receivable Services',
     text: 'Accounts receivable services involve managing and tracking customer payments owed to a business.',
-    to: '/accounting-bookkeeping',
+    to: '/accounts-receivable-services',
   },
   {
     icon: InvoiceIcon,
