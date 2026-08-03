@@ -2409,6 +2409,32 @@ a.ctc-ch__value:hover {
   color: var(--body);
 }
 
+/* The cards in a row have different amounts of text, so `margin-top: auto`
+   pushes every link to the bottom and keeps them on one line across the row. */
+.card__link {
+  margin-top: auto;
+  padding-top: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--orange);
+}
+
+.card__link::after {
+  content: '→';
+  transition: transform 0.2s ease;
+}
+
+.card__link:hover {
+  text-decoration: underline;
+}
+
+.card__link:hover::after {
+  transform: translateX(3px);
+}
+
 /* ------------------------------------------------------------
    7. About
    ------------------------------------------------------------ */

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import {
   UserIcon,
   InvoiceIcon,
@@ -11,26 +13,33 @@ import {
   GearIcon,
 } from './Icons.jsx'
 
+/* `to` is the page each card's "Read more" opens, per the client's link sheet.
+   Accounts Receivable points at /accounting-bookkeeping there rather than its
+   own page — kept as supplied. */
 const ACCOUNTING = [
   {
     icon: UserIcon,
     title: 'Accounts Receivable Services',
     text: 'Accounts receivable services involve managing and tracking customer payments owed to a business.',
+    to: '/accounting-bookkeeping',
   },
   {
     icon: InvoiceIcon,
     title: 'Accounts Payable Services',
     text: "Accounts payable services involve managing and processing a company's obligations to pay its suppliers and vendors",
+    to: '/accounts-payable-services',
   },
   {
     icon: LedgerIcon,
     title: 'Accounting & Bookkeeping',
     text: "Accounting and bookkeeping services involve the systematic recording, classifying, and summarizing of a company's financial transactions",
+    to: '/accounting-bookkeeping',
   },
   {
     icon: BookIcon,
     title: 'CFO Services',
     text: 'CFO (Chief Financial Officer) services provide strategic financial leadership to businesses without the need for a full-time CFO',
+    to: '/cfo-services',
   },
 ]
 
@@ -39,16 +48,19 @@ const VAT = [
     icon: FileIcon,
     title: 'VAT Registration',
     text: 'VAT (Value Added Tax) registration services assist businesses in complying with VAT regulations by registering them with the appropriate tax authorities',
+    to: '/vat-registration-services',
   },
   {
     icon: IdCardIcon,
     title: 'VAT Return Filling',
     text: 'VAT return filing services help businesses accurately report and submit their VAT (Value Added Tax) returns to the tax authorities within the required deadlines',
+    to: '/vat-return-filling',
   },
   {
     icon: EditIcon,
     title: 'VAT–De–Registration',
     text: 'VAT de-registration services assist businesses in officially removing themselves from the VAT system when they no longer meet the requirements to remain VAT-registered.',
+    to: '/vat-de-registration',
   },
 ]
 
@@ -57,20 +69,23 @@ const SUPPORT = [
     icon: UsersIcon,
     title: 'Business Formation',
     text: 'Business formation services guide entrepreneurs and companies through the process of legally establishing a new business entity.',
+    to: '/business-formation',
   },
   {
     icon: CheckCircle,
     title: 'Local Sponsor',
     text: 'Local sponsor services are essential for foreign entrepreneurs and companies looking to establish a business in countries where foreign ownership restrictions apply, such as the UAE',
+    to: '/local-sponsor',
   },
   {
     icon: GearIcon,
     title: 'PRO Services',
     text: 'PRO services assist businesses with government-related documentation and administrative processes, ensuring compliance with legal and regulatory requirements',
+    to: '/pro-services',
   },
 ]
 
-function ServiceCard({ icon: Icon, title, text }) {
+function ServiceCard({ icon: Icon, title, text, to }) {
   return (
     <article className="card">
       <span className="card__icon">
@@ -78,6 +93,16 @@ function ServiceCard({ icon: Icon, title, text }) {
       </span>
       <h3 className="card__title">{title}</h3>
       <p className="card__text">{text}</p>
+
+      {/* Cards sit in a grid row, so the link is pushed to the bottom by CSS —
+          otherwise it would float mid-card wherever the text happens to end.
+          aria-label names the service: a screen reader listing the page's links
+          would otherwise hear "Read more" ten times over. */}
+      {to && (
+        <Link className="card__link" to={to} aria-label={`Read more about ${title}`}>
+          Read more
+        </Link>
+      )}
     </article>
   )
 }
