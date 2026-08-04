@@ -40,9 +40,9 @@ export const SERVICES = [
     listIntro: 'Account Receivable Services that Saeed Accounting offers include:',
     subheading: 'Leading Accounts Receivable Outsourcing Firm in Dubai and UAE',
     intro: [
-      'Proper management of cash flow is essential to all kinds of businesses. One of the most essential activities in the process is accounts receivable management. Accounts receivable services are where customers owe the company money from the sales of goods or services.',
+      'Proper management of cash flow is essential to all kinds of businesses. One of the most essential activities in the process is accounts receivable management. **Accounts receivable services** are where customers owe the company money from the sales of goods or services.',
       'This is the income that a company makes, which enables it to cater for expenses. As such, their management is essential and a must.',
-      'Accounts receivable services may seem easy for many, but it can be complicated as it involves a lot of invoicing and sharing credit to customers. Given the scope of a business, terms of agreements, and the number of clients, it is vital to have a system that manages outstanding funds.',
+      '**Accounts receivable services** may seem easy for many, but it can be complicated as it involves a lot of invoicing and sharing credit to customers. Given the scope of a business, terms of agreements, and the number of clients, it is vital to have a system that manages outstanding funds.',
     ],
     body: [
       'Accounts receivable management services provide monitor invoices, reduces collection times, track process times, increase timely payment rates, and more to improve the process.',
@@ -83,12 +83,12 @@ export const SERVICES = [
     intro: [
       'The primary goal of every business is to make profits and cut costs as much as possible. The last thing any entrepreneur would want to do is to make even the slightest mistake that would jeopardize the success of the business.',
       "That being said, it's not easy to manage your business and accounts payable at the same time- it is a tiresome job. You will have to hire a full-time employee to handle the accounts, and this in turn, may compromise your cost-saving plans.",
-      'However, you can save yourself from all the account trouble by outsourcing account payable services. A proper accounts payable service can help your business manage cash flow and capital the right way.',
+      'However, you can save yourself from all the account trouble by **outsourcing account payable services**. A proper accounts payable service can help your business manage cash flow and capital the right way.',
     ],
     // These two run full width beneath the image/copy split, as on the live page.
     body: [
       "You will also be able to establish great relationships with your business partners, consequently doing better cost-saving, and increase business agility. What's more, you will remain compliant with government policies and regulations.",
-      "We do the same thing at Saeed Accounting. We manage your entire accounts payable department so that you don't have to think about entering financial information manually and then tracking data — we handle all the stress for you.",
+      "We do the same thing at **Saeed Accounting**. We manage your entire accounts payable department so that you don't have to think about entering financial information manually and then tracking data — we handle all the stress for you.",
     ],
     listHeading: 'Our Accounts Payable Services Services in Dubai and UAE',
     // This page ends in a tab strip rather than a check-list.
@@ -127,11 +127,11 @@ export const SERVICES = [
       'Saeed Accounting focuses on the following aspects of accounting and bookkeeping:',
     intro: [
       "Today's business environment is extremely challenging. As such, managers become distracted from handling their key objectives in a world where work is done where it can be handled most effectively and efficiently.",
-      'Saeed Accounting takes away the grunt work and allows you to focus on the strategic role. By leveraging our expertise and talent, you can take advantage of our services into a fully-staffed, full-time accounting and bookkeeping Dubai and UAE team that is always there when you are.',
+      'Saeed Accounting takes away the grunt work and allows you to focus on the strategic role. By leveraging our expertise and talent, you can take advantage of our services into a fully-staffed, **full-time accounting and bookkeeping Dubai and UAE team** that is always there when you are.',
       'We ensure to take accounting out of the way of your success. This comes with innumerable benefits and deducts all the mundane work eating up your gold time which you can now spare to think of different ways to grow your business.',
     ],
     body: [
-      'Saeed Accounting provides inclusive accounting and bookkeeping outsource services for SMEs and corporations allowing senior management and owners sufficient time to channel their energy on business growth. We provide access to world-class accounting & bookkeeping services at a cost-effective rate.',
+      'Saeed Accounting provides inclusive **accounting and bookkeeping outsource services for SMEs** and corporations allowing senior management and owners sufficient time to channel their energy on business growth. We provide access to world-class accounting & bookkeeping services at a cost-effective rate.',
       'Our clients save a lot of money, as well as soft costs like spending the shortest time possible on accounting & bookkeeping.',
     ],
     listHeading: 'Our Accounting and Bookkeeping Services Dubai and UAE',
@@ -187,7 +187,7 @@ export const SERVICES = [
     // The live page runs these two paragraphs together and breaks mid-sentence
     // into the full-width block below; reproduced as-is.
     intro: [
-      'Successful CFOs are supposed to work together with businesses and help them make informed decisions. This affects the business directly. So, whether you are looking for an interim CFO Service or an Outsourced CFO Service to provide advisory services, you need a reliable partner. Saeed Accounting can provide leadership and the right steps to yield the positive results you desire.It is imperative for a CFO to study the goal of a business first before providing any insights on money management. CFO services in Dubai, UAE will suggest viable strategies to make the firm more profitable after analyzing all angles. For instance, a business owner who wants to attract sponsors will require a different strategy from a company that wants to expand its product range.in Dubai and across UAE are',
+      '**Successful CFOs** are supposed to work together with businesses and help them make informed decisions. This affects the business directly. So, whether you are looking for an interim CFO Service or an Outsourced CFO Service to provide advisory services, you need a reliable partner. Saeed Accounting can provide leadership and the right steps to yield the positive results you desire.It is imperative for a CFO to study the goal of a business first before providing any insights on money management. **CFO services in Dubai, UAE** will suggest viable strategies to make the firm more profitable after analyzing all angles. For instance, a business owner who wants to attract sponsors will require a different strategy from a company that wants to expand its product range.in Dubai and across UAE are',
     ],
     body: [
       'provided by financial experts who have knowledge of the local market and best practices. Because we are approved specialists, we have the know-how of handling the complex needs of our clients.',
@@ -218,7 +218,7 @@ export const SERVICES = [
     body: [
       { heading: 'Eligibility Criteria and Necessary Documents for VAT Registration UAE' },
       { heading: 'Voluntary VAT Registration' },
-      'In the UAE, businesses are eligible for VAT registration if they have a business location in the UAE and have made taxable supplies worth over AED 187,500 to member states in the past year. Additionally, companies can apply for VAT registration online if they expect their supply value to exceed the voluntary registration threshold of AED 187,500 within the upcoming 30 days.',
+      'In the UAE, businesses are eligible for VAT registration if they have a business location in the UAE and have made taxable supplies worth over AED 187,500 to member states in the past year. Additionally, companies can apply for **VAT registration online** if they expect their supply value to exceed the voluntary registration threshold of AED 187,500 within the upcoming 30 days.',
       { heading: 'Mandatory VAT Registration' },
       'Businesses are obligated to register for VAT in the UAE if they have a business location within a UAE emirate and have provided goods worth over AED 375,000 to member states in the last 12 months.',
     ],
@@ -248,13 +248,13 @@ export const SERVICES = [
     introImageSide: 'left',
     introImageRatio: '3 / 2',
     intro: [
-      'Get Expert Assistance from Trusted Outsourced VAT Return Filing Professionals',
+      'Get Expert Assistance from Trusted Outsourced **VAT Return Filing** Professionals',
       'The UAE government requires all businesses to file VAT returns. It is a directive that companies must comply with. The VAT tax is an official tax document that is submitted to the Federal Tax Authority. The UAE taxation law requires VAT returns to be filed quarterly.',
       'Typically, the tax document contains information on tax recoverable input and tax due output, as well as the net VAT applicable. The taxable individual or a person elected by the taxable party may file VAT returns.',
       'In other words, corporation tax return specialists or legal agents can file VAT returns on behalf of the taxable party.',
     ],
     body: [
-      'And because the law allows individuals and companies to hire Dubai vat filing agents, it is vital to work with VAT return services at reasonable rates and has the knowledge and expertise to manage VAT return filing based on UAE VAT laws.',
+      'And because the law allows individuals and companies to hire **Dubai vat filing agents**, it is vital to work with VAT return services at reasonable rates and has the knowledge and expertise to manage **VAT return filing** based on UAE VAT laws.',
     ],
   },
   {
@@ -553,7 +553,7 @@ export const SERVICES = [
     ],
     body: [
       { heading: 'Main Regulatory Authority for Company Registration in Dubai' },
-      'The main regulatory authority for company formation in Dubai is the Registrar of Companies it acts as a unified authority for carrying out different forms of compliance and registrations related to companies.',
+      'The main regulatory authority for **company formation in Dubai** is the Registrar of Companies it acts as a unified authority for carrying out different forms of compliance and registrations related to companies.',
       { heading: 'Jurisdiction of Company Registration in Dubai' },
       'The following areas can be chosen for company registration in Dubai.',
       { heading: 'Mainland' },

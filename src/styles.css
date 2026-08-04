@@ -766,6 +766,18 @@ button {
   margin-bottom: 1rem;
 }
 
+/* Keyword phrases marked bold in the copy. Body text is grey (#4a4a4a), and a
+   bold weight alone barely reads against it — these carry the page's target
+   keywords, so they take a near-black to stand out from the surrounding line. */
+.page__text strong,
+.page__lead strong,
+.page__list strong,
+.about__text strong,
+.elig-card__text strong {
+  color: #111;
+  font-weight: 700;
+}
+
 /* ---- Checklist section ---- */
 .page-list {
   padding: 2.6rem 0 4rem;

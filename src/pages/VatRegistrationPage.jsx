@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { withBold } from './ServicePage.jsx'
 import Img from '../components/Img.jsx'
 import Accordion from '../components/Accordion.jsx'
 import Reviews from '../components/Reviews.jsx'
@@ -16,14 +17,14 @@ const ELIGIBILITY = [
   {
     title: 'Voluntary VAT Registration',
     landingTitle: 'Voluntary Eligibility',
-    text: 'In the UAE, businesses are eligible for VAT registration if they have a business location in the UAE and have made taxable supplies worth over AED 187,500 to member states in the past year. Additionally, companies can apply for VAT registration online if they expect their supply value to exceed the voluntary registration threshold of AED 187,500 within the upcoming 30 days.',
+    text: 'In the UAE, businesses are eligible for VAT registration if they have a business location in the UAE and have made taxable supplies worth over AED 187,500 to member states in the past year. Additionally, companies can apply for **VAT registration online** if they expect their supply value to exceed the voluntary registration threshold of AED 187,500 within the upcoming 30 days.',
     landingText:
       'You may register by choice once your taxable supplies pass AED 187,500 over the past year, provided your business is based in the UAE. The same applies if you expect to cross that threshold within the next 30 days — you can apply online without waiting for the mandatory limit. Many businesses do so to reclaim the tax they pay on their own purchases.',
   },
   {
     title: 'Mandatory VAT Registration',
     landingTitle: 'Mandatory Eligibility',
-    text: 'Businesses are obligated to register for VAT in the UAE if they have a business location within a UAE emirate and have provided goods worth over AED 375,000 to member states in the last 12 months. Additionally, companies must complete the VAT registration process online if they expect the value of their supplies to surpass the mandatory registration threshold of AED 375,000 within the coming 30 days.',
+    text: 'Businesses are obligated to register for VAT in the UAE if they have a business location within a UAE emirate and have provided goods worth over AED 375,000 to member states in the last 12 months. Additionally, companies must complete the **VAT registration process online** if they expect the value of their supplies to surpass the mandatory registration threshold of AED 375,000 within the coming 30 days.',
     landingText:
       'You must register once your taxable supplies pass AED 375,000 over the previous 12 months, or as soon as you expect to cross that figure within the next 30 days. The application goes through the FTA portal, and the deadline is firm — a late filing carries an AED 10,000 penalty.',
   },
@@ -208,8 +209,10 @@ export default function VatRegistrationPage({
                   <h3 className="elig-card__head elig-card__head--orange">
                     {landing ? e.landingTitle || e.title : e.title}
                   </h3>
+                  {/* withBold runs last: term() rewrites the phrase on the
+                      landing route, so bolding has to read the final wording. */}
                   <p className="elig-card__text">
-                    {landing ? e.landingText || term(e.text) : e.text}
+                    {withBold(landing ? e.landingText || term(e.text) : e.text)}
                   </p>
                 </article>
               ))}

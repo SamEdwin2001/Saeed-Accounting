@@ -23,8 +23,10 @@ export default function About() {
           </h2>
           <p className="about__text">
             Saeed Accounting is a leading financial consultancy and business advisory firm in the
-            heart of Dubai. We strive to deliver a hundred percent on every tax advisory, auditing,
-            accounting &amp; bookkeeping, and other financial services.
+            heart of Dubai. We strive to deliver a hundred percent on every{' '}
+            <strong>tax advisory</strong>, <strong>auditing</strong>,{' '}
+            <strong>accounting &amp; bookkeeping</strong>, and other{' '}
+            <strong>financial services</strong>.
           </p>
           <Link className="btn btn--orange" to="/about-us">
             LEARN MORE

@@ -11,14 +11,30 @@ import { Check } from '../components/Icons.jsx'
  *   { list: [...] }         → bulleted list
  *   { image, caption }      → inline figure
  */
+/**
+ * Renders `**phrase**` in copy as <strong>. The SEO sheet nominates a keyword
+ * phrase per page to carry a bold tag; marking it in the copy keeps the wording
+ * and the emphasis in one place rather than splitting strings into JSX.
+ *
+ * Returns an array of strings and elements, which JSX renders in order. Text
+ * outside the markers stays escaped as normal — this is not an HTML parser.
+ */
+export function withBold(text) {
+  if (typeof text !== 'string' || !text.includes('**')) return text
+  return text.split(/\*\*(.+?)\*\*/g).map((part, i) =>
+    /* Odd indices are the captured groups, i.e. what sat inside the markers. */
+    i % 2 === 1 ? <strong key={i}>{part}</strong> : part,
+  )
+}
+
 function Block({ block }) {
-  if (typeof block === 'string') return <p className="page__text">{block}</p>
+  if (typeof block === 'string') return <p className="page__text">{withBold(block)}</p>
 
   if (block.list) {
     return (
       <ul className="page__list">
         {block.list.map((item) => (
-          <li key={item}>{item}</li>
+          <li key={item}>{withBold(item)}</li>
         ))}
       </ul>
     )
@@ -196,7 +212,7 @@ export default function ServicePage({ service }) {
               accent={listHeadingAccent}
               upper={listHeadingUpper}
             />
-            {listIntro && <p className="page__lead">{listIntro}</p>}
+            {listIntro && <p className="page__lead">{withBold(listIntro)}</p>}
 
             {tabs ? (
               <Tabs tabs={tabs} upper={tabsUpper} />
