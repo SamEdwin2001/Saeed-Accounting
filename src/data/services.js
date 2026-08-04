@@ -17,8 +17,10 @@
  * `{ heading: '...' }` (an inline sub-heading). Several live pages run
  * sub-headings inline with their prose; this keeps them styled correctly.
  *
- * NOTE: this is the live site's copy, reproduced as-is. See README notes —
- * some of it references other firms and mentions the US IRS.
+ * NOTE: this started as the live site's copy, reproduced as-is. References to
+ * another firm ("EAS" / "Excellence Accounting Services") and to the US IRS
+ * have since been rebranded to Saeed Accounting / the FTA. Some of the
+ * remaining prose is still scraped and reads oddly — see README notes.
  */
 export const SERVICES = [
   /* ---------------------------------------------------------- Accounting */
@@ -35,7 +37,7 @@ export const SERVICES = [
     // Must match the source casing of `listHeading`; CSS does the uppercasing.
     listHeadingAccent: 'Our Accounts Receivable Services',
     listHeadingUpper: true,
-    listIntro: 'Account Receivable Services that EAS offers include:',
+    listIntro: 'Account Receivable Services that Saeed Accounting offers include:',
     subheading: 'Leading Accounts Receivable Outsourcing Firm in Dubai and UAE',
     intro: [
       'Proper management of cash flow is essential to all kinds of businesses. One of the most essential activities in the process is accounts receivable management. Accounts receivable services are where customers owe the company money from the sales of goods or services.',
@@ -44,8 +46,8 @@ export const SERVICES = [
     ],
     body: [
       'Accounts receivable management services provide monitor invoices, reduces collection times, track process times, increase timely payment rates, and more to improve the process.',
-      'Excellence Accounting Services provides account receivable outsourcing services to companies all over UAE, to ease the accounts receivable management services. Partnering with EAS can help your company access manpower and tools to assist in the collection of outstanding payments.',
-      'We not only provide top-notch quality account receivable services, but also offer lockbox services, cash applications, and access to accounting reports. EAS also sends out weekly summaries of our follow up with customers, including metrics and analysis regarding outstanding debt.',
+      'Saeed Accounting provides account receivable outsourcing services to companies all over UAE, to ease the accounts receivable management services. Partnering with Saeed Accounting can help your company access manpower and tools to assist in the collection of outstanding payments.',
+      'We not only provide top-notch quality account receivable services, but also offer lockbox services, cash applications, and access to accounting reports. Our team also sends out weekly summaries of our follow up with customers, including metrics and analysis regarding outstanding debt.',
     ],
     listHeading: 'Our Accounts Receivable Services in Dubai and UAE',
     listItems: [
@@ -76,7 +78,8 @@ export const SERVICES = [
     introImageSide: 'left',
     listHeadingAccent: 'Our Accounts Payable Services',
     listHeadingUpper: true,
-    listIntro: 'EAS provides a comprehensive range of accounts payable services including the following:',
+    listIntro:
+      'Saeed Accounting provides a comprehensive range of accounts payable services including the following:',
     intro: [
       'The primary goal of every business is to make profits and cut costs as much as possible. The last thing any entrepreneur would want to do is to make even the slightest mistake that would jeopardize the success of the business.',
       "That being said, it's not easy to manage your business and accounts payable at the same time- it is a tiresome job. You will have to hire a full-time employee to handle the accounts, and this in turn, may compromise your cost-saving plans.",
@@ -85,7 +88,7 @@ export const SERVICES = [
     // These two run full width beneath the image/copy split, as on the live page.
     body: [
       "You will also be able to establish great relationships with your business partners, consequently doing better cost-saving, and increase business agility. What's more, you will remain compliant with government policies and regulations.",
-      "We do the same thing at saeedaccounting. We manage your entire accounts payable department so that you don't have to think about entering financial information manually and then tracking data- we handle all the stress for",
+      "We do the same thing at Saeed Accounting. We manage your entire accounts payable department so that you don't have to think about entering financial information manually and then tracking data — we handle all the stress for you.",
     ],
     listHeading: 'Our Accounts Payable Services Services in Dubai and UAE',
     // This page ends in a tab strip rather than a check-list.
@@ -96,11 +99,11 @@ export const SERVICES = [
       },
       {
         label: 'Processing Purchase Orders',
-        text: 'We process purchase orders. EAS experts create, approve order, dispatch, invoice, deliver and close orders. We include budget and quality checks',
+        text: 'We process purchase orders. Our experts create, approve order, dispatch, invoice, deliver and close orders. We include budget and quality checks',
       },
       {
         label: 'Processing Debit Memos',
-        text: 'EAS also processes debit memos, get rid of billing blocks, perform system integration and execute billing for our clients',
+        text: 'We also process debit memos, get rid of billing blocks, perform system integration and execute billing for our clients',
       },
       {
         label: 'Processing Standard Pricing Information',
@@ -121,14 +124,14 @@ export const SERVICES = [
     listHeadingAccent: 'Our Accounting and Bookkeeping Services',
     listHeadingUpper: true,
     listIntro:
-      'Excellence Accounting Services focuses on the following aspects of accounting and bookkeeping:',
+      'Saeed Accounting focuses on the following aspects of accounting and bookkeeping:',
     intro: [
       "Today's business environment is extremely challenging. As such, managers become distracted from handling their key objectives in a world where work is done where it can be handled most effectively and efficiently.",
-      'Excellence Accounting Services takes away the grunt work and allows you to focus on the strategic role. By leveraging our expertise and talent, you can take advantage of our services into a fully-staffed, full-time accounting and bookkeeping Dubai and UAE team that is always there when you are.',
+      'Saeed Accounting takes away the grunt work and allows you to focus on the strategic role. By leveraging our expertise and talent, you can take advantage of our services into a fully-staffed, full-time accounting and bookkeeping Dubai and UAE team that is always there when you are.',
       'We ensure to take accounting out of the way of your success. This comes with innumerable benefits and deducts all the mundane work eating up your gold time which you can now spare to think of different ways to grow your business.',
     ],
     body: [
-      'EAS provides inclusive accounting and bookkeeping outsource services for SMEs and corporations allowing senior management and owners sufficient time to channel their energy on business growth. We provide access to world-class accounting & bookkeeping services at a cost-effective rate.',
+      'Saeed Accounting provides inclusive accounting and bookkeeping outsource services for SMEs and corporations allowing senior management and owners sufficient time to channel their energy on business growth. We provide access to world-class accounting & bookkeeping services at a cost-effective rate.',
       'Our clients save a lot of money, as well as soft costs like spending the shortest time possible on accounting & bookkeeping.',
     ],
     listHeading: 'Our Accounting and Bookkeeping Services Dubai and UAE',
@@ -143,7 +146,7 @@ export const SERVICES = [
       },
       {
         label: 'Record Keeping',
-        text: 'EAS can manage your data entry, raise sales invoices, review statements of accounts and handle purchase accounts.',
+        text: 'We can manage your data entry, raise sales invoices, review statements of accounts and handle purchase accounts.',
       },
       {
         label: 'Reconciliations',
@@ -184,7 +187,7 @@ export const SERVICES = [
     // The live page runs these two paragraphs together and breaks mid-sentence
     // into the full-width block below; reproduced as-is.
     intro: [
-      'Successful CFOs are supposed to work together with businesses and help them make informed decisions. This affects the business directly. So, whether you are looking for an interim CFO Service or an Outsourced CFO Service to provide advisory services, you need a reliable partner. Excellence Accounting Services can provide leadership and the right steps to yield the positive results you desire.It is imperative for a CFO to study the goal of a business first before providing any insights on money management. CFO services in Dubai, UAE will suggest viable strategies to make the firm more profitable after analyzing all angles. For instance, a business owner who wants to attract sponsors will require a different strategy from a company that wants to expand its product range.in Dubai and across UAE are',
+      'Successful CFOs are supposed to work together with businesses and help them make informed decisions. This affects the business directly. So, whether you are looking for an interim CFO Service or an Outsourced CFO Service to provide advisory services, you need a reliable partner. Saeed Accounting can provide leadership and the right steps to yield the positive results you desire.It is imperative for a CFO to study the goal of a business first before providing any insights on money management. CFO services in Dubai, UAE will suggest viable strategies to make the firm more profitable after analyzing all angles. For instance, a business owner who wants to attract sponsors will require a different strategy from a company that wants to expand its product range.in Dubai and across UAE are',
     ],
     body: [
       'provided by financial experts who have knowledge of the local market and best practices. Because we are approved specialists, we have the know-how of handling the complex needs of our clients.',
@@ -477,11 +480,11 @@ export const SERVICES = [
     ],
     body: [
       { heading: 'Are UAE legal entities owned by UAE or GCC citizens subject to the UAE CT?' },
-      'yes. The UAE CT is a federal tax, so it applies to all emirates.',
-      { heading: 'Do I have to pay UAE CT along with emirate level taxes?' },
-      'No, CT and VAT are two different types of taxes. Both still apply in the UAE.',
+      'Yes. The UAE CT is a federal tax, so it applies across all emirates regardless of the nationality of the owners.',
+      { heading: 'Will the UAE CT replace VAT?' },
+      'No. CT and VAT are two different taxes and both continue to apply in the UAE. A business may be subject to one, the other, or both.',
       { heading: 'Will the UAE CT replace the UAE excise tax?' },
-      'yes. The relevant Emirati and Commonwealth Governments will continue to receive payments for applicable service fees.',
+      'No. Excise tax continues to apply to the specific goods it covers, and the relevant federal and emirate authorities continue to collect applicable service fees.',
     ],
   },
   {
@@ -497,41 +500,36 @@ export const SERVICES = [
     introImageRatio: '3 / 2',
     intro: [
       "A competitive CT regime based on global best practices is expected to strengthen the UAE's position as a top business and investment hub and accelerate the country's growth and transformation to achieve its strategic goals. . The UAE's commitment to uphold international standards of tax transparency and to prevent unfair tax practices is also reaffirmed by the implementation of the CT regime.",
-      'While conventional tax compliance consists of federal, kingdom, and nearby tax education, tax advisory offerings move past the tax go back and into the sector of tax method and optimization.',
+      'While routine tax compliance covers registration, record-keeping and filing returns on time, tax advisory goes further — into planning, structuring and optimising your position before the return is ever prepared.',
     ],
     body: [
-      'From reading monetary records to imparting forward-searching guidance, tax advisors assist their customers apprehend the influences in their monetary choices and provide recommendation on the way to maximize their tax position, all even as contemplating enterprise or private monetary goals.',
+      'From reviewing your financial records to giving forward-looking guidance, our tax advisors help you understand the impact of your financial decisions and advise on how to strengthen your tax position, while keeping your commercial and personal goals in view.',
       { heading: 'When will the UAE CT regime come into effect?' },
       'The UAE CT regulations will come into force for financial years beginning after 1 June 2023. Example: If the fiscal year is from his 01.07.2023 to 30.06.2024, the company will be subject to UAE CT from his 01.07.2023. is the start date of the first fiscal year beginning after June 1, 2023). From 1 January 2024, companies with financial years from 1 January 2023 to 31 December 2023 are subject to the UAE CT (this is the first the beginning of the fiscal year).',
       { heading: 'What is the role of the Ministry of Finance?' },
       'For the purposes of bilateral/multilateral tax agreements and international exchange of information for tax purposes, the Ministry of Finance remains the "competent authority". The Ministry of Finance may issue additional guidelines and implementing regulations regarding the UAE CT and other federal taxes.',
       { heading: 'What should I do to prepare for the UAE CT?' },
       "To assess what the UAE CT system means for your business, you should take the following as a starting point: Use the information available to determine if and when your company is subject to the UAE CT. Understand business requirements under corporate tax law. For example, whether your business needs to be registered with the UAE CT. What is your business's accounting/tax period? By when your business needs to file a UAE CT return. What elections or applications can or should your business make for the purposes of the UAE CT? How UAE CT affects your business obligations and responsibilities under contracts with customers and suppliers. Financial information and records you must retain for UAE CT purposes. Please check the Ministry of Finance and Federal Tax Administration websites regularly for more information and guidance on the UAE CT regime.",
-      { heading: 'Types of tax advisory services offerings include:' },
+      { heading: 'Our tax advisory services include:' },
       { list: [
-      'Guidance on federal, kingdom, and man or woman profits tax returns',
-      'Advice on federal and kingdom company tax returns',
-      'Understanding the tax results of obtaining or divesting enterprise assets',
-      'Restructuring or reorganizing agencies and partnerships',
-      'Estate making plans, together with education of wills and trusts',
-      'Federal, kingdom, and nearby man or woman and/or company tax making plans',
-      'Understanding the tax implications of actual property transactions',
-      'Personal monetary making plans',
-      'Income tax making plans for executives, together with worker reimbursement and gain plans',
-      'Investment making plans',
-      'Understanding the tax implications of present and charitable contributions',
-      'Understanding the tax effect of profits and deductions, contributions, essential purchases and investments',
-      'Tax perception into university saving programs',
-      'Retirement making plans programs',
-      'Representing customers in tax negotiations and disputes with the IRS',
-      'Representing customers in IRS, kingdom, or nearby audits',
-      'Property tax assessments',
-      'Succession making plans',
-      'Tax recommendation to executors and trustees',
-      'Tax credit score evaluations to decide most allowable credits (e.g., studies and improvement credits)',
-      'Trade and customs tax offerings and guidance',
-      'Transfer pricing evaluation, documentation, and amendment of present policies',
-      'Tax valuation offerings',
+      'Guidance on UAE corporate tax registration, returns and filing deadlines',
+      'Advice on VAT returns, voluntary disclosures and excise tax obligations',
+      'Assessing whether your business or free zone entity qualifies for the 0% rate',
+      'Understanding the tax consequences of acquiring or disposing of business assets',
+      'Restructuring or reorganising companies, groups and partnerships',
+      'Tax grouping assessments for companies under common ownership',
+      'Understanding the tax implications of real estate transactions',
+      'Reviewing the tax treatment of employee remuneration and benefit packages',
+      'Understanding the tax effect of income, deductible expenses, major purchases and investments',
+      'Advice on small business relief and other available exemptions',
+      'Representing clients in tax negotiations and disputes with the Federal Tax Authority',
+      'Representing clients in FTA, free zone, or local audits',
+      'Reviewing available tax credits and relief to determine the maximum allowable claim',
+      'Succession and ownership transition planning for family-owned businesses',
+      'Trade and customs tax services and guidance',
+      'Transfer pricing analysis, documentation and review of existing policies',
+      'Economic substance regulations (ESR) assessment and reporting',
+      'Tax valuation services',
       ] },
     ],
   },

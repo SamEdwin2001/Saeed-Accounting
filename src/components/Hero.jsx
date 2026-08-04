@@ -16,12 +16,12 @@ export default function Hero() {
           </h1>
 
           <p className="hero__text">
-            Saeed Accounting conveys master monetary warning administrations in the core of Dubai,
-            Business Bay. With 30 years of fruitful experience, our experts are custom fitted to
-            address every client&apos;s issues across a large number of businesses. A gathering of
-            expert bookkeepers handle complex ventures by carrying out the most recent systems and
-            regulations. We put stock in coordinated correspondence with our neighborhood or
-            worldwide clients to guarantee that their assumptions are surpassed.
+            Saeed Accounting delivers expert financial advisory services from the heart of Dubai,
+            Business Bay. With 30 years of proven experience, our specialists tailor their approach
+            to each client&apos;s needs across a wide range of industries. Our team of professional
+            accountants handles complex engagements by applying the latest standards and
+            regulations. We believe in close, consistent communication with our local and
+            international clients to make sure their expectations are exceeded.
           </p>
 
           <div className="hero__actions">
