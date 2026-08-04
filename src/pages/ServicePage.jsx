@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import PageBanner from '../components/PageBanner.jsx'
 import Img from '../components/Img.jsx'
 import Tabs from '../components/Tabs.jsx'
@@ -12,19 +13,40 @@ import { Check } from '../components/Icons.jsx'
  *   { image, caption }      → inline figure
  */
 /**
- * Renders `**phrase**` in copy as <strong>. The SEO sheet nominates a keyword
- * phrase per page to carry a bold tag; marking it in the copy keeps the wording
- * and the emphasis in one place rather than splitting strings into JSX.
+ * Expands two markers in body copy:
+ *
+ *   **phrase**            → <strong>, for the keyword the SEO sheet nominates
+ *   [[phrase|/path]]      → <strong> wrapped in a link to /path
+ *
+ * The SEO sheet names a phrase per page to bold, and some of those double as
+ * internal links. Marking them in the copy keeps wording, emphasis and target
+ * together rather than splitting a sentence across JSX.
  *
  * Returns an array of strings and elements, which JSX renders in order. Text
  * outside the markers stays escaped as normal — this is not an HTML parser.
  */
 export function withBold(text) {
-  if (typeof text !== 'string' || !text.includes('**')) return text
-  return text.split(/\*\*(.+?)\*\*/g).map((part, i) =>
-    /* Odd indices are the captured groups, i.e. what sat inside the markers. */
-    i % 2 === 1 ? <strong key={i}>{part}</strong> : part,
-  )
+  if (typeof text !== 'string') return text
+  if (!text.includes('**') && !text.includes('[[')) return text
+
+  /* One split over both markers, so a paragraph can mix them. The alternation
+     yields two capture groups per match; only one is ever defined. */
+  return text.split(/\[\[(.+?)\]\]|\*\*(.+?)\*\*/g).map((part, i) => {
+    if (part == null) return null
+    /* split() emits [text, linkCapture, boldCapture, text, ...] — index mod 3
+       identifies which slot this part came from. */
+    const slot = i % 3
+    if (slot === 1) {
+      const [label, href] = part.split('|')
+      return (
+        <Link className="page__inline-link" key={i} to={href || '/contact-us'}>
+          <strong>{label}</strong>
+        </Link>
+      )
+    }
+    if (slot === 2) return <strong key={i}>{part}</strong>
+    return part
+  })
 }
 
 function Block({ block }) {

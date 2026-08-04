@@ -46,7 +46,7 @@ export const SERVICES = [
     ],
     body: [
       'Accounts receivable management services provide monitor invoices, reduces collection times, track process times, increase timely payment rates, and more to improve the process.',
-      'Saeed Accounting provides account receivable outsourcing services to companies all over UAE, to ease the accounts receivable management services. Partnering with Saeed Accounting can help your company access manpower and tools to assist in the collection of outstanding payments.',
+      '[[Saeed Accounting|/contact-us]] provides account receivable outsourcing services to companies all over UAE, to ease the accounts receivable management services. Partnering with Saeed Accounting can help your company access manpower and tools to assist in the collection of outstanding payments.',
       'We not only provide top-notch quality account receivable services, but also offer lockbox services, cash applications, and access to accounting reports. Our team also sends out weekly summaries of our follow up with customers, including metrics and analysis regarding outstanding debt.',
     ],
     listHeading: 'Our Accounts Receivable Services in Dubai and UAE',
@@ -131,7 +131,7 @@ export const SERVICES = [
       'We ensure to take accounting out of the way of your success. This comes with innumerable benefits and deducts all the mundane work eating up your gold time which you can now spare to think of different ways to grow your business.',
     ],
     body: [
-      'Saeed Accounting provides inclusive **accounting and bookkeeping outsource services for SMEs** and corporations allowing senior management and owners sufficient time to channel their energy on business growth. We provide access to world-class accounting & bookkeeping services at a cost-effective rate.',
+      'Saeed Accounting provides inclusive **accounting and bookkeeping outsource services for SMEs** and corporations allowing senior management and owners sufficient time to channel their energy on business growth. We provide access to world-class [[accounting & bookkeeping services|/contact-us]] at a cost-effective rate.',
       'Our clients save a lot of money, as well as soft costs like spending the shortest time possible on accounting & bookkeeping.',
     ],
     listHeading: 'Our Accounting and Bookkeeping Services Dubai and UAE',
@@ -183,7 +183,7 @@ export const SERVICES = [
     listHeadingAccent: 'Our Outsourced CFO',
     listHeadingUpper: true,
     listIntro:
-      'We provide CFO services that can really help your company grow. Our CFO experts offer the following:',
+      'We provide CFO services that can really help your company grow. Our [[CFO experts|/contact-us]] offer the following:',
     // The live page runs these two paragraphs together and breaks mid-sentence
     // into the full-width block below; reproduced as-is.
     intro: [
@@ -254,7 +254,7 @@ export const SERVICES = [
       'In other words, corporation tax return specialists or legal agents can file VAT returns on behalf of the taxable party.',
     ],
     body: [
-      'And because the law allows individuals and companies to hire **Dubai vat filing agents**, it is vital to work with VAT return services at reasonable rates and has the knowledge and expertise to manage **VAT return filing** based on UAE VAT laws.',
+      'And because the law allows individuals and companies to hire **Dubai vat filing agents**, it is vital to work with [[VAT return services|/contact-us]] at reasonable rates and has the knowledge and expertise to manage VAT return filing based on UAE VAT laws.',
     ],
   },
   {
@@ -306,7 +306,7 @@ export const SERVICES = [
       'Tax auditors need all these documents for assessment. They keep an eye on all the discrepancies in payments, receipts, as well as documentation of all VAT-specific transactions. Therefore, any suspicious information or missing data is listed and rechecked for irregularities.',
       // The live page repeats this heading verbatim.
       { heading: 'FTA tax audit process' },
-      'We have been a leading provider of VAT audit services since its implementation. With a dedicated team of tax experts & diverse experience of over 35 years, we have the right resources & expertise to provide outstanding VAT audit services in the Emirates.',
+      'We have been a leading provider of VAT audit services since its implementation. With a dedicated team of tax experts & diverse experience of over 35 years, we have the right resources & expertise to provide outstanding [[VAT audit services|/contact-us]] in the Emirates.',
       "Along with coordinating with Tax Authorities throughout the audit, we provide the tax auditors with the relevant documents, records, data, and information about finances, stock inventory, & assets for a detailed examination. NR Doshi's VAT experts prepare a VAT audit checklist to ensure a proper review following the UAE VAT law. Lastly, we have successfully represented the client from various industry verticals, thereby complying with FTA's rules.",
     ],
   },
@@ -345,7 +345,7 @@ export const SERVICES = [
       { heading: 'Filing VAT Returns' },
       'For each Tax Period, a Taxable Person will be required to submit a VAT Return which contains details regarding the supplies made or received by the Taxable Person. With respect to sales and other outputs, the Taxable Person will need to report: 1. supplies of goods and services made which are subject to the standard rate of VAT per Emirate; 2. tax refunds you have provided to tourists under the Tax Refunds for Tourists Scheme, if you are a retailer and provide tax refunds to tourists in the UAE under the official tourists refund scheme; 3. supplies of goods and services received by the Taxable Person which are subject to the reverse charge provisions; 4. supplies of goods and services made which are subject to the zero rate of VAT; 5. supplies made which are exempt from VAT; 6. goods imported into the UAE and have been declared through UAE customs; and 7. where applicable, adjustments to goods imported into the UAE and which have been declared through UAE Customs.',
       'With respect to purchases and other inputs, the Taxable Person should report: 1. purchases and expenses that were subject to the standard rate of VAT and for which you would like to recover VAT; and 2. any supplies which were subject to the reverse charge for which you would like to recover input tax. The amounts of VAT charged and input tax recoverable by the Taxable Person would then need to be netted off in the Tax Return. The resulting amount is the net VAT payable to, or to be refunded by, the FTA (i.e. the net VAT position).',
-      'At Saeed Accounting, we are certified tax consultants committed to delivering precise, reliable, and innovative solutions for VAT and tax compliance in Dubai. Our experienced team empowers businesses to navigate challenges and seize opportunities with confidence.',
+      'At [[Saeed Accounting|/contact-us]], we are certified tax consultants committed to delivering precise, reliable, and innovative solutions for VAT and tax compliance in Dubai. Our experienced team empowers businesses to navigate challenges and seize opportunities with confidence.',
     ],
   },
   {
