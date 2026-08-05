@@ -518,6 +518,37 @@ export const SERVICES = [
       { heading: 'Will the UAE CT replace the UAE excise tax?' },
       'No. Excise tax continues to apply to the specific goods it covers, and the relevant federal and emirate authorities continue to collect applicable service fees.',
     ],
+    /* The three Q&As above run inline in the body as sub-headings and cover
+       what UAE CT *is*; these cover the implementation engagement itself, so
+       the two sets do not overlap. */
+    faqHeading: 'Frequently Asked Questions',
+    faqHeadingAccent: 'Asked',
+    faqs: [
+      {
+        q: 'What does corporate tax implementation involve?',
+        a: 'Corporate tax implementation covers registering with the FTA, setting up a compliant chart of accounts, configuring accounting systems, and building internal processes so the business can track and report taxable income accurately.',
+      },
+      {
+        q: 'When should a business start corporate tax implementation?',
+        a: 'Implementation should start as early as possible after incorporation or registration — ideally before the first tax period ends — so records are compliant from day one.',
+      },
+      {
+        q: 'Does corporate tax implementation include accounting software setup?',
+        a: 'Yes. It typically includes configuring accounting or ERP software to separate taxable income, track deductible expenses, and generate FTA-ready reports.',
+      },
+      {
+        q: 'What is transfer pricing documentation and is it part of implementation?',
+        a: "Transfer pricing documentation proves related-party transactions are priced at arm's length. It is a required part of implementation for businesses that meet the relevant revenue or related-party thresholds.",
+      },
+      {
+        q: 'Do free zone companies need corporate tax implementation?',
+        a: 'Yes. Free zone entities need compliant systems and documentation to substantiate Qualifying Free Zone Person (QFZP) status and retain the 0% rate on qualifying income.',
+      },
+      {
+        q: 'How long does corporate tax implementation take?',
+        a: 'Implementation typically takes 2–6 weeks depending on business complexity, covering registration, systems setup, policy documentation, and staff training.',
+      },
+    ],
   },
   {
     slug: 'corporate-tax-advisory',
