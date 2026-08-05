@@ -256,6 +256,38 @@ export const SERVICES = [
     body: [
       'And because the law allows individuals and companies to hire **Dubai vat filing agents**, it is vital to work with [[VAT return services|/contact-us]] at reasonable rates and has the knowledge and expertise to manage VAT return filing based on UAE VAT laws.',
     ],
+    faqHeading: 'Frequently Asked Questions',
+    faqHeadingAccent: 'Asked',
+    faqs: [
+      {
+        q: 'What is the deadline for filing a VAT return in the UAE?',
+        a: 'VAT returns must be filed and paid within 28 days after the end of the tax period. If day 28 falls on a weekend or public holiday, the deadline moves to the next business day.',
+      },
+      {
+        q: 'How often do I need to file VAT returns?',
+        a: 'Most businesses file quarterly. Businesses with annual turnover above AED 150 million must file monthly.',
+      },
+      {
+        q: 'How do I file a VAT return in the UAE?',
+        a: "VAT returns are submitted online through the FTA's EmaraTax portal, where you report output tax on sales and input tax on purchases, then pay the net VAT due.",
+      },
+      {
+        q: 'What is the penalty for late VAT return filing?',
+        a: 'Late filing carries a fixed penalty (AED 1,000 for a first offence, AED 2,000 for repeated offences within 24 months), plus 14% per annum interest on any unpaid VAT.',
+      },
+      {
+        q: 'Do I need to file a VAT return if I had no sales in the period?',
+        a: 'Yes. A nil VAT return must still be submitted by every VAT-registered business, even if there were no taxable supplies during the period.',
+      },
+      {
+        q: 'What is a Voluntary Disclosure in VAT filing?',
+        a: 'A Voluntary Disclosure is the FTA mechanism used to correct an error in a previously filed VAT return. From 14 April 2026, a 1% monthly penalty applies to the tax difference until it is disclosed.',
+      },
+      {
+        q: 'What documents are needed to file a VAT return?',
+        a: 'Sales and purchase invoices, import/export records, expense receipts, and reconciled financial statements covering the relevant tax period.',
+      },
+    ],
   },
   {
     slug: 'vat-de-registration',
