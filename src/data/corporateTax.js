@@ -61,7 +61,41 @@ export const CORPORATE_TAX_FILING = {
   cardBottom: null,
 
   features: FEATURES,
-  faqs: null,
+
+  /* This page had no FAQ section — `faqs: null` kept it hidden. The client's
+     sheet supplies the filing questions, so it renders now. */
+  faqHeading: 'Frequently Asked Questions',
+  faqHeadingAccent: 'Asked',
+  faqs: [
+    {
+      q: 'What is the UAE corporate tax filing deadline for 2026?',
+      a: 'The corporate tax return and payment are due 9 months after your financial year end. For a financial year ending 31 December 2025, the deadline is 30 September 2026.',
+    },
+    {
+      q: 'Do I still need to file a corporate tax return if I owe no tax?',
+      a: 'Yes. Every registered taxable person, including businesses below the AED 375,000 profit threshold, must file a return each period — even a nil return.',
+    },
+    {
+      q: 'How do I file a corporate tax return in the UAE?',
+      a: "Corporate tax returns are filed online through the FTA's EmaraTax portal, where you declare income, allowable deductions, and any reliefs, then pay the tax due by the same deadline.",
+    },
+    {
+      q: 'What happens if I miss the corporate tax filing deadline?',
+      a: 'Late filing triggers a penalty of AED 500 per month for the first 12 months (rising after that), plus 14% per annum interest on any unpaid tax.',
+    },
+    {
+      q: 'Can the FTA extend the corporate tax filing deadline?',
+      a: 'The FTA does not generally grant extensions. Exceptional cases with valid justification may be reviewed individually through a registered tax agent.',
+    },
+    {
+      q: 'Do I need audited financial statements to file corporate tax?',
+      a: 'Audited financial statements are required if revenue is AED 50 million or more, and for any business claiming Qualifying Free Zone Person (QFZP) status.',
+    },
+    {
+      q: 'What is the UAE corporate tax rate?',
+      a: '0% applies to taxable income up to AED 375,000, and 9% applies to taxable income above that threshold.',
+    },
+  ],
 
   entryHeading: ENTRY_HEADING,
   entryAccent: ENTRY_ACCENT,
