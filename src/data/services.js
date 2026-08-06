@@ -595,6 +595,37 @@ export const SERVICES = [
       'Tax valuation services',
       ] },
     ],
+    /* The Q&As inline in the body cover the CT regime itself — dates, the
+       Ministry's role, how to prepare. These cover the advisory engagement,
+       so the two sets do not overlap. */
+    faqHeading: 'Frequently Asked Questions',
+    faqHeadingAccent: 'Asked',
+    faqs: [
+      {
+        q: 'What does a corporate tax advisory service include?',
+        a: 'Corporate tax advisory covers registration guidance, choosing the right regime (Small Business Relief, QFZP, or standard), tax planning, compliance reviews, and support with FTA correspondence or audits.',
+      },
+      {
+        q: 'Who needs corporate tax advisory in the UAE?',
+        a: 'Any mainland or free zone business handling registration, complex transactions, group structures, or a first-time filing can benefit from advisory support to avoid costly errors.',
+      },
+      {
+        q: 'How can a tax advisor help reduce my corporate tax liability?',
+        a: 'Advisors identify legitimate reliefs such as Small Business Relief, qualifying group relief, tax loss transfer, and correct expense deduction planning to legally minimise tax exposure.',
+      },
+      {
+        q: 'What is Small Business Relief under UAE corporate tax?',
+        a: 'Small Business Relief lets eligible businesses below a set revenue threshold elect to be treated as having no taxable income, reducing their compliance burden.',
+      },
+      {
+        q: 'Do free zone companies need corporate tax advisory?',
+        a: 'Yes. Advisory support helps confirm and maintain Qualifying Free Zone Person status, which is required to keep the 0% tax rate on qualifying income.',
+      },
+      {
+        q: 'How often should a business review its corporate tax position?',
+        a: 'A review is recommended at each financial year-end, and whenever there is a major transaction, restructuring, or change in tax regulation.',
+      },
+    ],
   },
 
   /* ----------------------------------------------------- Support Services */
