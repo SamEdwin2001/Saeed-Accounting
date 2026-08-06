@@ -110,6 +110,12 @@ export default function Seo({ title, description, keywords, path, noindex = fals
     /* Built from the same `faqs` the page renders, so the two cannot drift —
        Google treats schema that does not match the visible copy as spam. */
     setFaqSchema(faqs)
+
+    /* Cleanup, not just the call above: RouteSeo returns null on /blog/<post>,
+       which unmounts this component without re-running the effect. Without
+       this the block would survive into the next route — FAQ schema on a page
+       that shows no FAQs. */
+    return () => setFaqSchema(null)
   }, [title, description, keywords, path, noindex, faqs])
 
   return null
