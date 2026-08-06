@@ -71,6 +71,7 @@ export default function App() {
 const FAQ_SCHEMA_ROUTES = {
   '/vat-registration-services': VAT_REGISTRATION_FAQS,
   '/corporate-tax-registration': CORPORATE_TAX_REGISTRATION.faqs,
+  '/corporate-tax-filing': CORPORATE_TAX_FILING.faqs,
 }
 
 /**
