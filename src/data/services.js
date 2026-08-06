@@ -310,6 +310,34 @@ export const SERVICES = [
       "Upload all the relevant supporting documents by clicking on 'Choose Files'.",
       'Review and confirm the authorized signatory and declaration section of the application form before submission.',
     ],
+    faqHeading: 'Frequently Asked Questions',
+    faqHeadingAccent: 'Asked',
+    faqs: [
+      {
+        q: 'When is VAT de-registration mandatory in the UAE?',
+        a: 'De-registration is mandatory when a business stops making taxable supplies, or when taxable supplies over the past 12 months fall below the AED 375,000 mandatory threshold with no expectation of exceeding it in the next 30 days.',
+      },
+      {
+        q: 'How long do I have to apply for VAT de-registration?',
+        a: 'You must apply within 20 business days of becoming eligible. Late application triggers an AED 1,000 penalty, plus AED 1,000 per additional month, capped at AED 10,000.',
+      },
+      {
+        q: 'Can I voluntarily deregister from VAT?',
+        a: 'Yes, if taxable supplies stayed below the AED 187,500 voluntary threshold over the last 12 months — but not within 12 months of your original voluntary registration date.',
+      },
+      {
+        q: 'What happens after I apply for VAT de-registration?',
+        a: 'You must keep filing VAT returns for every tax period until the FTA formally approves the application, then submit a final return within the following 28-day window.',
+      },
+      {
+        q: 'What documents are required for VAT de-registration?',
+        a: 'A trade license, the reason for deregistration, recent turnover records or financial statements, and confirmation that all outstanding VAT returns and payments are cleared.',
+      },
+      {
+        q: 'Does closing a business require VAT de-registration?',
+        a: 'Yes. Ceasing operations or cancelling a trade license triggers mandatory VAT de-registration, which must be applied for within 20 business days.',
+      },
+    ],
   },
   {
     slug: 'vat-audit',
