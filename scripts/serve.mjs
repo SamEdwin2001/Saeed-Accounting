@@ -31,6 +31,9 @@ const MIME = {
   '.webp': 'image/webp',
   '.txt': 'text/plain',
   '.xml': 'application/xml',
+  /* Without this the sitemap's stylesheet goes out as octet-stream, which
+     browsers refuse to apply as XSL. */
+  '.xsl': 'text/xsl; charset=utf-8',
 }
 
 const isFile = (p) => existsSync(p) && statSync(p).isFile()

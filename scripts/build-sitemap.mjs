@@ -52,10 +52,11 @@ if (duplicates.length) {
    content changing, and a build timestamp would do exactly that. */
 const lastmod = new Date().toISOString().slice(0, 10)
 
-/* The stylesheet is presentation only — browsers render the table, crawlers
-   ignore the PI and read the XML underneath. */
+/* No <?xml-stylesheet?> here. It only prettified the file for humans, but
+   Search Console reported "Sitemap is HTML — 0 discovered pages": when Googlebot
+   applies the XSL it sees the rendered table rather than the urlset. A sitemap
+   Google can read matters more than one that looks tidy in a browser. */
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${paths
   .map((p) =>
