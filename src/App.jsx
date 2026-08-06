@@ -65,6 +65,14 @@ export default function App() {
   )
 }
 
+/* Routes that publish FAQPage structured data, keyed by pathname without a
+   trailing slash. The value is the same array the page renders, so the schema
+   always describes the questions a visitor can actually see. */
+const FAQ_SCHEMA_ROUTES = {
+  '/vat-registration-services': VAT_REGISTRATION_FAQS,
+  '/corporate-tax-registration': CORPORATE_TAX_REGISTRATION.faqs,
+}
+
 /**
  * Applies the meta for the current route from the ROUTE_SEO table.
  *
@@ -82,12 +90,11 @@ function RouteSeo() {
 
   const meta = seoFor(pathname)
 
-  /* FAQPage schema, on the one route the client asked for. Sourced from the
-     component that renders those questions, so the markup and the visible copy
-     stay identical — Google penalises FAQ schema that does not match the page.
-     Add a route here to give it the same treatment. */
-  const faqs =
-    pathname.replace(/\/+$/, '') === '/vat-registration-services' ? VAT_REGISTRATION_FAQS : null
+  /* FAQPage schema, only on the routes listed in FAQ_SCHEMA_ROUTES. Each entry
+     points at the same list the page renders from, so the markup and the
+     visible copy cannot drift — Google penalises FAQ schema that does not match
+     the page. Add a route here to give it the same treatment. */
+  const faqs = FAQ_SCHEMA_ROUTES[pathname.replace(/\/+$/, '')] || null
 
   return (
     <Seo
