@@ -8,6 +8,7 @@ import ScrollToTop from './components/ScrollToTop.jsx'
 import Seo from './components/Seo.jsx'
 
 import { seoFor, NOT_FOUND_SEO } from './data/seo.js'
+import { VAT_REGISTRATION_FAQS } from './data/vatRegistrationFaqs.js'
 
 import { SERVICES } from './data/services.js'
 import {
@@ -81,6 +82,13 @@ function RouteSeo() {
 
   const meta = seoFor(pathname)
 
+  /* FAQPage schema, on the one route the client asked for. Sourced from the
+     component that renders those questions, so the markup and the visible copy
+     stay identical — Google penalises FAQ schema that does not match the page.
+     Add a route here to give it the same treatment. */
+  const faqs =
+    pathname.replace(/\/+$/, '') === '/vat-registration-services' ? VAT_REGISTRATION_FAQS : null
+
   return (
     <Seo
       title={meta ? meta.title : NOT_FOUND_SEO.title}
@@ -88,6 +96,7 @@ function RouteSeo() {
       keywords={meta ? meta.keywords : null}
       path={pathname}
       noindex={!meta}
+      faqs={faqs}
     />
   )
 }

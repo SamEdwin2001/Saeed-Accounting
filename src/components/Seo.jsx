@@ -26,6 +26,36 @@ function setProp(property, content) {
   upsert(`meta[property="${property}"]`, { property, content })
 }
 
+/** Marks the JSON-LD this component owns, so it can find and clear its own. */
+const LD_FLAG = 'data-seo-ld'
+
+/**
+ * Writes a single FAQPage block, or removes it when `faqs` is empty.
+ *
+ * Unlike the meta tags above, this one must be cleaned up on navigation: FAQ
+ * schema is only valid on a page that actually shows those questions, so
+ * leaving it behind would misdescribe every route visited afterwards.
+ */
+function setFaqSchema(faqs) {
+  const existing = document.head.querySelector(`script[${LD_FLAG}="faq"]`)
+  if (existing) existing.remove()
+  if (!faqs || !faqs.length) return
+
+  const el = document.createElement('script')
+  el.type = 'application/ld+json'
+  el.setAttribute(LD_FLAG, 'faq')
+  el.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })
+  document.head.appendChild(el)
+}
+
 /**
  * Per-route <title>, meta description, canonical and Open Graph tags.
  *
@@ -42,7 +72,7 @@ function setProp(property, content) {
  * @param path      Route pathname, used for canonical/og:url. Falsy → skipped.
  * @param noindex   Set on pages that must stay out of the index (404).
  */
-export default function Seo({ title, description, keywords, path, noindex = false }) {
+export default function Seo({ title, description, keywords, path, noindex = false, faqs }) {
   useEffect(() => {
     /* Titles arrive complete from data/seo.js — the brand suffix is written
        into the ones that want it, rather than appended to all of them. */
@@ -76,7 +106,11 @@ export default function Seo({ title, description, keywords, path, noindex = fals
        explicitly reset to "index" on indexable pages, or a visit to the 404
        would leave every later route noindexed for that session. */
     setMeta('robots', noindex ? 'noindex, follow' : 'index, follow')
-  }, [title, description, keywords, path, noindex])
+
+    /* Built from the same `faqs` the page renders, so the two cannot drift —
+       Google treats schema that does not match the visible copy as spam. */
+    setFaqSchema(faqs)
+  }, [title, description, keywords, path, noindex, faqs])
 
   return null
 }
