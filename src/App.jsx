@@ -73,6 +73,8 @@ const FAQ_SCHEMA_ROUTES = {
   '/corporate-tax-registration': CORPORATE_TAX_REGISTRATION.faqs,
   '/corporate-tax-filing': CORPORATE_TAX_FILING.faqs,
   '/vat-return-filling': SERVICES.find((s) => s.slug === 'vat-return-filling').faqs,
+  '/corporate-tax-implementation': SERVICES.find((s) => s.slug === 'corporate-tax-implementation')
+    .faqs,
 }
 
 /**
