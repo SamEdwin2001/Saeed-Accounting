@@ -18,6 +18,31 @@
     <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-400.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/poppins-700.woff2" crossorigin />
 
+    <!-- Organization schema. Identical on every route, so it lives in the static
+         shell rather than in <Seo> — that way it is in the HTML a crawler sees
+         before any JS runs, and there is only ever one copy. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Saeed Accounting",
+        "url": "https://saeedaccounting.com/",
+        "logo": "https://saeedaccounting.com/images/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+971501035519",
+          "contactType": "customer service",
+          "areaServed": "AE"
+        },
+        "sameAs": [
+          "https://x.com/saeedaccntng",
+          "https://www.instagram.com/saeedaccounting/",
+          "https://www.linkedin.com/company/saeed-accounting/",
+          "https://in.pinterest.com/saeedaccntng/"
+        ]
+      }
+    </script>
+
   <!-- Google Tag Manager --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-MXNMM6G');</script> <!-- End Google Tag Manager -->
 
   <!--Start of Tawk.to Script (0.9.3)--><script id="tawk-script" type="text/javascript">var Tawk_API = Tawk_API || {};var Tawk_LoadStart=new Date();(function(){ var s1 = document.createElement( 'script' ),s0=document.getElementsByTagName( 'script' )[0]; s1.async = true; s1.src = 'https://embed.tawk.to/6530e52ba84dd54dc482d5ca/1hd3fucq6'; s1.charset = 'UTF-8'; s1.setAttribute( 'crossorigin','*' ); s0.parentNode.insertBefore( s1, s0 );})();</script><!--End of Tawk.to Script (0.9.3)-->
