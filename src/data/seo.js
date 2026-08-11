@@ -61,9 +61,9 @@ export const ROUTE_SEO = {
 
   /* ---- VAT ---- */
   'vat-registration-services': {
-    title: 'VAT Registration Services in UAE | FTA Experts',
+    title: 'VAT Registration UAE | Dubai VAT Registration Services',
     description:
-      'Register your business for VAT in the UAE with FTA-approved consultants. Fast, accurate VAT registration and TRN issuance for mainland & free zone companies.',
+      'Need VAT registration services in UAE or Dubai? Saeed Accounting offers expert, FTA-approved VAT registration services for businesses of all sizes. Contact us now!',
     keywords:
       'VAT registration UAE, VAT registration Dubai, FTA VAT registration, VAT registration consultants UAE, TRN registration UAE, how to register for VAT in UAE',
   },
