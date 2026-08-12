@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Saeed Accounting</title>
 
-    <!-- Indexable by default. <Seo> overwrites this per route and sets
-         noindex only on the 404, so a crawler that reads the HTML before the
-         JS runs still sees an indexable page rather than no directive at all. -->
+    <!-- Indexable by default. <Seo> overwrites this per route, so a crawler
+         reading the HTML before the JS runs sees an indexable page rather than
+         no directive at all. Only the 404 route opts out, and it does so from
+         JS after mount. -->
     <meta name="robots" content="index, follow" />
 
     <meta
