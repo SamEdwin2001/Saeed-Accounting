@@ -77,6 +77,14 @@ export default function BlogPostPage() {
   if (state === 'loading') {
     return (
       <>
+        {/* Search Console reported "'noindex' detected in 'robots' meta tag" on
+            live posts. This branch rendered no <Seo> at all, so the robots value
+            left behind by the previous route stayed in <head> — and a crawler
+            arriving cold saw whatever the 404 path had set. Declaring
+            index/follow while the fetch is in flight keeps the page indexable
+            from first paint; the ready branch below then fills in the real
+            title and description. */}
+        <Seo title="Blog" description={null} path={`/blog/${slug}`} />
         <PageBanner title="Blog" parent={{ label: 'Blog', to: '/blog' }} />
         <section className="section blog">
           <div className="container">

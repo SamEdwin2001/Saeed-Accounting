@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Saeed Accounting</title>
 
+    <!-- Indexable by default. <Seo> overwrites this per route and sets
+         noindex only on the 404, so a crawler that reads the HTML before the
+         JS runs still sees an indexable page rather than no directive at all. -->
+    <meta name="robots" content="index, follow" />
+
     <meta
       name="description"
-      content="Saeed Accounting provides accounting, bookkeeping, VAT and corporate tax services across the UAE — FTA-compliant registration, filing and advisory for mainland and free zone companies."
-    />
+      content="Saeed Accounting provides accounting, bookkeeping, VAT and corporate tax services across the UAE — FTA-compliant registration, filing and advisory for mainland and free zone companies." />
     <!-- Poppins is self-hosted (see @font-face in styles.css). Preloading the
          weights used above the fold means the text paints in the real face
          first time, with no swap-induced layout shift. -->
@@ -45,12 +49,10 @@
 
   <!-- Google Tag Manager --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-MXNMM6G');</script> <!-- End Google Tag Manager -->
 
-  <!--Start of Tawk.to Script (0.9.3)--><script id="tawk-script" type="text/javascript">var Tawk_API = Tawk_API || {};var Tawk_LoadStart=new Date();(function(){ var s1 = document.createElement( 'script' ),s0=document.getElementsByTagName( 'script' )[0]; s1.async = true; s1.src = 'https://embed.tawk.to/6530e52ba84dd54dc482d5ca/1hd3fucq6'; s1.charset = 'UTF-8'; s1.setAttribute( 'crossorigin','*' ); s0.parentNode.insertBefore( s1, s0 );})();</script><!--End of Tawk.to Script (0.9.3)-->
+  <!--Start of Tawk.to Script (0.9.3)-->
+  <script id="tawk-script" type="text/javascript">var Tawk_API = Tawk_API || {};var Tawk_LoadStart=new Date();(function(){ var s1 = document.createElement( 'script' ),s0=document.getElementsByTagName( 'script' )[0]; s1.async = true; s1.src = 'https://embed.tawk.to/6530e52ba84dd54dc482d5ca/1hd3fucq6'; s1.charset = 'UTF-8'; s1.setAttribute( 'crossorigin','*' ); s0.parentNode.insertBefore( s1, s0 );})();</script>
+  <!--End of Tawk.to Script (0.9.3)-->
 
-  <!-- Tawk renders into its own iframes, so CSS in this page can't reach it —
-       hiding it on mobile has to go through the widget's own API. onLoad fires
-       once the widget is ready; the media-query listener also covers a desktop
-       window being resized down (and back up) without a reload. -->
   <script type="text/javascript">
     (function () {
       var mq = window.matchMedia('(max-width: 900px)')
@@ -67,7 +69,6 @@
         sync()
       }
 
-      /* addListener is the pre-2019 Safari fallback for addEventListener. */
       if (mq.addEventListener) mq.addEventListener('change', sync)
       else mq.addListener(sync)
     })()
@@ -77,12 +78,21 @@
   <script
   defer
   src="https://api.gcgtracker.com/api/tracker-script"
-  data-endpoint="https://api.gcgtracker.com/api/visitor-track"
-></script>
+  data-endpoint="https://api.gcgtracker.com/api/visitor-track"></script>
+  
   </head>
   <body>
 
-    <!-- Google Tag Manager (noscript) --> <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MXNMM6G" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MXNMM6G"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
