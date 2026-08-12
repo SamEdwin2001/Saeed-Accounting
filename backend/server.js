@@ -4,10 +4,10 @@
 import './env.js'
 import { dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { existsSync, statSync } from 'node:fs'
+import { existsSync, statSync, readFileSync } from 'node:fs'
 import express from 'express'
 import cors from 'cors'
-import { seedAdmin, init } from './db.js'
+import { seedAdmin, init, all } from './db.js'
 import authRoutes from './routes/auth.js'
 import leadRoutes from './routes/leads.js'
 import whatsappRoutes from './routes/whatsapp.js'
@@ -63,11 +63,53 @@ const MOVED = {
   '/register-for-vat-online-uae': '/vat-services-uae',
 }
 
+/* Must match scripts/build-sitemap.mjs, or the appended blog URLs would sit on
+   a different host from the static ones in the same file. */
+const ORIGIN = 'https://saeedaccounting.com'
+
 const DIST = join(__dirname, '..', 'dist')
 if (existsSync(join(DIST, 'index.html'))) {
   app.use((req, res, next) => {
     const to = MOVED[req.path.replace(/\/+$/, '') || '/']
     return to ? res.redirect(301, to) : next()
+  })
+
+  /* The build writes the static routes into dist/sitemap.xml, but posts are
+     written in the admin panel after that build, so a file generated at build
+     time can never list them. Serving the sitemap from here instead splices the
+     published posts in on every request — publish a post and it is listed
+     immediately, with no redeploy.
+     Declared before express.static so it wins over the file on disk. */
+  app.get('/sitemap.xml', async (_req, res, next) => {
+    try {
+      const rows = await all(
+        'SELECT slug, published_at, updated_at FROM blog_posts WHERE published = 1'
+      )
+      const base = readFileSync(join(DIST, 'sitemap.xml'), 'utf8')
+
+      const entries = rows
+        .map((r) => {
+          const d = r.updated_at || r.published_at
+          const lastmod = d ? new Date(d).toISOString().slice(0, 10) : null
+          return [
+            '  <url>',
+            `    <loc>${ORIGIN}/blog/${encodeURIComponent(r.slug)}</loc>`,
+            ...(lastmod ? [`    <lastmod>${lastmod}</lastmod>`] : []),
+            '    <priority>0.7</priority>',
+            '  </url>',
+          ].join('\n')
+        })
+        .join('\n')
+
+      res.type('application/xml').set('Cache-Control', 'no-cache')
+      /* Nothing to add, or the marker is missing → serve the file unchanged
+         rather than risk emitting malformed XML. */
+      if (!entries || !base.includes('</urlset>')) return res.send(base)
+      res.send(base.replace('</urlset>', `${entries}\n</urlset>`))
+    } catch (err) {
+      console.error('sitemap: falling back to the static file —', err.message)
+      next()
+    }
   })
 
   const isFile = (p) => {
