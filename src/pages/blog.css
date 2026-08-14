@@ -229,15 +229,7 @@ a.blog-card__cat:hover {
    build the page outline — where the design calls for the line to keep reading
    as body copy. `class="plain"` gives the tag its meaning without its looks:
    same size, weight, colour and rhythm as the text around it. */
-.blog-article__body h2.plain,
-.blog-article__body h3.plain,
-.blog-article__body h4.plain {
-  margin: 0;
-  color: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-}
+
 
 /* A block-level heading necessarily splits the paragraph it sits in, which
    would otherwise add a paragraph gap either side of a line that used to be a
