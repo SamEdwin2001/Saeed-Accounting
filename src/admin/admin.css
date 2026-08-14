@@ -1082,6 +1082,33 @@
   color: var(--adm-muted);
 }
 
+/* Turns red once the field is past the length Google shows. */
+.blg-hint--over {
+  color: var(--adm-red);
+}
+
+/* The optional per-post SEO overrides, boxed off from the fields that make the
+   post itself so the form still reads as "write the post, then tune it". */
+.blg-seo {
+  margin: 0 0 1rem;
+  padding: 1rem 1.1rem 0.4rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 12px;
+}
+
+.blg-seo__title {
+  padding: 0 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.blg-seo__note {
+  margin: 0 0 0.9rem;
+  color: var(--adm-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
 /* Live preview of the address the post will get. */
 .blg-slug {
   display: block;

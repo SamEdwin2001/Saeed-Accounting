@@ -95,6 +95,38 @@ export async function init() {
       INDEX idx_blog_listing (published, published_at)
     )
   `)
+
+  /* Per-post SEO overrides, added after the table already existed on live. All
+     four are blank by default and the article falls back to its title/excerpt,
+     so an untouched post keeps exactly the meta tags it had before. */
+  await addMissingColumns('blog_posts', [
+    ['meta_title', "VARCHAR(255) NOT NULL DEFAULT ''"],
+    ['meta_description', "VARCHAR(500) NOT NULL DEFAULT ''"],
+    ['meta_keywords', "VARCHAR(500) NOT NULL DEFAULT ''"],
+    ['canonical_url', "VARCHAR(500) NOT NULL DEFAULT ''"],
+  ])
+}
+
+/**
+ * Adds columns that a later release introduced. `CREATE TABLE IF NOT EXISTS`
+ * leaves an existing table untouched, so new fields would never reach a
+ * database created by an earlier version.
+ *
+ * Guarded through information_schema rather than `ADD COLUMN IF NOT EXISTS`:
+ * MariaDB supports that syntax, plain MySQL does not, and this runs on both.
+ */
+async function addMissingColumns(table, columns) {
+  for (const [name, definition] of columns) {
+    const exists = await get(
+      `SELECT 1 FROM information_schema.columns
+        WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ?`,
+      [table, name]
+    )
+    if (exists) continue
+
+    await pool.query(`ALTER TABLE \`${table}\` ADD COLUMN \`${name}\` ${definition}`)
+    console.log(`[db] added column ${table}.${name}`)
+  }
 }
 
 /* Seed the single admin account on first run. Credentials come from .env so the

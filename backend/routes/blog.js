@@ -70,6 +70,18 @@ const cleanCategories = (v) => {
 const cleanDate = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v ?? '').trim()) ? String(v).trim() : null)
 
 /**
+ * The canonical goes straight into <link rel="canonical">, so only an absolute
+ * http(s) URL or a root-relative path is stored. Anything else — a bare domain,
+ * or a javascript:/data: URL — is dropped to blank, and the article falls back
+ * to its own /blog/<slug> address.
+ */
+const cleanCanonical = (v) => {
+  const url = String(v ?? '').trim().slice(0, 500)
+  if (!url) return ''
+  return /^https?:\/\/\S+$/i.test(url) || /^\/\S*$/.test(url) ? url : ''
+}
+
+/**
  * The post body is admin-authored HTML, so this is a backstop rather than a
  * defence against a hostile author: it strips the tags and attributes that
  * would turn a pasted snippet into stored XSS for every visitor. Runs on write,
@@ -106,7 +118,11 @@ const excerptOf = (html) => {
   return `${text.slice(0, 200).replace(/\s+\S*$/, '')}…`
 }
 
-/** Row → the shape the website consumes. `content` is omitted from lists. */
+/**
+ * Row → the shape the website consumes. `content` and the SEO overrides are
+ * omitted from lists: neither the /blog cards nor the admin table read them,
+ * and the body is the heaviest column on the row.
+ */
 const toPost = (row, { withContent = false } = {}) => ({
   id: row.id,
   title: row.title,
@@ -116,7 +132,15 @@ const toPost = (row, { withContent = false } = {}) => ({
   date: row.published_at || null,
   published: !!row.published,
   excerpt: excerptOf(row.content),
-  ...(withContent ? { content: row.content } : {}),
+  ...(withContent
+    ? {
+        content: row.content,
+        metaTitle: row.meta_title || '',
+        metaDescription: row.meta_description || '',
+        metaKeywords: row.meta_keywords || '',
+        canonical: row.canonical_url || '',
+      }
+    : {}),
 })
 
 /* Newest first. A post with no date falls back to when it was created, so
@@ -230,7 +254,18 @@ router.use('/admin/upload', (err, _req, res, next) => {
 
 /** Create a post. */
 router.post('/admin/posts', async (req, res) => {
-  const { title, slug, categories, date, content, published = true } = req.body || {}
+  const {
+    title,
+    slug,
+    categories,
+    date,
+    content,
+    published = true,
+    metaTitle,
+    metaDescription,
+    metaKeywords,
+    canonical,
+  } = req.body || {}
 
   if (!title?.trim() || !content?.trim()) {
     return res.status(400).json({ error: 'Title and content are required.' })
@@ -246,11 +281,19 @@ router.post('/admin/posts', async (req, res) => {
     content: sanitizeHtml(content),
     published: published ? 1 : 0,
     published_at: cleanDate(date),
+    /* Blank is the normal case — the article then falls back to its own title
+       and a description derived from the body. */
+    meta_title: clean(metaTitle, 255),
+    meta_description: clean(metaDescription, 500),
+    meta_keywords: clean(metaKeywords, 500),
+    canonical_url: cleanCanonical(canonical),
   }
 
   const info = await run(
-    `INSERT INTO blog_posts (title, slug, categories, image, content, published, published_at)
-     VALUES (:title, :slug, :categories, :image, :content, :published, :published_at)`,
+    `INSERT INTO blog_posts (title, slug, categories, image, content, published, published_at,
+                             meta_title, meta_description, meta_keywords, canonical_url)
+     VALUES (:title, :slug, :categories, :image, :content, :published, :published_at,
+             :meta_title, :meta_description, :meta_keywords, :canonical_url)`,
     values
   )
 
@@ -263,7 +306,19 @@ router.patch('/admin/posts/:id', async (req, res) => {
   const existing = await get('SELECT * FROM blog_posts WHERE id = ?', [req.params.id])
   if (!existing) return res.status(404).json({ error: 'Post not found.' })
 
-  const { title, slug, categories, date, content, image, published } = req.body || {}
+  const {
+    title,
+    slug,
+    categories,
+    date,
+    content,
+    image,
+    published,
+    metaTitle,
+    metaDescription,
+    metaKeywords,
+    canonical,
+  } = req.body || {}
 
   const nextTitle = title !== undefined ? clean(title, 200) : existing.title
   const nextContent = content !== undefined ? sanitizeHtml(content) : existing.content
@@ -286,13 +341,22 @@ router.patch('/admin/posts/:id', async (req, res) => {
     content: nextContent,
     published: published !== undefined ? (published ? 1 : 0) : existing.published,
     published_at: date !== undefined ? cleanDate(date) : existing.published_at,
+    /* Same rule as the fields above: a PATCH that only flips `published` must
+       leave the post's SEO overrides exactly as the author left them. */
+    meta_title: metaTitle !== undefined ? clean(metaTitle, 255) : existing.meta_title,
+    meta_description:
+      metaDescription !== undefined ? clean(metaDescription, 500) : existing.meta_description,
+    meta_keywords: metaKeywords !== undefined ? clean(metaKeywords, 500) : existing.meta_keywords,
+    canonical_url: canonical !== undefined ? cleanCanonical(canonical) : existing.canonical_url,
     id: existing.id,
   }
 
   await run(
     `UPDATE blog_posts
         SET title = :title, slug = :slug, categories = :categories, image = :image,
-            content = :content, published = :published, published_at = :published_at
+            content = :content, published = :published, published_at = :published_at,
+            meta_title = :meta_title, meta_description = :meta_description,
+            meta_keywords = :meta_keywords, canonical_url = :canonical_url
       WHERE id = :id`,
     values
   )

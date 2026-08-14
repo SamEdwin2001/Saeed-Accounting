@@ -26,7 +26,18 @@ const emptyForm = () => ({
   content: '',
   image: '',
   published: true,
+  /* SEO overrides — all optional. Left blank, the article falls back to its own
+     title and an excerpt of the body (see BlogPostPage). */
+  metaTitle: '',
+  metaDescription: '',
+  metaKeywords: '',
+  canonical: '',
 })
+
+/* Google truncates around these lengths in the results page. Shown as a live
+   count so the author sees the overflow while typing, not after publishing. */
+const META_TITLE_BEST = 60
+const META_DESC_BEST = 160
 
 const formatDate = (d) =>
   d
@@ -96,6 +107,10 @@ export default function Blog() {
           content: post.content,
           image: post.image || '',
           published: post.published,
+          metaTitle: post.metaTitle || '',
+          metaDescription: post.metaDescription || '',
+          metaKeywords: post.metaKeywords || '',
+          canonical: post.canonical || '',
         },
       })
     } catch (err) {
@@ -278,6 +293,92 @@ export default function Blog() {
                 required
               />
             </label>
+
+            <fieldset className="blg-seo">
+              <legend className="blg-seo__title">Search engine (SEO)</legend>
+              <p className="blg-seo__note">
+                All four are optional. Left blank, the post uses its own title and the first
+                lines of the content — exactly as it does today.
+              </p>
+
+              <label className="adm-field">
+                <span>
+                  Meta title{' '}
+                  <em
+                    className={`blg-hint ${
+                      values.metaTitle.length > META_TITLE_BEST ? 'blg-hint--over' : ''
+                    }`}
+                  >
+                    ({values.metaTitle.length}/{META_TITLE_BEST} — the blue link in Google)
+                  </em>
+                </span>
+                <input
+                  type="text"
+                  value={values.metaTitle}
+                  onChange={setField('metaTitle')}
+                  maxLength={255}
+                  placeholder={
+                    values.title
+                      ? `${values.title} | Saeed Accounting`
+                      : 'Corporate Tax Consultants in Dubai | Saeed Accounting'
+                  }
+                />
+              </label>
+
+              <label className="adm-field">
+                <span>
+                  Meta description{' '}
+                  <em
+                    className={`blg-hint ${
+                      values.metaDescription.length > META_DESC_BEST ? 'blg-hint--over' : ''
+                    }`}
+                  >
+                    ({values.metaDescription.length}/{META_DESC_BEST} — the grey text under the
+                    link)
+                  </em>
+                </span>
+                <textarea
+                  rows={3}
+                  value={values.metaDescription}
+                  onChange={setField('metaDescription')}
+                  maxLength={500}
+                  placeholder="One or two sentences describing the post, written for the person reading the search results."
+                />
+              </label>
+
+              <label className="adm-field">
+                <span>
+                  Meta keywords <em className="blg-hint">(separate with commas)</em>
+                </span>
+                <input
+                  type="text"
+                  value={values.metaKeywords}
+                  onChange={setField('metaKeywords')}
+                  maxLength={500}
+                  placeholder="corporate tax dubai, tax registration uae, vat filing"
+                />
+              </label>
+
+              <label className="adm-field">
+                <span>
+                  Canonical URL{' '}
+                  <em className="blg-hint">
+                    (only when the same article also lives at another address — otherwise leave
+                    blank)
+                  </em>
+                </span>
+                <input
+                  type="text"
+                  value={values.canonical}
+                  onChange={setField('canonical')}
+                  maxLength={500}
+                  placeholder="https://www.saeedaccounting.com/blog/…"
+                />
+                <code className="blg-slug">
+                  Blank → https://www.saeedaccounting.com/blog/{preview || '…'}
+                </code>
+              </label>
+            </fieldset>
 
             <label className="blg-check">
               <input

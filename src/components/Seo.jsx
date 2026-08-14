@@ -70,9 +70,20 @@ function setFaqSchema(faqs) {
  * Renders nothing — it only touches <head>.
  *
  * @param path      Route pathname, used for canonical/og:url. Falsy → skipped.
+ * @param canonical Explicit canonical, overriding the one derived from `path`.
+ *                  Absolute URL, or a root-relative path resolved against
+ *                  ORIGIN. Blog posts set this from the admin form.
  * @param noindex   Set on pages that must stay out of the index (404).
  */
-export default function Seo({ title, description, keywords, path, noindex = false, faqs }) {
+export default function Seo({
+  title,
+  description,
+  keywords,
+  path,
+  canonical,
+  noindex = false,
+  faqs,
+}) {
   useEffect(() => {
     /* Titles arrive complete from data/seo.js — the brand suffix is written
        into the ones that want it, rather than appended to all of them. */
@@ -87,9 +98,22 @@ export default function Seo({ title, description, keywords, path, noindex = fals
 
     /* Canonical: the site serves duplicate content on paired routes
        (/uae-vat-registration mirrors /vat-registration-services), so each
-       page must at least declare its own URL as canonical. */
-    if (path != null) {
-      const url = `${ORIGIN}${path === '/' ? '/' : path}`
+       page must at least declare its own URL as canonical.
+
+       An explicit `canonical` wins over the route's own address — that is the
+       point of the per-post field: a post republished from elsewhere can point
+       at the original. A bare path is resolved against ORIGIN so the tag is
+       always absolute, as Google requires. */
+    const explicit = canonical?.trim()
+    const url = explicit
+      ? explicit.startsWith('/')
+        ? `${ORIGIN}${explicit}`
+        : explicit
+      : path != null
+        ? `${ORIGIN}${path === '/' ? '/' : path}`
+        : null
+
+    if (url) {
       upsert('link[rel="canonical"]', { rel: 'canonical', href: url })
       setProp('og:url', url)
     }
@@ -116,7 +140,7 @@ export default function Seo({ title, description, keywords, path, noindex = fals
        this the block would survive into the next route — FAQ schema on a page
        that shows no FAQs. */
     return () => setFaqSchema(null)
-  }, [title, description, keywords, path, noindex, faqs])
+  }, [title, description, keywords, path, canonical, noindex, faqs])
 
   return null
 }

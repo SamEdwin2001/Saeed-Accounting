@@ -224,6 +224,31 @@ a.blog-card__cat:hover {
   margin: 0 0 1.2rem;
 }
 
+/* Structure-only headings.
+   Some posts need a real heading in the markup — search engines read <h2> to
+   build the page outline — where the design calls for the line to keep reading
+   as body copy. `class="plain"` gives the tag its meaning without its looks:
+   same size, weight, colour and rhythm as the text around it. */
+.blog-article__body h2.plain,
+.blog-article__body h3.plain,
+.blog-article__body h4.plain {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+/* A block-level heading necessarily splits the paragraph it sits in, which
+   would otherwise add a paragraph gap either side of a line that used to be a
+   plain <br>. Closing both keeps the spacing identical to the run of text it
+   replaced. */
+.blog-article__body p:has(+ h2.plain),
+.blog-article__body p:has(+ h3.plain),
+.blog-article__body p:has(+ h4.plain) {
+  margin-bottom: 0;
+}
+
 .blog-article__body ul,
 .blog-article__body ol {
   margin: 0 0 1.4rem;
@@ -234,10 +259,7 @@ a.blog-card__cat:hover {
   margin-bottom: 0.5rem;
 }
 
-.blog-article__body a {
-  color: var(--orange);
-  text-decoration: underline;
-}
+
 
 .blog-article__body strong,
 .blog-article__body b {
