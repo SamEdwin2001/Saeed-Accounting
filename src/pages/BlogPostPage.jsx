@@ -172,11 +172,18 @@ export default function BlogPostPage() {
   if (state !== 'ready') {
     return (
       <>
+        {/* noindex only for a slug that genuinely does not exist. A failed
+            fetch is a live post the API could not serve this second — telling
+            a crawler "noindex" then would drop a good page out of the index
+            over a blip, and the next crawl is what should decide. This is the
+            other half of the fix in the loading branch above: the catch that
+            sets these two states already treats them differently, and the tag
+            has to follow. */}
         <Seo
           title={state === 'missing' ? 'Post Not Found' : 'Blog'}
           description={null}
           path={`/blog/${slug}`}
-          noindex
+          noindex={state === 'missing'}
         />
         <PageBanner
           title={state === 'missing' ? 'Post not found' : 'Something went wrong'}
