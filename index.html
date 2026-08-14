@@ -97,5 +97,47 @@
 
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- The Meta Pixel tag in the GTM container (GTM-MXNMM6G) carries a stray
+         backslash after its </noscript>. GTM injects the tag's HTML verbatim,
+         so that character lands in <body> as a text node and renders as a
+         visible "\" on every page.
+
+         The real fix is to delete it in the GTM container; this only stops it
+         showing until that is published. Deliberately narrow: it looks at
+         direct text-node children of <body> and removes one only when it is
+         nothing but backslashes and whitespace. The app renders inside #root
+         and third-party widgets append elements, so nothing legitimate is a
+         bare text node here. -->
+    <script>
+      (function () {
+        var STRAY = /^[\s\\]*\\[\s\\]*$/
+
+        function strip() {
+          for (var node = document.body.firstChild; node; ) {
+            var next = node.nextSibling
+            if (node.nodeType === 3 && STRAY.test(node.nodeValue)) {
+              document.body.removeChild(node)
+            }
+            node = next
+          }
+        }
+
+        strip()
+
+        /* GTM fires its tags after this script runs, and again on later page
+           views, so one pass is not enough. */
+        var observer = new MutationObserver(strip)
+        observer.observe(document.body, { childList: true })
+
+        /* Tags land during load; watching for the whole session would mean a
+           callback on every widget that touches <body>. */
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            observer.disconnect()
+          }, 15000)
+        })
+      })()
+    </script>
   </body>
 </html>
