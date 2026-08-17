@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url'
 import { existsSync, statSync, readFileSync } from 'node:fs'
 import express from 'express'
 import cors from 'cors'
-import { seedAdmin, init, all } from './db.js'
+import { seedAdmin, init, all, get } from './db.js'
 import authRoutes from './routes/auth.js'
 import leadRoutes from './routes/leads.js'
 import whatsappRoutes from './routes/whatsapp.js'
@@ -119,6 +119,95 @@ if (existsSync(join(DIST, 'index.html'))) {
       return false
     }
   }
+
+  const escapeHtml = (v) =>
+    String(v ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+
+  /* Plain-text summary of a post body, for <meta name="description"> when the
+     author left no override. Mirrors excerptOf() in routes/blog.js. */
+  const excerptOf = (html) => {
+    const text = String(html ?? '')
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+    if (text.length <= 200) return text
+    return `${text.slice(0, 200).replace(/\s+\S*$/, '')}…`
+  }
+
+  /**
+   * Server-render /blog/<slug> into the shell.
+   *
+   * Search Console reported "Soft 404" on every post. The shell it was served
+   * carries no post text at all — the title, description and body only appear
+   * once React has booted and fetched /api/blog/posts/<slug> — so the first
+   * pass saw an empty page and classified it as one. Nothing in the build could
+   * fix this: posts are written in the admin panel after the build, so no
+   * amount of prerendering at build time can know about them.
+   *
+   * Splicing the real content in here is the same trick the sitemap route above
+   * already uses, and it means publishing a post needs no redeploy. React
+   * replaces #root on mount, so the injected markup is what a crawler (and the
+   * first paint) sees, and the app takes over unchanged from there.
+   *
+   * A slug that isn't a published post is left to fall through to the SPA
+   * shell, which renders the real "Post not found" page with its noindex.
+   */
+  app.get('/blog/:slug', async (req, res, next) => {
+    try {
+      const row = await get('SELECT * FROM blog_posts WHERE slug = ? AND published = 1', [
+        req.params.slug,
+      ])
+      if (!row) return next()
+
+      const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
+      if (!shell.includes('<div id="root"></div>')) return next()
+
+      const title = row.meta_title || `${row.title} | Saeed Accounting`
+      const description = row.meta_description || excerptOf(row.content)
+      const canonical = row.canonical_url || `${ORIGIN}/blog/${encodeURIComponent(row.slug)}`
+
+      /* The body is already sanitised on save (routes/blog.js), which is what
+         the client renders too — this injects the same HTML it would. */
+      const body = [
+        '<div id="root">',
+        '<article class="blog-article">',
+        `<h1>${escapeHtml(row.title)}</h1>`,
+        row.image ? `<img src="${escapeHtml(row.image)}" alt="${escapeHtml(row.title)}">` : '',
+        `<div class="blog-article__body">${row.content ?? ''}</div>`,
+        '</article>',
+        '</div>',
+      ].join('')
+
+      const head = [
+        `<title>${escapeHtml(title)}</title>`,
+        `<meta name="description" content="${escapeHtml(description)}">`,
+        `<link rel="canonical" href="${escapeHtml(canonical)}">`,
+        row.meta_keywords
+          ? `<meta name="keywords" content="${escapeHtml(row.meta_keywords)}">`
+          : '',
+      ].join('')
+
+      const html = shell
+        /* The shell's own <title> and description belong to the site, not this
+           post — replace them rather than emitting a second copy of each. */
+        .replace(/<title>[^<]*<\/title>/, '')
+        .replace(/<meta\s+name="description"[\s\S]*?>/, '')
+        .replace('</head>', `${head}</head>`)
+        .replace('<div id="root"></div>', body)
+
+      res.set('Cache-Control', 'no-cache').type('html').send(html)
+    } catch (err) {
+      /* Never let a DB hiccup take the page down — fall through to the shell,
+         which still renders correctly for a real browser. */
+      console.error('blog ssr: falling back to the shell —', err.message)
+      next()
+    }
+  })
 
   /* Hashed assets can cache for a year; HTML must revalidate so a new deploy is
      picked up immediately. */
