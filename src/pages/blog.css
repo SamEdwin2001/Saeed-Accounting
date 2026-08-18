@@ -220,9 +220,7 @@ a.blog-card__cat:hover {
   font-weight: 700;
 }
 
-.blog-article__body p {
-  margin: 0 0 1.2rem;
-}
+
 
 /* Structure-only headings.
    Some posts need a real heading in the markup — search engines read <h2> to
