@@ -213,6 +213,34 @@ if (existsSync(join(DIST, 'index.html'))) {
         '</div>',
       ].join('')
 
+      /* The same post the API would return, inlined so the page has its data
+         before the first render.
+         Without it React mounts into 'loading', and because createRoot()
+         discards the server markup rather than hydrating it, the article we
+         just injected is replaced by "Loading…" for as long as the fetch takes.
+         Googlebot renders the page and scores what it sees at that moment — an
+         empty page — which is the Soft 404 the live test still reported after
+         the HTML itself was correct.
+         </script> inside the body would close this block early, so the one
+         sequence that can break out is escaped. */
+      const preload = JSON.stringify({
+        id: row.id,
+        title: row.title,
+        slug: row.slug,
+        categories: row.categories
+          ? row.categories.split(',').map((c) => c.trim()).filter(Boolean)
+          : [],
+        image: row.image || null,
+        date: row.published_at || null,
+        published: true,
+        excerpt: excerptOf(row.content),
+        content: row.content,
+        metaTitle: row.meta_title || '',
+        metaDescription: row.meta_description || '',
+        metaKeywords: row.meta_keywords || '',
+        canonical: row.canonical_url || '',
+      }).replace(/</g, '\u003c')
+
       const head = [
         `<title>${escapeHtml(title)}</title>`,
         `<meta name="description" content="${escapeHtml(description)}">`,
@@ -220,6 +248,7 @@ if (existsSync(join(DIST, 'index.html'))) {
         row.meta_keywords
           ? `<meta name="keywords" content="${escapeHtml(row.meta_keywords)}">`
           : '',
+        `<script>window.__POST__=${preload}</script>`,
       ].join('')
 
       const html = shell

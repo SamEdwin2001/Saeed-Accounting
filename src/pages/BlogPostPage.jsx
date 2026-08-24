@@ -97,11 +97,33 @@ const toHtml = (content) => {
  * The body is HTML the admin wrote, sanitised on the server before it was
  * stored — see the note in backend/routes/blog.js.
  */
+/**
+ * The post the server inlined into the page it served, when it is for the slug
+ * being rendered. Read once and cleared: on a client-side navigation to another
+ * post the stale copy must not win over that post's own fetch.
+ *
+ * This is what keeps the article on screen through the first render. Without
+ * it the page mounts in 'loading' and — since createRoot() replaces the server
+ * markup rather than hydrating it — the article is swapped for "Loading…" until
+ * the fetch lands. Googlebot renders and scores the page in that window, which
+ * is why the live test kept saying Soft 404 even though the HTML was right.
+ */
+const takePreloaded = (slug) => {
+  if (typeof window === 'undefined') return null
+  const p = window.__POST__
+  if (!p || p.slug !== slug) return null
+  delete window.__POST__
+  return p
+}
+
 export default function BlogPostPage() {
   const { slug } = useParams()
   const navigate = useNavigate()
-  const [post, setPost] = useState(null)
-  const [state, setState] = useState('loading') // 'loading' | 'ready' | 'missing' | 'error'
+  /* Read on the first render, not in an effect: an effect runs after the paint
+     that would already have shown "Loading…". */
+  const [preloaded] = useState(() => takePreloaded(slug))
+  const [post, setPost] = useState(preloaded)
+  const [state, setState] = useState(preloaded ? 'ready' : 'loading')
 
   /**
    * A link the author put in the post body is a plain <a>: the body is injected
@@ -126,6 +148,12 @@ export default function BlogPostPage() {
 
   useEffect(() => {
     let cancelled = false
+
+    /* The server already sent this post's data with the page, so there is
+       nothing to fetch and nothing to clear — blanking it here would put the
+       "Loading…" frame back that the preload exists to avoid. */
+    if (preloaded && preloaded.slug === slug) return undefined
+
     setState('loading')
     setPost(null)
 
@@ -146,7 +174,7 @@ export default function BlogPostPage() {
     return () => {
       cancelled = true
     }
-  }, [slug])
+  }, [slug, preloaded])
 
   if (state === 'loading') {
     return (
