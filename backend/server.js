@@ -140,6 +140,26 @@ if (existsSync(join(DIST, 'index.html'))) {
   }
 
   /**
+   * The 404 page, with the status code to match.
+   *
+   * The SPA shell alone would go out as 200 and carry the site-wide
+   * "index, follow", so an address that is not a post looked to a crawler like
+   * a real but empty page — the Soft 404 Search Console flagged. React renders
+   * its own "Post not found" copy over this once it boots.
+   */
+  const sendNotFound = (res) => {
+    try {
+      const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
+      const html = shell
+        .replace(/<title>[^<]*<\/title>/, '<title>Post Not Found | Saeed Accounting</title>')
+        .replace(/<meta\s+name="robots"[\s\S]*?>/, '<meta name="robots" content="noindex, follow">')
+      return res.status(404).set('Cache-Control', 'no-cache').type('html').send(html)
+    } catch {
+      return res.status(404).type('html').send('<h1>Post not found</h1>')
+    }
+  }
+
+  /**
    * Server-render /blog/<slug> into the shell.
    *
    * Search Console reported "Soft 404" on every post. The shell it was served
@@ -154,15 +174,20 @@ if (existsSync(join(DIST, 'index.html'))) {
    * replaces #root on mount, so the injected markup is what a crawler (and the
    * first paint) sees, and the app takes over unchanged from there.
    *
-   * A slug that isn't a published post is left to fall through to the SPA
-   * shell, which renders the real "Post not found" page with its noindex.
+   * A slug with no published post answers 404 via sendNotFound() rather than
+   * falling through to the SPA shell, which would have sent 200.
    */
   app.get('/blog/:slug', async (req, res, next) => {
     try {
       const row = await get('SELECT * FROM blog_posts WHERE slug = ? AND published = 1', [
         req.params.slug,
       ])
-      if (!row) return next()
+      /* A slug with no published post must answer 404, not 200. Search Console
+         reported "Soft 404" on a renamed post's old URL: the SPA fallback below
+         answers every path with 200 and an indexable shell, so a crawler saw a
+         page that was OK-but-empty. Returning the real status code — and
+         noindex with it — is what tells Google the URL is gone. */
+      if (!row) return sendNotFound(res)
 
       const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
       if (!shell.includes('<div id="root"></div>')) return next()
