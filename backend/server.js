@@ -196,12 +196,17 @@ if (existsSync(join(DIST, 'index.html'))) {
       const description = row.meta_description || excerptOf(row.content)
       const canonical = row.canonical_url || `${ORIGIN}/blog/${encodeURIComponent(row.slug)}`
 
+      /* Several posts open with their own <h1>. The banner supplies one too, so
+         emitting both put two <h1>s on the page — a signal Google reads as a
+         page unsure what it is about. Defer to the author's when it is there. */
+      const bodyHasH1 = /<h1[\s>]/i.test(row.content ?? '')
+
       /* The body is already sanitised on save (routes/blog.js), which is what
          the client renders too — this injects the same HTML it would. */
       const body = [
         '<div id="root">',
         '<article class="blog-article">',
-        `<h1>${escapeHtml(row.title)}</h1>`,
+        bodyHasH1 ? '' : `<h1>${escapeHtml(row.title)}</h1>`,
         row.image ? `<img src="${escapeHtml(row.image)}" alt="${escapeHtml(row.title)}">` : '',
         `<div class="blog-article__body">${row.content ?? ''}</div>`,
         '</article>',
