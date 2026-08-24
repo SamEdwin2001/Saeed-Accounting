@@ -3,8 +3,13 @@ import { useEffect } from 'react'
 const SITE = 'Saeed Accounting'
 const DEFAULT_TITLE = `${SITE} — Accounting, VAT & Corporate Tax in UAE`
 
-/** Absolute base for canonical and og:url. Must match the live domain. */
-const ORIGIN = 'https://www.saeedaccounting.com'
+/** Absolute base for canonical and og:url. Must match the live domain.
+
+    Non-www: www.saeedaccounting.com 301s here, so a canonical pointing at the
+    www host named a URL that does not serve the page. Search Console showed it
+    as the user-declared canonical on a post and would not index it. The server
+    and the sitemap already use this origin — all three have to agree. */
+const ORIGIN = 'https://saeedaccounting.com'
 
 function upsert(selector, attrs) {
   let el = document.head.querySelector(selector)

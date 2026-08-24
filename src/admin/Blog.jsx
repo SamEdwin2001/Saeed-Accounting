@@ -372,10 +372,10 @@ export default function Blog() {
                   value={values.canonical}
                   onChange={setField('canonical')}
                   maxLength={500}
-                  placeholder="https://www.saeedaccounting.com/blog/…"
+                  placeholder="https://saeedaccounting.com/blog/…"
                 />
                 <code className="blg-slug">
-                  Blank → https://www.saeedaccounting.com/blog/{preview || '…'}
+                  Blank → https://saeedaccounting.com/blog/{preview || '…'}
                 </code>
               </label>
             </fieldset>
