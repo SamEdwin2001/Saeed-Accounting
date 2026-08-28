@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const SITE = 'Saeed Accounting'
 const DEFAULT_TITLE = `${SITE} — Accounting, VAT & Corporate Tax in UAE`
@@ -99,6 +99,32 @@ const overrideFor = (path) => {
   return o.path === here ? o : null
 }
 
+/**
+ * The same overrides, fetched, for the dev server only.
+ *
+ * In production Express injects window.__PAGE_SEO__ into the HTML it serves,
+ * so the values are there before the first render and no request is needed.
+ * Vite serves its own index.html and knows nothing about the database, so a
+ * page edited in the admin panel would look unchanged while developing —
+ * exactly the thing being worked on. Fetch it there instead.
+ *
+ * One request per session, shared by every <Seo> on the page: the module-level
+ * promise is the cache. import.meta.env.DEV is compiled to false in the bundle,
+ * so this whole branch is dropped from the production build.
+ */
+let devOverrides = null
+
+const loadDevOverrides = () => {
+  if (!devOverrides) {
+    devOverrides = fetch('/api/pages')
+      .then((r) => (r.ok ? r.json() : { pages: [] }))
+      .then(({ pages }) => new Map(pages.filter((p) => p.override).map((p) => [p.path, p.override])))
+      /* The dev API not running is normal — fall back to the code's meta. */
+      .catch(() => new Map())
+  }
+  return devOverrides
+}
+
 export default function Seo({
   title: titleProp,
   description: descriptionProp,
@@ -108,9 +134,27 @@ export default function Seo({
   noindex = false,
   faqs,
 }) {
+  const inlined = overrideFor(path)
+
+  /* Dev only, and only when the server did not inline one — see
+     loadDevOverrides(). Held in state so the tags are rewritten once it
+     arrives; in production this stays null and never triggers a render. */
+  const [fetched, setFetched] = useState(null)
+  useEffect(() => {
+    if (!import.meta.env.DEV || inlined) return undefined
+    let cancelled = false
+    const here = String(path ?? '').replace(/^\/+|\/+$/g, '')
+    loadDevOverrides().then((map) => {
+      if (!cancelled) setFetched(map.get(here) ?? null)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [path, inlined])
+
   /* A blank field is "not overridden", not "set to empty" — that is how the
      admin clears one field without clearing the rest of the page's meta. */
-  const saved = overrideFor(path)
+  const saved = inlined || fetched
   const title = saved?.title || titleProp
   const description = saved?.description || descriptionProp
   const keywords = saved?.keywords || keywordsProp
