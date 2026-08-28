@@ -3,6 +3,7 @@ import { api, clearToken } from './api.js'
 import Sparkline from './Sparkline.jsx'
 import WhatsAppPage from './WhatsApp.jsx'
 import BlogPage from './Blog.jsx'
+import PagesPage from './Pages.jsx'
 import {
   UserIcon,
   UsersIcon,
@@ -14,6 +15,7 @@ import {
   Close,
   WhatsApp,
   BookIcon,
+  FileIcon,
 } from '../components/Icons.jsx'
 
 const STATUSES = ['new', 'contacted', 'closed']
@@ -160,6 +162,18 @@ export default function Dashboard({ username, onSignOut }) {
             </span>
             Blog
           </button>
+          <button
+            className={`adm-nav__item ${page === 'pages' ? 'is-active' : ''}`}
+            onClick={() => {
+              setPage('pages')
+              setNavOpen(false)
+            }}
+          >
+            <span className="adm-nav__ico">
+              <FileIcon />
+            </span>
+            Pages
+          </button>
 
           {page === 'enquiries' && (
             <>
@@ -226,6 +240,8 @@ export default function Dashboard({ username, onSignOut }) {
             <WhatsAppPage />
           ) : page === 'blog' ? (
             <BlogPage />
+          ) : page === 'pages' ? (
+            <PagesPage />
           ) : (
             <>
           <div className="adm-head">

@@ -80,15 +80,42 @@ function setFaqSchema(faqs) {
  *                  ORIGIN. Blog posts set this from the admin form.
  * @param noindex   Set on pages that must stay out of the index (404).
  */
+/**
+ * Meta the server saved for this route and inlined into the page it served.
+ *
+ * The admin panel writes these to the database, and server.js renders them into
+ * the HTML — but React would then overwrite them from data/seo.js on mount,
+ * putting the build's copy back a moment after a crawler read the saved one.
+ * Reading the same values here keeps the two in agreement.
+ *
+ * Matched on path so a client-side navigation away from the served route falls
+ * straight back to that route's own meta.
+ */
+const overrideFor = (path) => {
+  if (typeof window === 'undefined') return null
+  const o = window.__PAGE_SEO__
+  if (!o) return null
+  const here = String(path ?? '').replace(/^\/+|\/+$/g, '')
+  return o.path === here ? o : null
+}
+
 export default function Seo({
-  title,
-  description,
-  keywords,
+  title: titleProp,
+  description: descriptionProp,
+  keywords: keywordsProp,
   path,
-  canonical,
+  canonical: canonicalProp,
   noindex = false,
   faqs,
 }) {
+  /* A blank field is "not overridden", not "set to empty" — that is how the
+     admin clears one field without clearing the rest of the page's meta. */
+  const saved = overrideFor(path)
+  const title = saved?.title || titleProp
+  const description = saved?.description || descriptionProp
+  const keywords = saved?.keywords || keywordsProp
+  const canonical = saved?.canonical || canonicalProp
+
   useEffect(() => {
     /* Titles arrive complete from data/seo.js — the brand suffix is written
        into the ones that want it, rather than appended to all of them. */

@@ -1169,3 +1169,126 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Pages ─────────────────────────────────────────────────────────────────
+   One row per route the site declares, expanding into its meta form. A list
+   rather than a table: the four fields are long-form text, and a row that
+   opens in place keeps the page it belongs to visible above it. */
+.pg__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.pg__sub {
+  margin: 0.35rem 0 1.25rem;
+  color: var(--adm-muted);
+  font-size: 0.9rem;
+  max-width: 60ch;
+}
+
+.pg__list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pg-row {
+  border: 1px solid var(--adm-line);
+  border-radius: 10px;
+  background: var(--adm-card);
+  overflow: hidden;
+}
+
+.pg-row.is-open {
+  border-color: var(--adm-red);
+}
+
+.pg-row__head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+.pg-row__head:hover {
+  background: var(--adm-bg);
+}
+
+.pg-row__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.pg-row__label {
+  font-weight: 600;
+}
+
+.pg-row__url {
+  font-size: 0.8rem;
+  color: var(--adm-muted);
+  overflow-wrap: anywhere;
+}
+
+/* Whether this page's meta comes from the database or from the bundle — the
+   one thing you cannot tell by looking at the page itself. */
+.pg-tag {
+  flex: none;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: var(--adm-bg);
+  color: var(--adm-muted);
+}
+
+.pg-tag--edited {
+  background: #fdecea;
+  color: var(--adm-red-dark);
+}
+
+.pg-form {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border-top: 1px solid var(--adm-line);
+  background: var(--adm-bg);
+}
+
+.pg-form__note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--adm-muted);
+}
+
+.pg-form__ok {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1a7f4b;
+}
+
+.pg-form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* The "View page" control is an <a>, which .adm-btn styles for a <button>. */
+a.adm-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}

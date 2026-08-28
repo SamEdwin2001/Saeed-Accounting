@@ -59,6 +59,20 @@ export const api = {
     remove: (id) => request(`/whatsapp/${id}`, { method: 'DELETE' }),
   },
 
+  /* Per-route meta. The page list is derived from the site's own routes, so a
+     route added in code shows up here with no admin action. `list` is public
+     because the server renders these into the HTML it serves. */
+  pages: {
+    list: () => request('/pages', { auth: false }),
+    save: (path, data) =>
+      request(`/pages/one/${encodeURIComponent(path || 'home')}`, {
+        method: 'PUT',
+        body: data,
+      }),
+    reset: (path) =>
+      request(`/pages/one/${encodeURIComponent(path || 'home')}`, { method: 'DELETE' }),
+  },
+
   /* Blog. The two `read` calls are public — the website's /blog pages use them
      with no token — while everything under `admin` needs one. */
   blog: {

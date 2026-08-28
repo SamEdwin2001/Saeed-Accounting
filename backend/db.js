@@ -105,6 +105,24 @@ export async function init() {
     ['meta_keywords', "VARCHAR(500) NOT NULL DEFAULT ''"],
     ['canonical_url', "VARCHAR(500) NOT NULL DEFAULT ''"],
   ])
+
+  /* Meta the admin has overridden for a static route, keyed by pathname without
+     its leading slash ('' is the homepage) — the same key ROUTE_SEO uses.
+     Only edited routes get a row: the page list itself comes from the code, so
+     a route the admin has never opened simply has no entry here and keeps the
+     meta compiled into the bundle. That also means a route deleted from the
+     code leaves a harmless orphan row rather than a broken page. */
+  await run(`
+    CREATE TABLE IF NOT EXISTS page_seo (
+      id          INT AUTO_INCREMENT PRIMARY KEY,
+      path        VARCHAR(255) NOT NULL UNIQUE,
+      title       VARCHAR(255) NOT NULL DEFAULT '',
+      description VARCHAR(500) NOT NULL DEFAULT '',
+      keywords    VARCHAR(500) NOT NULL DEFAULT '',
+      canonical   VARCHAR(500) NOT NULL DEFAULT '',
+      updated_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )
+  `)
 }
 
 /**

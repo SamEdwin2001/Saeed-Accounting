@@ -12,6 +12,7 @@ import authRoutes from './routes/auth.js'
 import leadRoutes from './routes/leads.js'
 import whatsappRoutes from './routes/whatsapp.js'
 import blogRoutes, { UPLOAD_DIR } from './routes/blog.js'
+import pageRoutes from './routes/pages.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express()
@@ -53,6 +54,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/leads', leadRoutes)
 app.use('/api/whatsapp', whatsappRoutes)
 app.use('/api/blog', blogRoutes)
+app.use('/api/pages', pageRoutes)
 
 /* In production this same process also serves the built frontend (dist/), so a
    single CloudPanel reverse-proxy target covers the whole site. In development
@@ -239,7 +241,7 @@ if (existsSync(join(DIST, 'index.html'))) {
         metaDescription: row.meta_description || '',
         metaKeywords: row.meta_keywords || '',
         canonical: row.canonical_url || '',
-      }).replace(/</g, '\u003c')
+      }).replace(/</g, '\\u003c')
 
       const head = [
         `<title>${escapeHtml(title)}</title>`,
@@ -288,14 +290,72 @@ if (existsSync(join(DIST, 'index.html'))) {
 
   /* Any non-API GET that isn't a real file resolves to the prerendered route
      (dist/<path>/index.html) when one exists, otherwise the SPA shell. The
-     resolved path is confined to DIST so an encoded ../ can't escape it. */
-  app.use((req, res, next) => {
+     resolved path is confined to DIST so an encoded ../ can't escape it.
+
+     Before the shell goes out, meta the admin saved for this route is written
+     into it. The values are also inlined as window.__PAGE_SEO__ so <Seo> can
+     apply them on the first render — without that React would overwrite the
+     tags with the ones compiled into the bundle a moment after the crawler
+     read them. */
+  app.use(async (req, res, next) => {
     if ((req.method !== 'GET' && req.method !== 'HEAD') || req.path.startsWith('/api/')) {
       return next()
     }
+
+    const key = req.path.replace(/^\/+|\/+$/g, '')
+
+    /* For '/' this resolves to DIST/index.html — the shell itself — so it is
+       only a prerendered route when it is some *other* file. Returning early on
+       the shell would skip the override lookup below and leave the homepage the
+       one page the admin could not edit. */
     const nested = resolve(DIST, '.' + req.path, 'index.html')
-    if (nested.startsWith(DIST + sep) && isFile(nested)) return res.sendFile(nested)
-    return res.sendFile(join(DIST, 'index.html'))
+    if (
+      nested !== join(DIST, 'index.html') &&
+      nested.startsWith(DIST + sep) &&
+      isFile(nested)
+    ) {
+      return res.sendFile(nested)
+    }
+
+    try {
+      const row = await get('SELECT * FROM page_seo WHERE path = ?', [key])
+      /* No override for this route — serve the build's own shell untouched. */
+      if (!row) return res.sendFile(join(DIST, 'index.html'))
+
+      const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
+
+      const tags = [
+        row.title ? `<title>${escapeHtml(row.title)}</title>` : '',
+        row.description
+          ? `<meta name="description" content="${escapeHtml(row.description)}">`
+          : '',
+        row.keywords ? `<meta name="keywords" content="${escapeHtml(row.keywords)}">` : '',
+        row.canonical ? `<link rel="canonical" href="${escapeHtml(row.canonical)}">` : '',
+        `<script>window.__PAGE_SEO__=${JSON.stringify({
+          path: key,
+          title: row.title || '',
+          description: row.description || '',
+          keywords: row.keywords || '',
+          canonical: row.canonical || '',
+        }).replace(/</g, '\\u003c')}</script>`,
+      ].join('')
+
+      /* Drop the shell's own title/description only where this row replaces
+         them, so a half-filled override does not strip a tag and leave nothing
+         in its place. */
+      let html = shell
+      if (row.title) html = html.replace(/<title>[^<]*<\/title>/, '')
+      if (row.description) html = html.replace(/<meta\s+name="description"[\s\S]*?>/, '')
+
+      return res
+        .set('Cache-Control', 'no-cache')
+        .type('html')
+        .send(html.replace('</head>', `${tags}</head>`))
+    } catch (err) {
+      /* The page matters more than its meta: on a DB error serve the shell. */
+      console.error('page seo: serving the shell —', err.message)
+      return res.sendFile(join(DIST, 'index.html'))
+    }
   })
 }
 
