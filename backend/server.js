@@ -251,7 +251,13 @@ if (existsSync(join(DIST, 'index.html'))) {
           ? `<meta name="keywords" content="${escapeHtml(row.meta_keywords)}">`
           : '',
         `<script>window.__POST__=${preload}</script>`,
-      ].join('')
+      ]
+        /* One tag per line, and no blank line where an optional tag was
+           skipped — this <head> is the first thing anyone reads when they
+           view source on the page. */
+        .filter(Boolean)
+        .map((tag) => '\n    ' + tag)
+        .join('')
 
       const html = shell
         /* The shell's own <title> and description belong to the site, not this
@@ -338,7 +344,13 @@ if (existsSync(join(DIST, 'index.html'))) {
           keywords: row.keywords || '',
           canonical: row.canonical || '',
         }).replace(/</g, '\\u003c')}</script>`,
-      ].join('')
+      ]
+        /* One tag per line, and no blank line where an optional tag was
+           skipped — this <head> is the first thing anyone reads when they
+           view source on the page. */
+        .filter(Boolean)
+        .map((tag) => '\n    ' + tag)
+        .join('')
 
       /* Drop the shell's own title/description only where this row replaces
          them, so a half-filled override does not strip a tag and leave nothing
