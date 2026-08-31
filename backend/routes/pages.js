@@ -65,35 +65,14 @@ const readRoutes = () => {
 }
 
 /**
- * Stored FAQs → the array the form and the schema builder both use.
+ * The JSON-LD block an admin pasted for a route, as text.
  *
- * A row written before the column existed, or one somehow holding invalid
- * JSON, must not take the page down — an unreadable value reads as "no FAQs".
+ * Stored verbatim rather than parsed into a shape of our own: schema.org has
+ * dozens of types and the point of the field is that a new one can be added
+ * without a code change. It is validated as JSON on save — see below — so what
+ * comes back out is always something a browser can parse.
  */
-const parseFaqs = (raw) => {
-  if (!raw) return []
-  try {
-    const v = JSON.parse(raw)
-    return Array.isArray(v) ? v : []
-  } catch {
-    return []
-  }
-}
-
-/**
- * Keep only entries with both a question and an answer.
- *
- * The form always sends a trailing blank row for the next entry, and Google
- * rejects the whole FAQPage block if any Question has an empty answer — so the
- * blanks are dropped here rather than stored and rendered.
- */
-const cleanFaqs = (v) => {
-  if (!Array.isArray(v)) return []
-  return v
-    .map((f) => ({ q: clean(f?.q, 300), a: clean(f?.a, 1000) }))
-    .filter((f) => f.q && f.a)
-    .slice(0, 50)
-}
+const parseSchema = (raw) => (raw ? String(raw) : '')
 
 /** Row → the shape the admin form and the renderer both read. */
 const toOverride = (row) => ({
@@ -101,7 +80,7 @@ const toOverride = (row) => ({
   description: row.description || '',
   keywords: row.keywords || '',
   canonical: row.canonical || '',
-  faqs: parseFaqs(row.faqs),
+  schema: parseSchema(row.schema_json),
 })
 
 /**
@@ -154,15 +133,27 @@ router.put('/one/:path', async (req, res) => {
   const known = readRoutes().some((r) => r.path === path)
   if (!known) return res.status(404).json({ error: 'That page does not exist.' })
 
-  const faqs = cleanFaqs(req.body.faqs)
+  const schema = String(req.body.schema ?? '').trim()
+
+  /* Reject malformed JSON on the way in rather than emitting a broken
+     <script type="application/ld+json"> that Google silently ignores. The
+     admin gets told which character is wrong while the page is still open. */
+  if (schema) {
+    try {
+      JSON.parse(schema)
+    } catch (e) {
+      return res.status(400).json({ error: `Schema is not valid JSON — ${e.message}` })
+    }
+  }
+
   const values = {
     path,
     title: clean(req.body.title, 255),
     description: clean(req.body.description, 500),
     keywords: clean(req.body.keywords, 500),
     canonical: clean(req.body.canonical, 500),
-    /* Null rather than '[]' so "no FAQs" is one value, not two. */
-    faqs: faqs.length ? JSON.stringify(faqs) : null,
+    /* Null rather than '' so "no schema" is one value, not two. */
+    schema_json: schema || null,
   }
 
   /* A canonical has to be absolute for Google to read it, and a relative one
@@ -172,11 +163,11 @@ router.put('/one/:path', async (req, res) => {
   }
 
   await run(
-    `INSERT INTO page_seo (path, title, description, keywords, canonical, faqs)
-     VALUES (:path, :title, :description, :keywords, :canonical, :faqs)
+    `INSERT INTO page_seo (path, title, description, keywords, canonical, schema_json)
+     VALUES (:path, :title, :description, :keywords, :canonical, :schema_json)
      ON DUPLICATE KEY UPDATE
        title = :title, description = :description,
-       keywords = :keywords, canonical = :canonical, faqs = :faqs`,
+       keywords = :keywords, canonical = :canonical, schema_json = :schema_json`,
     values
   )
 

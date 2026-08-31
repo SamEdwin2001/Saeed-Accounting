@@ -41,6 +41,27 @@ const LD_FLAG = 'data-seo-ld'
  * schema is only valid on a page that actually shows those questions, so
  * leaving it behind would misdescribe every route visited afterwards.
  */
+/**
+ * Writes the JSON-LD an admin pasted for this route, or removes it when there
+ * is none.
+ *
+ * Kept separate from setFaqSchema so a route can carry both its own FAQ block
+ * and a pasted one. Removed on navigation for the same reason FAQ schema is:
+ * structured data describes one page, and leaving it behind misdescribes every
+ * route visited afterwards.
+ */
+function setPageSchema(json) {
+  const existing = document.head.querySelector(`script[${LD_FLAG}="page"]`)
+  if (existing) existing.remove()
+  if (!json) return
+
+  const el = document.createElement('script')
+  el.type = 'application/ld+json'
+  el.setAttribute(LD_FLAG, 'page')
+  el.textContent = json
+  document.head.appendChild(el)
+}
+
 function setFaqSchema(faqs) {
   const existing = document.head.querySelector(`script[${LD_FLAG}="faq"]`)
   if (existing) existing.remove()
@@ -132,7 +153,7 @@ export default function Seo({
   path,
   canonical: canonicalProp,
   noindex = false,
-  faqs: faqsProp,
+  faqs,
 }) {
   const inlined = overrideFor(path)
 
@@ -159,9 +180,10 @@ export default function Seo({
   const description = saved?.description || descriptionProp
   const keywords = saved?.keywords || keywordsProp
   const canonical = saved?.canonical || canonicalProp
-  /* FAQs entered in the admin panel win over a route's own list, so a page can
-     be given one from the panel without touching the code that has none. */
-  const faqs = saved?.faqs?.length ? saved.faqs : faqsProp
+  /* Schema pasted in the admin panel. The server already wrote it into the HTML
+     it served; this re-applies it on the dev server, where Vite serves its own
+     index.html and knows nothing about the database. */
+  const schema = saved?.schema || ''
 
   useEffect(() => {
     /* Titles arrive complete from data/seo.js — the brand suffix is written
@@ -214,12 +236,21 @@ export default function Seo({
        Google treats schema that does not match the visible copy as spam. */
     setFaqSchema(faqs)
 
+    /* Schema pasted in the admin panel, applied under its own flag so it and
+       the route's FAQ block above can coexist. In production the server already
+       emitted this exact block; setting it again is a no-op that keeps the dev
+       server, which serves no such HTML, showing what the panel saved. */
+    setPageSchema(schema)
+
     /* Cleanup, not just the call above: RouteSeo returns null on /blog/<post>,
        which unmounts this component without re-running the effect. Without
        this the block would survive into the next route — FAQ schema on a page
        that shows no FAQs. */
-    return () => setFaqSchema(null)
-  }, [title, description, keywords, path, canonical, noindex, faqs])
+    return () => {
+      setFaqSchema(null)
+      setPageSchema('')
+    }
+  }, [title, description, keywords, path, canonical, noindex, faqs, schema])
 
   return null
 }

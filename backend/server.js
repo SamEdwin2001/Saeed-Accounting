@@ -330,14 +330,20 @@ if (existsSync(join(DIST, 'index.html'))) {
 
       const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
 
-      /* Stored as JSON text; a malformed value must not take the page down. */
-      let faqs = []
-      try {
-        const parsed = row.faqs ? JSON.parse(row.faqs) : []
-        if (Array.isArray(parsed)) faqs = parsed.filter((f) => f?.q && f?.a)
-      } catch {
-        faqs = []
+      /* Whatever JSON-LD the admin pasted for this route. It was validated as
+         JSON on save, but re-check here: a row could predate that check, and a
+         broken block is worse than none — Google discards the whole page's
+         structured data rather than just the bad object. */
+      let schema = ''
+      if (row.schema_json) {
+        try {
+          JSON.parse(row.schema_json)
+          schema = String(row.schema_json)
+        } catch {
+          console.error(`page seo: ignoring invalid schema JSON on /${key}`)
+        }
       }
+
 
       const tags = [
         row.title ? `<title>${escapeHtml(row.title)}</title>` : '',
@@ -346,23 +352,17 @@ if (existsSync(join(DIST, 'index.html'))) {
           : '',
         row.keywords ? `<meta name="keywords" content="${escapeHtml(row.keywords)}">` : '',
         row.canonical ? `<link rel="canonical" href="${escapeHtml(row.canonical)}">` : '',
-        /* FAQPage schema, when the admin has entered questions for this route.
-           The data-seo-ld attribute has to match the one Seo.jsx looks for, or
-           React appends a second FAQPage instead of replacing this one.
-           Emitted here rather than left to <Seo> so it is in the HTML a crawler
-           reads before any JS runs, like the meta tags above. Routes whose FAQs
-           live in code keep building theirs in App.jsx; this covers the ones
-           entered in the panel. */
-        faqs.length
-          ? `<script type="application/ld+json" data-seo-ld="faq">${JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'FAQPage',
-              mainEntity: faqs.map((f) => ({
-                '@type': 'Question',
-                name: f.q,
-                acceptedAnswer: { '@type': 'Answer', text: f.a },
-              })),
-            }).replace(/</g, '\\u003c')}</script>`
+        /* The pasted JSON-LD, emitted here rather than left to <Seo> so it is
+           in the HTML a crawler reads before any JS runs — the same reason the
+           meta tags above are. Carries the attribute Seo.jsx looks for, so a
+           route that also builds schema in code replaces this block instead of
+           appending a second one. `</script>` inside a string would close the
+           block early, so the one sequence that can break out is escaped. */
+        schema
+          ? `<script type="application/ld+json" data-seo-ld="page">${schema.replace(
+              /</g,
+              '\\u003c'
+            )}</script>`
           : '',
         `<script>window.__PAGE_SEO__=${JSON.stringify({
           path: key,
@@ -370,7 +370,7 @@ if (existsSync(join(DIST, 'index.html'))) {
           description: row.description || '',
           keywords: row.keywords || '',
           canonical: row.canonical || '',
-          faqs,
+          schema,
         }).replace(/</g, '\\u003c')}</script>`,
       ]
         /* One tag per line, and no blank line where an optional tag was

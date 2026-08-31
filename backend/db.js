@@ -124,10 +124,10 @@ export async function init() {
     )
   `)
 
-  /* FAQPage schema for a route, as a JSON array of {q, a}. Added after the
-     table shipped, so it goes through addMissingColumns rather than into the
-     CREATE above. TEXT because a page can carry a dozen long answers. */
-  await addMissingColumns('page_seo', [['faqs', 'TEXT NULL']])
+  /* A JSON-LD block for a route, stored as the text the admin pasted. TEXT
+     because a schema with a dozen questions runs long. Added after the table
+     shipped, so it goes through addMissingColumns rather than the CREATE. */
+  await addMissingColumns('page_seo', [['schema_json', 'TEXT NULL']])
 }
 
 /**
