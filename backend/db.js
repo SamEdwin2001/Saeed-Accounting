@@ -123,6 +123,11 @@ export async function init() {
       updated_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
   `)
+
+  /* FAQPage schema for a route, as a JSON array of {q, a}. Added after the
+     table shipped, so it goes through addMissingColumns rather than into the
+     CREATE above. TEXT because a page can carry a dozen long answers. */
+  await addMissingColumns('page_seo', [['faqs', 'TEXT NULL']])
 }
 
 /**

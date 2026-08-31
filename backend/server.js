@@ -330,6 +330,15 @@ if (existsSync(join(DIST, 'index.html'))) {
 
       const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
 
+      /* Stored as JSON text; a malformed value must not take the page down. */
+      let faqs = []
+      try {
+        const parsed = row.faqs ? JSON.parse(row.faqs) : []
+        if (Array.isArray(parsed)) faqs = parsed.filter((f) => f?.q && f?.a)
+      } catch {
+        faqs = []
+      }
+
       const tags = [
         row.title ? `<title>${escapeHtml(row.title)}</title>` : '',
         row.description
@@ -337,12 +346,31 @@ if (existsSync(join(DIST, 'index.html'))) {
           : '',
         row.keywords ? `<meta name="keywords" content="${escapeHtml(row.keywords)}">` : '',
         row.canonical ? `<link rel="canonical" href="${escapeHtml(row.canonical)}">` : '',
+        /* FAQPage schema, when the admin has entered questions for this route.
+           The data-seo-ld attribute has to match the one Seo.jsx looks for, or
+           React appends a second FAQPage instead of replacing this one.
+           Emitted here rather than left to <Seo> so it is in the HTML a crawler
+           reads before any JS runs, like the meta tags above. Routes whose FAQs
+           live in code keep building theirs in App.jsx; this covers the ones
+           entered in the panel. */
+        faqs.length
+          ? `<script type="application/ld+json" data-seo-ld="faq">${JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: f.a },
+              })),
+            }).replace(/</g, '\\u003c')}</script>`
+          : '',
         `<script>window.__PAGE_SEO__=${JSON.stringify({
           path: key,
           title: row.title || '',
           description: row.description || '',
           keywords: row.keywords || '',
           canonical: row.canonical || '',
+          faqs,
         }).replace(/</g, '\\u003c')}</script>`,
       ]
         /* One tag per line, and no blank line where an optional tag was

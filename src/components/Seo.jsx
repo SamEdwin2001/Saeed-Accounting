@@ -132,7 +132,7 @@ export default function Seo({
   path,
   canonical: canonicalProp,
   noindex = false,
-  faqs,
+  faqs: faqsProp,
 }) {
   const inlined = overrideFor(path)
 
@@ -159,6 +159,9 @@ export default function Seo({
   const description = saved?.description || descriptionProp
   const keywords = saved?.keywords || keywordsProp
   const canonical = saved?.canonical || canonicalProp
+  /* FAQs entered in the admin panel win over a route's own list, so a page can
+     be given one from the panel without touching the code that has none. */
+  const faqs = saved?.faqs?.length ? saved.faqs : faqsProp
 
   useEffect(() => {
     /* Titles arrive complete from data/seo.js — the brand suffix is written

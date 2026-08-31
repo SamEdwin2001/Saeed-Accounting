@@ -1292,3 +1292,84 @@ a.adm-btn {
   display: inline-flex;
   align-items: center;
 }
+
+/* FAQ schema editor, inside the page form. A numbered list of question/answer
+   pairs rather than a JSON box: the output is structured data, but the person
+   filling it in is writing prose. */
+.pg-faq {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.9rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 8px;
+  background: var(--adm-card);
+}
+
+.pg-faq__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.pg-faq__title {
+  font-weight: 600;
+}
+
+.pg-faq__row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.pg-faq__num {
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--adm-bg);
+  color: var(--adm-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.pg-faq__fields {
+  flex: 1;
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.pg-faq__fields input,
+.pg-faq__fields textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 6px;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+}
+
+.pg-faq__fields textarea {
+  resize: vertical;
+}
+
+.pg-faq__remove {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--adm-line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--adm-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.pg-faq__remove:hover {
+  border-color: var(--adm-red);
+  color: var(--adm-red);
+}

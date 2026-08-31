@@ -8,7 +8,7 @@ import { api } from './api.js'
 const TITLE_BEST = 60
 const DESC_BEST = 160
 
-const EMPTY = { title: '', description: '', keywords: '', canonical: '' }
+const EMPTY = { title: '', description: '', keywords: '', canonical: '', faqs: [] }
 
 /**
  * Meta for the site's own pages.
@@ -61,6 +61,19 @@ export default function PagesPage() {
   }
 
   const setField = (key) => (e) => setValues((v) => ({ ...v, [key]: e.target.value }))
+
+  /* FAQs are edited as a list of rows rather than raw JSON — the schema is for
+     Google, but the person filling it in is writing questions. */
+  const setFaq = (i, key) => (e) =>
+    setValues((v) => {
+      const faqs = v.faqs.map((f, n) => (n === i ? { ...f, [key]: e.target.value } : f))
+      return { ...v, faqs }
+    })
+
+  const addFaq = () => setValues((v) => ({ ...v, faqs: [...v.faqs, { q: '', a: '' }] }))
+
+  const removeFaq = (i) =>
+    setValues((v) => ({ ...v, faqs: v.faqs.filter((_, n) => n !== i) }))
 
   const save = async () => {
     setSaving(true)
@@ -195,6 +208,59 @@ export default function PagesPage() {
                     placeholder={`https://saeedaccounting.com${p.url === '/' ? '/' : p.url}`}
                   />
                 </label>
+
+                <div className="pg-faq">
+                  <div className="pg-faq__head">
+                    <span className="pg-faq__title">FAQ schema</span>
+                    <em className="blg-hint">
+                      {values.faqs.length
+                        ? `${values.faqs.length} question${values.faqs.length > 1 ? 's' : ''}`
+                        : 'none yet'}
+                    </em>
+                  </div>
+                  <p className="pg-form__note">
+                    Questions and answers for Google. They are added to the page&rsquo;s code so a
+                    search result can show them — they do not appear on the page itself. A row with
+                    only one half filled in is ignored.
+                  </p>
+
+                  {values.faqs.map((f, i) => (
+                    /* Index as key: rows have no id, and the list is only ever
+                       appended to or spliced, never reordered. */
+                    // eslint-disable-next-line react/no-array-index-key
+                    <div className="pg-faq__row" key={i}>
+                      <div className="pg-faq__num">{i + 1}</div>
+                      <div className="pg-faq__fields">
+                        <input
+                          type="text"
+                          value={f.q}
+                          onChange={setFaq(i, 'q')}
+                          maxLength={300}
+                          placeholder="Question — e.g. Who needs to register for VAT in the UAE?"
+                        />
+                        <textarea
+                          rows={2}
+                          value={f.a}
+                          onChange={setFaq(i, 'a')}
+                          maxLength={1000}
+                          placeholder="Answer — a complete sentence or two."
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        className="pg-faq__remove"
+                        onClick={() => removeFaq(i)}
+                        title="Remove this question"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
+
+                  <button type="button" className="adm-btn" onClick={addFaq}>
+                    + Add question
+                  </button>
+                </div>
 
                 {saved && <p className="pg-form__ok">{saved}</p>}
 
