@@ -281,6 +281,12 @@ if (existsSync(join(DIST, 'index.html'))) {
   app.use(
     express.static(DIST, {
       index: false,
+      /* Prerendering gives every route a dist/<path>/ directory, and static's
+         default is to answer /about-us with a 301 to /about-us/. Canonical URLs
+         and the sitemap both use the unslashed form, so that redirect would
+         send crawlers away from the address the page claims to live at. The
+         handler below resolves the directory's index.html itself. */
+      redirect: false,
       maxAge: '1y',
       setHeaders: (res, filePath) => {
         if (filePath.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache')
@@ -310,25 +316,20 @@ if (existsSync(join(DIST, 'index.html'))) {
 
     const key = req.path.replace(/^\/+|\/+$/g, '')
 
-    /* For '/' this resolves to DIST/index.html — the shell itself — so it is
-       only a prerendered route when it is some *other* file. Returning early on
-       the shell would skip the override lookup below and leave the homepage the
-       one page the admin could not edit. */
+    /* The prerendered file for this route, or the shell when it has none. Both
+       are served the same way: the override below is applied to whichever one
+       this is, so a prerendered page is still editable from the panel. The
+       resolved path is confined to DIST so an encoded ../ can't escape it. */
     const nested = resolve(DIST, '.' + req.path, 'index.html')
-    if (
-      nested !== join(DIST, 'index.html') &&
-      nested.startsWith(DIST + sep) &&
-      isFile(nested)
-    ) {
-      return res.sendFile(nested)
-    }
+    const page =
+      nested.startsWith(DIST + sep) && isFile(nested) ? nested : join(DIST, 'index.html')
 
     try {
       const row = await get('SELECT * FROM page_seo WHERE path = ?', [key])
-      /* No override for this route — serve the build's own shell untouched. */
-      if (!row) return res.sendFile(join(DIST, 'index.html'))
+      /* No override for this route — serve the file as built. */
+      if (!row) return res.sendFile(page)
 
-      const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
+      const shell = readFileSync(page, 'utf8')
 
       /* Whatever JSON-LD the admin pasted for this route. It was validated as
          JSON on save, but re-check here: a row could predate that check, and a
@@ -392,9 +393,10 @@ if (existsSync(join(DIST, 'index.html'))) {
         .type('html')
         .send(html.replace('</head>', `${tags}</head>`))
     } catch (err) {
-      /* The page matters more than its meta: on a DB error serve the shell. */
-      console.error('page seo: serving the shell —', err.message)
-      return res.sendFile(join(DIST, 'index.html'))
+      /* The page matters more than its meta: on a DB error serve the file as
+         built, which is the prerendered copy where there is one. */
+      console.error('page seo: serving the page unmodified —', err.message)
+      return res.sendFile(page)
     }
   })
 }
