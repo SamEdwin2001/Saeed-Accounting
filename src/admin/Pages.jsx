@@ -87,7 +87,11 @@ export default function PagesPage() {
 
   const open = (page) => {
     setOpenPath(page.path)
-    setValues(page.override ?? EMPTY)
+    /* Spread over EMPTY rather than replacing it: a row saved before a field
+       existed comes back without that key, and a textarea whose value is
+       undefined is uncontrolled — React then ignores what is typed into it, so
+       the field looked editable and saved nothing. */
+    setValues({ ...EMPTY, ...(page.override ?? {}) })
     setSaved('')
     setError('')
   }
@@ -172,13 +176,13 @@ export default function PagesPage() {
                 <label className="adm-field">
                   <span>
                     Meta title{' '}
-                    <em className={`blg-hint ${values.title.length > TITLE_BEST ? 'blg-hint--over' : ''}`}>
-                      ({values.title.length}/{TITLE_BEST} — the blue line in search results)
+                    <em className={`blg-hint ${(values.title ?? '').length > TITLE_BEST ? 'blg-hint--over' : ''}`}>
+                      ({(values.title ?? '').length}/{TITLE_BEST} — the blue line in search results)
                     </em>
                   </span>
                   <input
                     type="text"
-                    value={values.title}
+                    value={values.title ?? ''}
                     onChange={setField('title')}
                     maxLength={255}
                     placeholder="Leave blank to keep the current title"
@@ -190,15 +194,15 @@ export default function PagesPage() {
                     Meta description{' '}
                     <em
                       className={`blg-hint ${
-                        values.description.length > DESC_BEST ? 'blg-hint--over' : ''
+                        (values.description ?? '').length > DESC_BEST ? 'blg-hint--over' : ''
                       }`}
                     >
-                      ({values.description.length}/{DESC_BEST} — the grey text under the link)
+                      ({(values.description ?? '').length}/{DESC_BEST} — the grey text under the link)
                     </em>
                   </span>
                   <textarea
                     rows={3}
-                    value={values.description}
+                    value={values.description ?? ''}
                     onChange={setField('description')}
                     maxLength={500}
                     placeholder="Leave blank to keep the current description"
@@ -211,7 +215,7 @@ export default function PagesPage() {
                   </span>
                   <input
                     type="text"
-                    value={values.keywords}
+                    value={values.keywords ?? ''}
                     onChange={setField('keywords')}
                     maxLength={500}
                     placeholder="vat services uae, tax consultant dubai"
@@ -227,7 +231,7 @@ export default function PagesPage() {
                   </span>
                   <input
                     type="text"
-                    value={values.canonical}
+                    value={values.canonical ?? ''}
                     onChange={setField('canonical')}
                     maxLength={500}
                     placeholder={`https://saeedaccounting.com${p.url === '/' ? '/' : p.url}`}
@@ -245,13 +249,13 @@ export default function PagesPage() {
                   <textarea
                     className="pg-schema"
                     rows={10}
-                    value={values.schema}
+                    value={values.schema ?? ''}
                     onChange={setField('schema')}
                     spellCheck={false}
                     placeholder={SCHEMA_PLACEHOLDER}
                   />
                   <em className="blg-hint">
-                    {schemaNote(values.schema)}
+                    {schemaNote(values.schema ?? '')}
                   </em>
                 </label>
 
