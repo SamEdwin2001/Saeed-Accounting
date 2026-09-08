@@ -108,12 +108,22 @@ export default function PagesPage() {
     setSaving(true)
     setError('')
     try {
-      await api.pages.save(openPath, values)
+      const { override } = await api.pages.save(openPath, values)
       /* Re-read rather than patching the row in place: the server is what
          decides whether a page counts as edited, and it trims the values. */
       const { pages: fresh } = await api.pages.list()
       setPages(fresh)
-      setSaved('Saved — live on the site now.')
+
+      /* Report what came back rather than assuming: a mismatch here is the
+         difference between "saved" and "the server took something else",
+         which is otherwise invisible until the next page load. */
+      const stored = (override?.schema ?? '').length
+      const sent = (values.schema ?? '').trim().length
+      setSaved(
+        sent && !stored
+          ? 'Saved, but the schema did not store — copy it somewhere safe and tell your developer.'
+          : `Saved — live on the site now.${stored ? ` Schema: ${stored} characters.` : ''}`
+      )
     } catch (e) {
       setError(e.message)
     } finally {
