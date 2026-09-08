@@ -9,6 +9,7 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 
 import App from './App.jsx'
+import { resetDirhamDefs } from './components/Icons.jsx'
 import './styles.css'
 
 /**
@@ -37,14 +38,19 @@ export async function warmup() {
   await Promise.all(PAGES)
 }
 
-const renderOnce = (url) =>
-  renderToString(
+const renderOnce = (url) => {
+  /* The AED outline is emitted by the first <Dirham> of a render and skipped by
+     the rest. Every pass has to start clean, or the pass that produces the file
+     we keep would reference a <symbol> an earlier discarded pass had emitted. */
+  resetDirhamDefs()
+  return renderToString(
     <StrictMode>
       <StaticRouter location={url}>
         <App />
       </StaticRouter>
     </StrictMode>
   )
+}
 
 /**
  * Render until the markup stops changing.
