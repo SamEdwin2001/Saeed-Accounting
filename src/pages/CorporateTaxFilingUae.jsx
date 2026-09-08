@@ -385,8 +385,8 @@ const HTML = `<!-- DEADLINE MARQUEE -->
                         <div class="section-title" style="line-height: 1.15;">Complete Corporate Tax<br><span
                                 class="accent">Filing Support</span>
                         </div>
-                        <p class="section-sub" style="margin-top: 6px;">Get expert-managed CT filing with accurate calculations, compliance checks, and seamless submission to the FTA.
-                    
+                        <p class="section-sub" style="margin-top: 6px;">Get expert-managed CT filing with accurate calculations, compliance checks, and seamless submission to the FTA.</p>
+
                         <div class="checklist reveal">
                             <div class="cl-item">
                                 <div class="cl-check"><svg viewBox="0 0 24 24">
