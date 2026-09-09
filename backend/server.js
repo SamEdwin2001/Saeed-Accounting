@@ -122,6 +122,18 @@ if (existsSync(join(DIST, 'index.html'))) {
     }
   }
 
+  /**
+   * The shell with an empty #root, for the routes rendered per request.
+   *
+   * dist/index.html is the prerendered homepage — its #root is full — so the
+   * blog renderer, which injects a post into an empty one, has to read the copy
+   * the prerender step keeps beside it. Falls back to index.html so a build
+   * without that step still serves (as an unfilled SPA shell, as before).
+   */
+  const SHELL = isFile(join(DIST, 'shell.html'))
+    ? join(DIST, 'shell.html')
+    : join(DIST, 'index.html')
+
   const escapeHtml = (v) =>
     String(v ?? '')
       .replace(/&/g, '&amp;')
@@ -151,7 +163,7 @@ if (existsSync(join(DIST, 'index.html'))) {
    */
   const sendNotFound = (res) => {
     try {
-      const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
+      const shell = readFileSync(SHELL, 'utf8')
       const html = shell
         .replace(/<title>[^<]*<\/title>/, '<title>Post Not Found | Saeed Accounting</title>')
         .replace(/<meta\s+name="robots"[\s\S]*?>/, '<meta name="robots" content="noindex, follow">')
@@ -179,6 +191,70 @@ if (existsSync(join(DIST, 'index.html'))) {
    * A slug with no published post answers 404 via sendNotFound() rather than
    * falling through to the SPA shell, which would have sent 200.
    */
+  /**
+   * Server-render /blog, the listing.
+   *
+   * Same reason as the post route below: the cards are fetched after React
+   * mounts, so a crawler reading the HTML saw an empty page with the site-wide
+   * title. Posts are written after a build, so this cannot be prerendered
+   * either — it is read from the live rows on each request.
+   */
+  app.get('/blog', async (_req, res, next) => {
+    try {
+      const rows = await all(
+        `SELECT slug, title, image, published_at, content FROM blog_posts
+         WHERE published = 1
+         ORDER BY COALESCE(published_at, DATE(created_at)) DESC, id DESC`
+      )
+
+      const shell = readFileSync(SHELL, 'utf8')
+      if (!shell.includes('<div id="root"></div>')) return next()
+
+      const title = 'Blog | Saeed Accounting'
+      const description =
+        'VAT, corporate tax, bookkeeping and business insights for UAE companies, written by our tax and accounting team.'
+
+      /* Links, not the full articles: the listing links to each post, and a
+         crawler following them reaches the post's own rendered page. */
+      const body = [
+        '<div id="root">',
+        '<section class="section blog"><div class="container">',
+        `<h1>${escapeHtml(title)}</h1>`,
+        ...rows.map((r) =>
+          [
+            '<article class="blog-card">',
+            `<a href="/blog/${encodeURIComponent(r.slug)}">${escapeHtml(r.title)}</a>`,
+            `<p>${escapeHtml(excerptOf(r.content))}</p>`,
+            '</article>',
+          ].join('')
+        ),
+        '</div></section>',
+        '</div>',
+      ].join('')
+
+      const head = [
+        `<title>${escapeHtml(title)}</title>`,
+        `<meta name="description" content="${escapeHtml(description)}">`,
+        `<link rel="canonical" href="${ORIGIN}/blog">`,
+      ]
+        .map((tag) => '\n    ' + tag)
+        .join('')
+
+      const html = shell
+        .replace(/<title>[^<]*<\/title>/, '')
+        .replace(/<meta\s+name="description"[\s\S]*?>/, '')
+        .replace('</head>', `${head}</head>`)
+        .replace('<div id="root"></div>', body)
+
+      return res.set('Cache-Control', 'no-cache').type('html').send(html)
+    } catch (err) {
+      /* The listing matters more than its markup: fall through to the shell,
+         which React still fills in correctly for a browser. */
+      console.error('blog listing: serving the shell —', err.message)
+      return next()
+    }
+  })
+
   app.get('/blog/:slug', async (req, res, next) => {
     try {
       const row = await get('SELECT * FROM blog_posts WHERE slug = ? AND published = 1', [
@@ -191,7 +267,7 @@ if (existsSync(join(DIST, 'index.html'))) {
          noindex with it — is what tells Google the URL is gone. */
       if (!row) return sendNotFound(res)
 
-      const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
+      const shell = readFileSync(SHELL, 'utf8')
       if (!shell.includes('<div id="root"></div>')) return next()
 
       const title = row.meta_title || `${row.title} | Saeed Accounting`

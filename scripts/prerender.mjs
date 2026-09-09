@@ -48,9 +48,14 @@ const { ROUTE_SEO } = await import(
   pathToFileURL(join(__dirname, '..', 'src', 'data', 'seo.js')).href
 )
 
+/* Routes whose content comes from the database, so a build-time render would
+   freeze whatever posts existed at deploy. server.js renders these per request
+   from the live rows instead. */
+const DYNAMIC = new Set(['blog'])
+
 /* Keyed without a leading slash, '' being the homepage — the same shape the
    admin panel and server.js use. */
-const ROUTES = Object.keys(ROUTE_SEO)
+const ROUTES = Object.keys(ROUTE_SEO).filter((r) => !DYNAMIC.has(r))
 
 const shell = readFileSync(join(DIST, 'index.html'), 'utf8')
 const MARKER = '<div id="root"></div>'
@@ -59,6 +64,13 @@ if (!shell.includes(MARKER)) {
   console.error('prerender: dist/index.html has no empty #root to fill — run vite build first')
   process.exit(1)
 }
+
+/* Keep the untouched shell beside the filled one.
+   /blog and /blog/<slug> are rendered per request from the database, and that
+   code injects the post into an empty #root — which dist/index.html no longer
+   has once the homepage is written into it. server.js reads this copy for those
+   routes instead. */
+writeFileSync(join(DIST, 'shell.html'), shell, 'utf8')
 
 /* Elements whose text is significant: a newline added inside one of these is
    rendered, so they are emitted on a single line whatever their length. */
