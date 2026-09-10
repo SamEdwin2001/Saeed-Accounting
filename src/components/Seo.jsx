@@ -154,6 +154,7 @@ export default function Seo({
   canonical: canonicalProp,
   noindex = false,
   faqs,
+  schema: schemaProp,
 }) {
   const inlined = overrideFor(path)
 
@@ -182,8 +183,11 @@ export default function Seo({
   const canonical = saved?.canonical || canonicalProp
   /* Schema pasted in the admin panel. The server already wrote it into the HTML
      it served; this re-applies it on the dev server, where Vite serves its own
-     index.html and knows nothing about the database. */
-  const schema = saved?.schema || ''
+     index.html and knows nothing about the database.
+
+     A blog post passes its own rather than reading the route table — its schema
+     lives on the post row, not in page_seo. */
+  const schema = schemaProp || saved?.schema || ''
 
   useEffect(() => {
     /* Titles arrive complete from data/seo.js — the brand suffix is written

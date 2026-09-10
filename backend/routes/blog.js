@@ -75,6 +75,30 @@ const cleanDate = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v ?? '').trim()) ? S
  * or a javascript:/data: URL — is dropped to blank, and the article falls back
  * to its own /blog/<slug> address.
  */
+/**
+ * A JSON-LD block for the post, kept as the text the author pasted.
+ *
+ * Stored verbatim rather than reshaped: schema.org has dozens of types and the
+ * point of the field is that a new one needs no code change. Returns null for
+ * blank so "no schema" is one value rather than two.
+ *
+ * Throws on malformed JSON — emitting a broken <script type="application/ld+json">
+ * is worse than emitting none, because Google discards the page's whole
+ * structured data over one bad object rather than just that object.
+ */
+const cleanSchema = (v) => {
+  const text = String(v ?? '').trim()
+  if (!text) return null
+  try {
+    JSON.parse(text)
+  } catch (e) {
+    const err = new Error(`Schema is not valid JSON — ${e.message}`)
+    err.status = 400
+    throw err
+  }
+  return text
+}
+
 const cleanCanonical = (v) => {
   const url = String(v ?? '').trim().slice(0, 500)
   if (!url) return ''
@@ -139,6 +163,7 @@ const toPost = (row, { withContent = false } = {}) => ({
         metaDescription: row.meta_description || '',
         metaKeywords: row.meta_keywords || '',
         canonical: row.canonical_url || '',
+        schema: row.schema_json || '',
       }
     : {}),
 })
@@ -265,6 +290,7 @@ router.post('/admin/posts', async (req, res) => {
     metaDescription,
     metaKeywords,
     canonical,
+    schema,
   } = req.body || {}
 
   if (!title?.trim() || !content?.trim()) {
@@ -287,13 +313,16 @@ router.post('/admin/posts', async (req, res) => {
     meta_description: clean(metaDescription, 500),
     meta_keywords: clean(metaKeywords, 500),
     canonical_url: cleanCanonical(canonical),
+    schema_json: cleanSchema(schema),
   }
 
   const info = await run(
     `INSERT INTO blog_posts (title, slug, categories, image, content, published, published_at,
-                             meta_title, meta_description, meta_keywords, canonical_url)
+                             meta_title, meta_description, meta_keywords, canonical_url,
+                             schema_json)
      VALUES (:title, :slug, :categories, :image, :content, :published, :published_at,
-             :meta_title, :meta_description, :meta_keywords, :canonical_url)`,
+             :meta_title, :meta_description, :meta_keywords, :canonical_url,
+             :schema_json)`,
     values
   )
 
@@ -318,6 +347,7 @@ router.patch('/admin/posts/:id', async (req, res) => {
     metaDescription,
     metaKeywords,
     canonical,
+    schema,
   } = req.body || {}
 
   const nextTitle = title !== undefined ? clean(title, 200) : existing.title
@@ -348,6 +378,7 @@ router.patch('/admin/posts/:id', async (req, res) => {
       metaDescription !== undefined ? clean(metaDescription, 500) : existing.meta_description,
     meta_keywords: metaKeywords !== undefined ? clean(metaKeywords, 500) : existing.meta_keywords,
     canonical_url: canonical !== undefined ? cleanCanonical(canonical) : existing.canonical_url,
+    schema_json: schema !== undefined ? cleanSchema(schema) : existing.schema_json,
     id: existing.id,
   }
 
@@ -356,7 +387,8 @@ router.patch('/admin/posts/:id', async (req, res) => {
         SET title = :title, slug = :slug, categories = :categories, image = :image,
             content = :content, published = :published, published_at = :published_at,
             meta_title = :meta_title, meta_description = :meta_description,
-            meta_keywords = :meta_keywords, canonical_url = :canonical_url
+            meta_keywords = :meta_keywords, canonical_url = :canonical_url,
+            schema_json = :schema_json
       WHERE id = :id`,
     values
   )

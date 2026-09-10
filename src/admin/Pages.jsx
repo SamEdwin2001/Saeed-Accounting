@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { api } from './api.js'
+import { SCHEMA_PLACEHOLDER, schemaNote } from './schema.js'
 
 /* Same targets the blog form uses, and the same reason: they are the widths
    Google renders before it truncates, so going over is a warning rather than
@@ -9,44 +10,6 @@ const TITLE_BEST = 60
 const DESC_BEST = 160
 
 const EMPTY = { title: '', description: '', keywords: '', canonical: '', schema: '' }
-
-/* A FAQPage, because that is the block these pages need most often — but the
-   field takes any schema.org type, so the example is a starting point rather
-   than a template to fill in. */
-const SCHEMA_PLACEHOLDER = `{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Who needs to register for VAT in the UAE?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Businesses with taxable supplies above AED 375,000 must register."
-      }
-    }
-  ]
-}`
-
-/**
- * Says whether what is typed so far is valid JSON, and what type it declares.
- *
- * The server rejects malformed JSON on save, but that is after the click —
- * a note under the box catches a stray comma while the eye is still on it.
- */
-const schemaNote = (text) => {
-  const v = text.trim()
-  if (!v) return 'No schema on this page.'
-  try {
-    const parsed = JSON.parse(v)
-    const type = Array.isArray(parsed)
-      ? parsed.map((o) => o?.['@type']).filter(Boolean).join(', ')
-      : parsed?.['@type']
-    return type ? `Valid JSON — @type: ${type}` : 'Valid JSON, but no @type declared.'
-  } catch (e) {
-    return `Not valid JSON yet — ${e.message}`
-  }
-}
 
 /**
  * Meta for the site's own pages.

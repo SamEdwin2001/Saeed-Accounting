@@ -244,6 +244,7 @@ export default function BlogPostPage() {
         description={post.metaDescription || post.excerpt}
         keywords={post.metaKeywords || undefined}
         canonical={post.canonical || undefined}
+        schema={post.schema || undefined}
         path={`/blog/${post.slug}`}
       />
 

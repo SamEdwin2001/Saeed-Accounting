@@ -317,7 +317,21 @@ if (existsSync(join(DIST, 'index.html'))) {
         metaDescription: row.meta_description || '',
         metaKeywords: row.meta_keywords || '',
         canonical: row.canonical_url || '',
+        schema: row.schema_json || '',
       }).replace(/</g, '\\u003c')
+
+      /* Validated on save, but re-checked here: a row could predate that check,
+         and Google discards a page's whole structured data over one broken
+         object rather than just that object. */
+      let postSchema = ''
+      if (row.schema_json) {
+        try {
+          JSON.parse(row.schema_json)
+          postSchema = String(row.schema_json)
+        } catch {
+          console.error(`blog ssr: ignoring invalid schema JSON on /blog/${row.slug}`)
+        }
+      }
 
       const head = [
         `<title>${escapeHtml(title)}</title>`,
@@ -325,6 +339,17 @@ if (existsSync(join(DIST, 'index.html'))) {
         `<link rel="canonical" href="${escapeHtml(canonical)}">`,
         row.meta_keywords
           ? `<meta name="keywords" content="${escapeHtml(row.meta_keywords)}">`
+          : '',
+        /* JSON-LD the author pasted for this post, written into the HTML a
+           crawler reads before any JS runs. Carries the attribute Seo.jsx looks
+           for, so React replaces this block instead of appending a second one.
+           `</script>` inside a string would close the block early, so the one
+           sequence that can break out is escaped. */
+        postSchema
+          ? `<script type="application/ld+json" data-seo-ld="page">${postSchema.replace(
+              /</g,
+              '\\u003c'
+            )}</script>`
           : '',
         `<script>window.__POST__=${preload}</script>`,
       ]
@@ -480,9 +505,16 @@ if (existsSync(join(DIST, 'index.html'))) {
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }))
 
 /* Last-resort handler: log the real error, return a generic one so stack
-   traces and SQL details never reach the browser. */
+   traces and SQL details never reach the browser.
+
+   A route that rejects its input sets err.status itself — that message is
+   written for the person who typed the value and has to reach them, or they
+   are told "something went wrong" about a stray comma they could fix. */
 app.use((err, _req, res, _next) => {
   console.error('[api]', err)
+  if (err?.status >= 400 && err.status < 500) {
+    return res.status(err.status).json({ error: err.message })
+  }
   res.status(500).json({ error: 'Something went wrong. Please try again.' })
 })
 

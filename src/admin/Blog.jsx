@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { api } from './api.js'
+import { SCHEMA_PLACEHOLDER, schemaNote } from './schema.js'
 import { EditIcon, Trash, Plus, Close } from '../components/Icons.jsx'
 
 /* Mirrors the server's slugify, so the "/blog/…" preview under the slug box
@@ -32,6 +33,7 @@ const emptyForm = () => ({
   metaDescription: '',
   metaKeywords: '',
   canonical: '',
+  schema: '',
 })
 
 /* Google truncates around these lengths in the results page. Shown as a live
@@ -111,6 +113,7 @@ export default function Blog() {
           metaDescription: post.metaDescription || '',
           metaKeywords: post.metaKeywords || '',
           canonical: post.canonical || '',
+          schema: post.schema || '',
         },
       })
     } catch (err) {
@@ -377,6 +380,25 @@ export default function Blog() {
                 <code className="blg-slug">
                   Blank → https://saeedaccounting.com/blog/{preview || '…'}
                 </code>
+              </label>
+
+              <label className="adm-field">
+                <span>
+                  Schema (JSON-LD){' '}
+                  <em className="blg-hint">
+                    (paste the block for this post — FAQPage, Article, anything schema.org
+                    defines. Leave blank if the post needs none.)
+                  </em>
+                </span>
+                <textarea
+                  className="pg-schema"
+                  rows={10}
+                  value={values.schema ?? ''}
+                  onChange={setField('schema')}
+                  spellCheck={false}
+                  placeholder={SCHEMA_PLACEHOLDER}
+                />
+                <em className="blg-hint">{schemaNote(values.schema ?? '')}</em>
               </label>
             </fieldset>
 

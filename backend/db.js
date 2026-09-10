@@ -104,6 +104,9 @@ export async function init() {
     ['meta_description', "VARCHAR(500) NOT NULL DEFAULT ''"],
     ['meta_keywords', "VARCHAR(500) NOT NULL DEFAULT ''"],
     ['canonical_url', "VARCHAR(500) NOT NULL DEFAULT ''"],
+    /* A JSON-LD block for the post, stored as the text the author pasted.
+       TEXT because an FAQPage with a dozen questions runs long. */
+    ['schema_json', 'TEXT NULL'],
   ])
 
   /* Meta the admin has overridden for a static route, keyed by pathname without
