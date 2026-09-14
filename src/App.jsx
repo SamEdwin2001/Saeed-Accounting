@@ -40,6 +40,46 @@ const AdminApp = lazy(() => import('./admin/AdminApp.jsx'))
    .ctf-page, so it renders inside the normal site chrome (header + footer). */
 const CorporateTaxFilingUae = lazy(() => import('./pages/CorporateTaxFilingUae.jsx'))
 
+/**
+ * Resolve the chunk a path needs, before React renders it.
+ *
+ * Hydration compares the server's markup with what the client renders on its
+ * first pass. The prerender resolves every lazy() before rendering, so the
+ * server emits the real page; the client would render the Suspense fallback
+ * instead and React would discard the markup as a mismatch — the blank screen
+ * this exists to avoid.
+ *
+ * Awaiting the import first makes the two agree. Unknown paths resolve to
+ * nothing, which is correct: those routes have no prerendered file to match.
+ */
+export function preloadRoute(pathname) {
+  const path = String(pathname || '/').replace(/\/+$/, '') || '/'
+
+  if (path === '/') return import('./pages/Home.jsx')
+  if (path === '/about-us') return import('./pages/AboutPage.jsx')
+  if (path === '/contact-us') return import('./pages/ContactPage.jsx')
+  if (path === '/blog') return import('./pages/BlogPage.jsx')
+  if (path.startsWith('/blog/')) return import('./pages/BlogPostPage.jsx')
+  if (path === '/uae-corporate-tax-registration') return import('./pages/CorporateTaxLanding.jsx')
+  if (path === '/uae-vat-registration' || path === '/vat-services-uae') {
+    return import('./pages/VatRegistrationPage.jsx')
+  }
+  if (path === '/corporate-tax-filing-uae') return import('./pages/CtFilingPage.jsx')
+  if (path === '/file-corporate-tax-return') return import('./pages/CorporateTaxFilingUae.jsx')
+  if (path === '/admin') return import('./admin/AdminApp.jsx')
+
+  const slug = path.slice(1)
+  if (CUSTOM_PAGES[slug]) {
+    /* These render a bespoke component rather than the article template. */
+    if (slug === 'vat-registration-services') return import('./pages/VatRegistrationPage.jsx')
+    /* Both of these render CorporateTaxLanding, with different data. */
+    return import('./pages/CorporateTaxLanding.jsx')
+  }
+  if (SERVICES.some((x) => x.slug === slug)) return import('./pages/ServicePage.jsx')
+
+  return import('./pages/NotFound.jsx')
+}
+
 /** Slugs that use a bespoke layout rather than the article template. */
 const CUSTOM_PAGES = {
   'vat-registration-services': <VatRegistrationPage />,
