@@ -202,7 +202,7 @@ export default function Seo({
     setMeta('keywords', keywords)
 
     /* Canonical: the site serves duplicate content on paired routes
-       (/uae-vat-registration mirrors /vat-registration-services), so each
+       (/uae-vat-registration mirrors /vat-registration), so each
        page must at least declare its own URL as canonical.
 
        An explicit `canonical` wins over the route's own address — that is the

@@ -212,7 +212,7 @@ export const SERVICES = [
 
   /* ------------------------------------------------------------ VAT / TAX */
   {
-    slug: 'vat-registration-services',
+    slug: 'vat-registration',
     title: 'FTA VAT Registration UAE',
     subheading: 'Limited Offer Running Starts @ 149',
     body: [

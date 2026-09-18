@@ -20,7 +20,7 @@ Saeed Accounting positions itself as a certified tax consultant helping UAE busi
 
 ## VAT / Tax services
 
-- [VAT Registration](https://saeedaccounting.com/vat-registration-services): Registering businesses with UAE tax authorities.
+- [VAT Registration](https://saeedaccounting.com/vat-registration): Registering businesses with UAE tax authorities.
 - [VAT Return Filing](https://saeedaccounting.com/vat-return-filling): Preparing and submitting VAT returns within deadlines.
 - [VAT De-Registration](https://saeedaccounting.com/vat-de-registration): Removing a business from the VAT system when no longer required.
 - [VAT Audit](https://saeedaccounting.com/vat-audit): Reviewing VAT records and compliance.

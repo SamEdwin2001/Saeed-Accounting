@@ -63,6 +63,7 @@ app.use('/api/pages', pageRoutes)
    ranking they carry pointing at the current URL. */
 const MOVED = {
   '/register-for-vat-online-uae': '/vat-services-uae',
+  '/vat-registration-services': '/vat-registration',
 }
 
 /* Must match scripts/build-sitemap.mjs, or the appended blog URLs would sit on

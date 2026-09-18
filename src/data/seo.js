@@ -60,7 +60,7 @@ export const ROUTE_SEO = {
   },
 
   /* ---- VAT ---- */
-  'vat-registration-services': {
+  'vat-registration': {
     title: 'VAT Registration UAE | Dubai VAT Registration Services',
     description:
       'Need VAT registration services in UAE or Dubai? Saeed Accounting offers expert, FTA-approved VAT registration services for businesses of all sizes. Contact us now!',

@@ -52,7 +52,7 @@ const FEATURES = [
 
 /* Only rendered off the landing route, so no landingTitle overrides here. */
 const PRICING = [
-  { title: 'VAT Registration UAE', price: 'Starts @ Ð 149 Only', to: '/vat-registration-services' },
+  { title: 'VAT Registration UAE', price: 'Starts @ Ð 149 Only', to: '/vat-registration' },
   { title: 'Corporate Tax Registration', price: 'Starts @ Ð 149 Only', to: '/corporate-tax-registration' },
 ]
 

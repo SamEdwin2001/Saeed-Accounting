@@ -46,7 +46,7 @@ const VAT = [
     icon: FileIcon,
     title: 'VAT Registration',
     text: 'VAT (Value Added Tax) registration services assist businesses in complying with VAT regulations by registering them with the appropriate tax authorities',
-    to: '/vat-registration-services',
+    to: '/vat-registration',
   },
   {
     icon: IdCardIcon,

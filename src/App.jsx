@@ -71,7 +71,7 @@ export function preloadRoute(pathname) {
   const slug = path.slice(1)
   if (CUSTOM_PAGES[slug]) {
     /* These render a bespoke component rather than the article template. */
-    if (slug === 'vat-registration-services') return import('./pages/VatRegistrationPage.jsx')
+    if (slug === 'vat-registration') return import('./pages/VatRegistrationPage.jsx')
     /* Both of these render CorporateTaxLanding, with different data. */
     return import('./pages/CorporateTaxLanding.jsx')
   }
@@ -82,7 +82,7 @@ export function preloadRoute(pathname) {
 
 /** Slugs that use a bespoke layout rather than the article template. */
 const CUSTOM_PAGES = {
-  'vat-registration-services': <VatRegistrationPage />,
+  'vat-registration': <VatRegistrationPage />,
   'corporate-tax-filing': <CorporateTaxLanding data={CORPORATE_TAX_FILING} marquee />,
   'corporate-tax-registration': <CorporateTaxLanding data={CORPORATE_TAX_REGISTRATION} />,
 }
@@ -109,7 +109,7 @@ export default function App() {
    trailing slash. The value is the same array the page renders, so the schema
    always describes the questions a visitor can actually see. */
 const FAQ_SCHEMA_ROUTES = {
-  '/vat-registration-services': VAT_REGISTRATION_FAQS,
+  '/vat-registration': VAT_REGISTRATION_FAQS,
   '/corporate-tax-registration': CORPORATE_TAX_REGISTRATION.faqs,
   '/corporate-tax-filing': CORPORATE_TAX_FILING.faqs,
   '/vat-return-filling': SERVICES.find((s) => s.slug === 'vat-return-filling').faqs,
@@ -180,7 +180,7 @@ function PublicSite() {
             ))}
 
             {/* SEO landing variants — not in SERVICES, so routed explicitly.
-                /uae-vat-registration is a duplicate of /vat-registration-services
+                /uae-vat-registration is a duplicate of /vat-registration
                 on the live site, so it renders the same page. */}
             <Route
               path="/uae-corporate-tax-registration"

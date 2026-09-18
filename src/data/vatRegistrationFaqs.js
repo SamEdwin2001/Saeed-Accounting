@@ -1,5 +1,5 @@
 /**
- * FAQ list for /vat-registration-services.
+ * FAQ list for /vat-registration.
  *
  * Its own module so App can build the page's FAQPage schema from it without
  * statically importing VatRegistrationPage, which is lazy-loaded — a static
