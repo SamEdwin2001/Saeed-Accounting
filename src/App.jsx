@@ -61,7 +61,11 @@ export function preloadRoute(pathname) {
   if (path === '/blog') return import('./pages/BlogPage.jsx')
   if (path.startsWith('/blog/')) return import('./pages/BlogPostPage.jsx')
   if (path === '/uae-corporate-tax-registration') return import('./pages/CorporateTaxLanding.jsx')
-  if (path === '/uae-vat-registration' || path === '/vat-services-uae') {
+  if (
+    path === '/uae-vat-registration' ||
+    path === '/vat-services-uae' ||
+    path === '/vat-registration-uae'
+  ) {
     return import('./pages/VatRegistrationPage.jsx')
   }
   if (path === '/corporate-tax-filing-uae') return import('./pages/CtFilingPage.jsx')
@@ -187,6 +191,7 @@ function PublicSite() {
               element={<CorporateTaxLanding data={CORPORATE_TAX_CONSULTANT} />}
             />
             <Route path="/uae-vat-registration" element={<VatRegistrationPage carouselReviews />} />
+            <Route path="/vat-registration-uae" element={<VatRegistrationPage carouselReviews />} />
             <Route
               path="/vat-services-uae"
               element={

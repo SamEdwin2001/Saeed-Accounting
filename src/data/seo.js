@@ -164,6 +164,11 @@ export const ROUTE_SEO = {
     description:
       'Register for UAE VAT without the guesswork. We confirm your threshold, compile documents and file with the FTA so your TRN arrives without resubmissions.',
   },
+  'vat-registration-uae': {
+    title: 'VAT Registration in UAE | FTA-Approved Tax Agents',
+    description:
+      'VAT registration in the UAE handled end to end. We check your threshold, prepare the documents and file with the FTA so your TRN is issued first time.',
+  },
   'vat-services-uae': {
     title: 'VAT Services UAE from AED 149',
     description:
