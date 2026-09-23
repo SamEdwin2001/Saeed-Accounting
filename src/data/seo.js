@@ -163,6 +163,7 @@ export const ROUTE_SEO = {
     title: 'VAT Registration UAE — Get Your TRN',
     description:
       'Register for UAE VAT without the guesswork. We confirm your threshold, compile documents and file with the FTA so your TRN arrives without resubmissions.',
+    canonical: '/vat-registration',
   },
   'vat-registration-uae': {
     title: 'VAT Registration in UAE | FTA-Approved Tax Agents',
@@ -173,11 +174,13 @@ export const ROUTE_SEO = {
     title: 'VAT Services UAE from AED 149',
     description:
       'Complete your UAE VAT registration online from AED 149. Eligibility checked, documents prepared and the application submitted through the FTA portal for you.',
+    canonical: '/vat-registration',
   },
   'uae-corporate-tax-registration': {
     title: 'UAE Corporate Tax Registration',
     description:
       'Speak to a UAE corporate tax consultant about registration — deadlines by licence issue date, EmaraTax filing and the AED 10,000 late penalty explained.',
+    canonical: '/corporate-tax-registration',
   },
   'file-corporate-tax-return': {
     title: 'File Your Corporate Tax Return UAE',
@@ -188,6 +191,7 @@ export const ROUTE_SEO = {
     title: 'Corporate Tax Filing UAE from AED 999',
     description:
       'FTA-compliant corporate tax filing in the UAE from AED 999, covering financial statement review through to submission for mainland and free zone firms.',
+    canonical: '/corporate-tax-filing',
   },
 
   /* ---- Site pages ---- */

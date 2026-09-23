@@ -151,6 +151,10 @@ function RouteSeo() {
       title={meta ? meta.title : NOT_FOUND_SEO.title}
       description={meta ? meta.description : NOT_FOUND_SEO.description}
       keywords={meta ? meta.keywords : null}
+      /* A route that duplicates another declares the original as its canonical,
+         so the two do not compete in search. Absent on a page that is its own
+         original, where <Seo> derives the canonical from the path. */
+      canonical={meta ? meta.canonical : undefined}
       path={pathname}
       noindex={!meta}
       faqs={faqs}
