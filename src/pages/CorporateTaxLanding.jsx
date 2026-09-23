@@ -209,10 +209,9 @@ export default function CorporateTaxLanding({ data, marquee = false }) {
                 >
                   <h3 className="ct-note__title">{note.title}</h3>
 
-                  {/* A card carries one of three shapes: a paragraph, a list of
-                      sentences, or label/value pairs. */}
-                  {note.body && <p className="ct-note__body">{note.body}</p>}
-
+                  {/* A card carries any of three shapes: points, a paragraph,
+                      or label/value pairs. Points come first — they are the
+                      takeaway, and the paragraph is the detail behind it. */}
                   {note.lines?.length > 0 && (
                     <ul className="ct-note__lines">
                       {note.lines.map((line) => (
@@ -220,6 +219,8 @@ export default function CorporateTaxLanding({ data, marquee = false }) {
                       ))}
                     </ul>
                   )}
+
+                  {note.body && <p className="ct-note__body">{note.body}</p>}
 
                   {note.items?.length > 0 && (
                     <ul className="ct-note__items">

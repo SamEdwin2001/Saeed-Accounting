@@ -3457,6 +3457,12 @@ a.ctc-ch__value:hover {
 .ct-note__lines li {
   line-height: 1.65;
   color: inherit;
+  font-weight: 600;
+}
+
+/* The paragraph sits under the points it explains. */
+.ct-note__lines + .ct-note__body {
+  margin-top: 0.9rem;
 }
 
 /* Label/value pairs. The dash is drawn rather than typed so the label stays

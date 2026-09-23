@@ -157,14 +157,9 @@ export const CORPORATE_TAX_REGISTRATION = {
   notes: [
     {
       title: 'Corporate Tax Registration Deadline Dubai, UAE',
-      /* Short sentences rather than one paragraph: each is a separate point
-         the reader checks against their own situation. */
-      lines: [
-        'The Corporate Tax Registration UAE deadline varies by taxpayer category.',
-        'It is dependent on the time the firm became liable for Corporate Tax.',
-        'Organizations should ascertain their own registration deadline under FTA.',
-        'It assists in preventing administrative fines.',
-      ],
+      /* The takeaway first, then the detail behind it. */
+      lines: ['It assists in preventing administrative fines.'],
+      body: 'The Corporate Tax Registration UAE deadline varies by taxpayer category. It is dependent on the time the firm became liable for Corporate Tax. Organizations should ascertain their own registration deadline under FTA.',
     },
     {
       title: 'Corporate Tax Registration Cost UAE',
