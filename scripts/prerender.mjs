@@ -141,6 +141,15 @@ const formatHtml = (html) => {
   return out.join('').replace(/^\n/, '')
 }
 
+const ORIGIN = 'https://saeedaccounting.com'
+
+const escapeHtml = (v) =>
+  String(v ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+
 let written = 0
 let failed = 0
 
@@ -164,7 +173,31 @@ for (const route of ROUTES) {
     .map((line, i) => (i === 0 ? line : `    ${line}`))
     .join('\n')
 
-  const html = shell.replace(MARKER, pretty)
+  /* The route's own <head>.
+     <Seo> writes these from a useEffect, which never runs while prerendering —
+     so without this every prerendered page shipped the shell's generic title
+     and no canonical at all, and a crawler reading the HTML saw neither. */
+  const meta = ROUTE_SEO[route]
+  const canonicalPath = meta?.canonical ?? (route === '' ? '/' : `/${route}`)
+
+  const head = [
+    meta?.title ? `<title>${escapeHtml(meta.title)}</title>` : '',
+    meta?.description
+      ? `<meta name="description" content="${escapeHtml(meta.description)}">`
+      : '',
+    meta?.keywords ? `<meta name="keywords" content="${escapeHtml(meta.keywords)}">` : '',
+    `<link rel="canonical" href="${ORIGIN}${canonicalPath}">`,
+  ]
+    .filter(Boolean)
+    .map((tag) => '\n    ' + tag)
+    .join('')
+
+  let html = shell.replace(MARKER, pretty)
+  /* Drop the shell's own title and description where this route replaces them,
+     so the page carries one of each rather than two. */
+  if (meta?.title) html = html.replace(/<title>[^<]*<\/title>/, '')
+  if (meta?.description) html = html.replace(/<meta\s+name="description"[\s\S]*?>/, '')
+  html = html.replace('</head>', `${head}</head>`)
 
   /* The homepage is dist/index.html itself; every other route gets its own
      directory so a static host resolves /about-us to about-us/index.html. */
