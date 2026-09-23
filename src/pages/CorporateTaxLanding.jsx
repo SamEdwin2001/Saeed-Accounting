@@ -208,7 +208,28 @@ export default function CorporateTaxLanding({ data, marquee = false }) {
                   key={note.title}
                 >
                   <h3 className="ct-note__title">{note.title}</h3>
-                  <p className="ct-note__body">{note.body}</p>
+
+                  {/* A card carries one of three shapes: a paragraph, a list of
+                      sentences, or label/value pairs. */}
+                  {note.body && <p className="ct-note__body">{note.body}</p>}
+
+                  {note.lines?.length > 0 && (
+                    <ul className="ct-note__lines">
+                      {note.lines.map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {note.items?.length > 0 && (
+                    <ul className="ct-note__items">
+                      {note.items.map((item) => (
+                        <li key={item.label}>
+                          <strong>{item.label}:</strong> {item.value}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </article>
               ))}
 

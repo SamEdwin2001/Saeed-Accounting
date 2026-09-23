@@ -156,12 +156,25 @@ export const CORPORATE_TAX_REGISTRATION = {
   notesAccent: 'Deadline',
   notes: [
     {
-      title: 'Corporate Tax Registration Cost in the UAE',
-      body: 'Corporate Tax Registration in the UAE costs nothing when you register through the Federal Tax Authority (FTA) via EmaraTax — there are no registration fees for receiving the Corporate Tax Registration Number. Companies that use an accounting or tax consultant pay for that assistance separately.',
+      title: 'Corporate Tax Registration Deadline Dubai, UAE',
+      /* Short sentences rather than one paragraph: each is a separate point
+         the reader checks against their own situation. */
+      lines: [
+        'The Corporate Tax Registration UAE deadline varies by taxpayer category.',
+        'It is dependent on the time the firm became liable for Corporate Tax.',
+        'Organizations should ascertain their own registration deadline under FTA.',
+        'It assists in preventing administrative fines.',
+      ],
     },
     {
-      title: 'Corporate Tax Registration Deadline in the UAE',
-      body: 'The deadline for Corporate Tax Registration in the UAE varies depending on the taxpayer category and the date the business became liable for corporate tax.',
+      title: 'Corporate Tax Registration Cost UAE',
+      /* Label/value pairs — what each part of the process costs. */
+      items: [
+        { label: 'FTA registration', value: 'Free through EmaraTax.' },
+        { label: 'Registration fee', value: 'No government fee.' },
+        { label: 'Consultant support', value: 'Optional.' },
+        { label: 'Professional fees', value: 'Charged separately.' },
+      ],
     },
   ],
 

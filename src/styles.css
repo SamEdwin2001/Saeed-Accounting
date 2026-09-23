@@ -2031,6 +2031,8 @@ a.ctc-ch__value:hover {
   margin-right: auto;
   line-height: 1.85;
   font-size: 0.92rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* Two feature cards; the right one is solid red, the left a soft peach. */
@@ -3439,6 +3441,46 @@ a.ctc-ch__value:hover {
   /* Inherit, not var(--body): the red card needs white text and the grey
      would be unreadable on it. */
   color: inherit;
+}
+
+/* Sentences, one per line. No bullet marker: each is a full statement rather
+   than an item in a set, and a row of dots would fight the numbered card
+   beside it. */
+.ct-note__lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.ct-note__lines li {
+  line-height: 1.65;
+  color: inherit;
+}
+
+/* Label/value pairs. The dash is drawn rather than typed so the label stays
+   the first thing read. */
+.ct-note__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.ct-note__items li {
+  position: relative;
+  padding-left: 1rem;
+  line-height: 1.65;
+  color: inherit;
+}
+
+.ct-note__items li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  opacity: 0.55;
 }
 
 /* Numbers come from the <ol>, drawn in the brand colour so the sequence reads
