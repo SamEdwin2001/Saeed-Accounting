@@ -3391,3 +3391,100 @@ a.ctc-ch__value:hover {
     transition: none !important;
   }
 }
+
+/* ── Corporate tax: cost, deadline and the EmaraTax steps ─────────────────
+   Three cards across, in the page's own palette — the peach and red pair the
+   cards above use, plus a light third for the step list. */
+.ct-notes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4rem;
+  align-items: stretch;
+  margin: 3rem 0 0;
+}
+
+.ct-note {
+  border-radius: 10px;
+  padding: 1.8rem 1.6rem;
+}
+
+.ct-note--peach {
+  background: #fbdcc4;
+  color: #2b2b2b;
+}
+
+.ct-note--red {
+  background: #ef3a1d;
+  color: #fff;
+}
+
+/* The steps card carries a numbered list rather than a paragraph, so it takes
+   the neutral card background — the two coloured cards either side already
+   carry the section's weight. */
+.ct-note--steps {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+}
+
+.ct-note__title {
+  margin: 0 0 0.8rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.ct-note__body {
+  margin: 0;
+  line-height: 1.75;
+  /* Inherit, not var(--body): the red card needs white text and the grey
+     would be unreadable on it. */
+  color: inherit;
+}
+
+/* Numbers come from the <ol>, drawn in the brand colour so the sequence reads
+   at a glance. counter-reset on the list, not the item, or every item restarts
+   the count. */
+.ct-steps__list {
+  counter-reset: ct-step;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.ct-steps__list li {
+  counter-increment: ct-step;
+  position: relative;
+  padding-left: 2.3rem;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+.ct-steps__list li::before {
+  content: counter(ct-step);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 1.55rem;
+  height: 1.55rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .ct-notes {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .ct-notes {
+    grid-template-columns: 1fr;
+  }
+}

@@ -8,7 +8,6 @@
  * <Price> swaps it for the real symbol at render time — see components/Price.jsx.
  */
 
-const FEATURES = ['Assured Quality', 'Result Driven', 'Dedicated Support']
 const HERO_CHECKS = ['Accurate Compliance', 'Time & Cost Efficiency', 'Expert Guidance']
 const PILL = 'ONE STOP TAX SOLUTION PROVIDER IN UAE'
 const ENTRY_HEADING = 'Date Of Entry Into Force'
@@ -60,7 +59,6 @@ export const CORPORATE_TAX_FILING = {
   },
   cardBottom: null,
 
-  features: FEATURES,
 
   /* This page had no FAQ section — `faqs: null` kept it hidden. The client's
      sheet supplies the filing questions, so it renders now. */
@@ -118,7 +116,7 @@ export const CORPORATE_TAX_REGISTRATION = {
 
   heading: 'Corporate TAX Registration',
   headingAccent: 'TAX',
-  lead: 'We take care of all your tax filings whether it is a simple W-2 or complex multi-state filings. You can simply drop off or email us your tax documents and we will notify you when they are ready.',
+  lead: 'Corporate Tax Registration in Dubai, UAE is the act of registering eligible companies with the Federal Tax Authority (FTA) for Corporate Tax purposes. Companies need to complete their registration through EmaraTax, provide the necessary documents, and obtain a Corporate Tax Registration Number to comply with UAE tax regulations.',
 
   cardLeft: {
     title: 'Document Requirements for UAE Corporate Tax Registration?',
@@ -152,7 +150,35 @@ export const CORPORATE_TAX_REGISTRATION = {
     ],
   },
 
-  features: FEATURES,
+  /* Cost, deadline and the steps, the three questions asked before signing up.
+     Rendered as a row of cards under this heading. */
+  notesHeading: 'Cost, Deadline and How to Register',
+  notesAccent: 'Deadline',
+  notes: [
+    {
+      title: 'Corporate Tax Registration Cost in the UAE',
+      body: 'Corporate Tax Registration in the UAE costs nothing when you register through the Federal Tax Authority (FTA) via EmaraTax — there are no registration fees for receiving the Corporate Tax Registration Number. Companies that use an accounting or tax consultant pay for that assistance separately.',
+    },
+    {
+      title: 'Corporate Tax Registration Deadline in the UAE',
+      body: 'The deadline for Corporate Tax Registration in the UAE varies depending on the taxpayer category and the date the business became liable for corporate tax.',
+    },
+  ],
+
+  /* The EmaraTax registration, in the order the FTA sets out. Numbered rather
+     than bulleted because the order is the instruction. */
+  stepsHeading: 'EmaraTax Registration Process',
+  steps: [
+    'Create or activate your EmaraTax account',
+    'Create the taxable person profile',
+    'Select Corporate Tax registration',
+    'Enter the business information',
+    'Upload the required documents',
+    'Review the application',
+    'Submit it to the FTA',
+    'Receive the Corporate Tax Registration Number',
+  ],
+
   faqHeading: 'Frequently Asked Questions',
   faqHeadingAccent: 'Asked',
   /* The client's FAQ sheet leads — those answers carry the rate bands, the

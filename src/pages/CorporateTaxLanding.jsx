@@ -12,12 +12,6 @@ import Price from '../components/Price.jsx'
 import { WHATSAPP_FALLBACK_HREF, handleWhatsappClick } from '../whatsapp.js'
 
 const WHATSAPP = WHATSAPP_FALLBACK_HREF
-// Assured Quality, Result Driven, Dedicated Support — matched to FEATURES order.
-const FEATURE_IMAGES = [
-  '/images/services/feature-quality.png',
-  '/images/services/feature-result.png',
-  '/images/services/feature-support.jpg',
-]
 
 function WhatsAppButton() {
   return (
@@ -46,7 +40,8 @@ export default function CorporateTaxLanding({ data, marquee = false }) {
     pill, heroTitle, heroSub, heroChecks, heroOffer, heroImage, heroImageAlt, penaltyLine,
     heading, headingAccent, lead,
     cardLeft, cardRight, cardBottom,
-    features, faqs, faqHeading, faqHeadingAccent,
+    notesHeading, notesAccent, notes, stepsHeading, steps,
+    faqs, faqHeading, faqHeadingAccent,
     entryHeading, entryAccent, entryLead, priceTitle, priceAmount,
     showStats, carouselReviews,
   } = data
@@ -192,26 +187,47 @@ export default function CorporateTaxLanding({ data, marquee = false }) {
         </div>
       </section>
 
-      {/* Three features */}
-      <section className="features3">
-        <div className="container features3__grid">
-          {features.map((label, i) => (
-            <div className="feature3" key={label}>
-              <img
-                className="feature3__img"
-                src={FEATURE_IMAGES[i]}
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                decoding="async"
-                width="74"
-                height="74"
-              />
-              <p className="feature3__label">{label}</p>
+      {/* Cost and deadline, then the EmaraTax steps. Both optional: a page
+          whose data omits them renders neither section. */}
+      {/* Cost, deadline and the EmaraTax steps, three across. Optional: a page
+          whose data omits them renders nothing here. */}
+      {(notes?.length || steps?.length) && (
+        <section className="section section--tight">
+          <div className="container">
+            {notesHeading && (
+              <h2 className="section__title ct-title">
+                <Accented text={notesHeading} accent={notesAccent} />
+              </h2>
+            )}
+
+            <div className="ct-notes">
+              {notes?.map((note, i) => (
+                /* Alternating peach/red, the pair the cards above use. */
+                <article
+                  className={`ct-note ${i % 2 === 0 ? 'ct-note--peach' : 'ct-note--red'}`}
+                  key={note.title}
+                >
+                  <h3 className="ct-note__title">{note.title}</h3>
+                  <p className="ct-note__body">{note.body}</p>
+                </article>
+              ))}
+
+              {steps?.length > 0 && (
+                <article className="ct-note ct-note--steps">
+                  <h3 className="ct-note__title">{stepsHeading}</h3>
+                  {/* An ordered list, not styled divs: the order is the
+                      instruction, and a screen reader should announce it. */}
+                  <ol className="ct-steps__list">
+                    {steps.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
+                  </ol>
+                </article>
+              )}
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* CTA band over a photo */}
       <section className="ct-cta">
