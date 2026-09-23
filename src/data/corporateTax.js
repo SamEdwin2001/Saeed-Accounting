@@ -152,7 +152,7 @@ export const CORPORATE_TAX_REGISTRATION = {
 
   /* Cost, deadline and the steps, the three questions asked before signing up.
      Rendered as a row of cards under this heading. */
-  notesHeading: 'Cost, Deadline and How to Register',
+  notesHeading: 'Cost, Deadline & Registration Process',
   notesAccent: 'Deadline',
   notes: [
     {
