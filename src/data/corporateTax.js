@@ -157,18 +157,21 @@ export const CORPORATE_TAX_REGISTRATION = {
   notes: [
     {
       title: 'Corporate Tax Registration Deadline Dubai, UAE',
-      /* The takeaway first, then the detail behind it. */
-      lines: ['It assists in preventing administrative fines.'],
-      body: 'The Corporate Tax Registration UAE deadline varies by taxpayer category. It is dependent on the time the firm became liable for Corporate Tax. Organizations should ascertain their own registration deadline under FTA.',
+      items: [
+        { label: 'Eligibility', value: 'Check Corporate Tax applicability.' },
+        { label: 'Deadline', value: 'Check your FTA deadline.' },
+        { label: 'Licence', value: 'Verify your licence date.' },
+        { label: 'Register', value: 'Use FTA EmaraTax.' },
+        { label: 'Avoid Penalties', value: 'Register on time.' },
+      ],
     },
     {
       title: 'Corporate Tax Registration Cost UAE',
-      /* Label/value pairs — what each part of the process costs. */
       items: [
-        { label: 'FTA registration', value: 'Free through EmaraTax.' },
-        { label: 'Registration fee', value: 'No government fee.' },
-        { label: 'Consultant support', value: 'Optional.' },
-        { label: 'Professional fees', value: 'Charged separately.' },
+        { label: 'Registration', value: 'Free through FTA EmaraTax.' },
+        { label: 'Fees', value: 'Professional fees are separate.' },
+        { label: 'Payment', value: 'No immediate tax payment.' },
+        { label: 'Deadline', value: 'Register on time to avoid penalties.' },
       ],
     },
   ],

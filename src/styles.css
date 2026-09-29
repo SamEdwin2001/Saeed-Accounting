@@ -3405,25 +3405,13 @@ a.ctc-ch__value:hover {
   margin: 3rem 0 0;
 }
 
+/* One surface for all three. A peach/red pair here drew the eye away from the
+   step list beside them and made the row read as three unrelated blocks; on
+   the neutral card the headings and the orange step numbers carry the accent
+   instead, and the three read as one set. */
 .ct-note {
   border-radius: 10px;
   padding: 1.8rem 1.6rem;
-}
-
-.ct-note--peach {
-  background: #fbdcc4;
-  color: #2b2b2b;
-}
-
-.ct-note--red {
-  background: #ef3a1d;
-  color: #fff;
-}
-
-/* The steps card carries a numbered list rather than a paragraph, so it takes
-   the neutral card background — the two coloured cards either side already
-   carry the section's weight. */
-.ct-note--steps {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   color: var(--ink);
@@ -3465,9 +3453,11 @@ a.ctc-ch__value:hover {
   margin-top: 0.9rem;
 }
 
-/* Label/value pairs. The dash is drawn rather than typed so the label stays
-   the first thing read. */
+/* Label/value pairs, numbered like the step list beside them so the three
+   cards read as one set. counter-reset on the list, not the item, or every
+   item restarts the count. */
 .ct-note__items {
+  counter-reset: ct-item;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -3476,17 +3466,27 @@ a.ctc-ch__value:hover {
 }
 
 .ct-note__items li {
+  counter-increment: ct-item;
   position: relative;
-  padding-left: 1rem;
+  padding-left: 2.3rem;
   line-height: 1.65;
   color: inherit;
 }
 
 .ct-note__items li::before {
-  content: '—';
+  content: counter(ct-item);
   position: absolute;
   left: 0;
-  opacity: 0.55;
+  top: 0.12rem;
+  width: 1.55rem;
+  height: 1.55rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 /* Numbers come from the <ol>, drawn in the brand colour so the sequence reads

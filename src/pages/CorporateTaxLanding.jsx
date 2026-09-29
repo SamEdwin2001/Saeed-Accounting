@@ -201,12 +201,8 @@ export default function CorporateTaxLanding({ data, marquee = false }) {
             )}
 
             <div className="ct-notes">
-              {notes?.map((note, i) => (
-                /* Alternating peach/red, the pair the cards above use. */
-                <article
-                  className={`ct-note ${i % 2 === 0 ? 'ct-note--peach' : 'ct-note--red'}`}
-                  key={note.title}
-                >
+              {notes?.map((note) => (
+                <article className="ct-note" key={note.title}>
                   <h3 className="ct-note__title">{note.title}</h3>
 
                   {/* A card carries any of three shapes: points, a paragraph,
@@ -223,13 +219,15 @@ export default function CorporateTaxLanding({ data, marquee = false }) {
                   {note.body && <p className="ct-note__body">{note.body}</p>}
 
                   {note.items?.length > 0 && (
-                    <ul className="ct-note__items">
+                    /* An <ol>: these are numbered on screen, so the numbering
+                       should be in the markup rather than only in the CSS. */
+                    <ol className="ct-note__items">
                       {note.items.map((item) => (
                         <li key={item.label}>
                           <strong>{item.label}:</strong> {item.value}
                         </li>
                       ))}
-                    </ul>
+                    </ol>
                   )}
                 </article>
               ))}
