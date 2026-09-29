@@ -50,14 +50,14 @@ const LD_FLAG = 'data-seo-ld'
  * structured data describes one page, and leaving it behind misdescribes every
  * route visited afterwards.
  */
-function setPageSchema(json) {
-  const existing = document.head.querySelector(`script[${LD_FLAG}="page"]`)
+function setPageSchema(name, json) {
+  const existing = document.head.querySelector(`script[${LD_FLAG}="${name}"]`)
   if (existing) existing.remove()
   if (!json) return
 
   const el = document.createElement('script')
   el.type = 'application/ld+json'
-  el.setAttribute(LD_FLAG, 'page')
+  el.setAttribute(LD_FLAG, name)
   el.textContent = json
   document.head.appendChild(el)
 }
@@ -155,6 +155,8 @@ export default function Seo({
   noindex = false,
   faqs,
   schema: schemaProp,
+  schemaBlogPosting,
+  schemaBreadcrumb,
 }) {
   const inlined = overrideFor(path)
 
@@ -188,6 +190,10 @@ export default function Seo({
      A blog post passes its own rather than reading the route table — its schema
      lives on the post row, not in page_seo. */
   const schema = schemaProp || saved?.schema || ''
+  /* A post can carry an Article and a breadcrumb trail alongside its FAQ. Each
+     is written under its own flag so one replaces only itself. */
+  const blogPostingSchema = schemaBlogPosting || ''
+  const breadcrumbSchema = schemaBreadcrumb || ''
 
   useEffect(() => {
     /* Titles arrive complete from data/seo.js — the brand suffix is written
@@ -244,7 +250,9 @@ export default function Seo({
        the route's FAQ block above can coexist. In production the server already
        emitted this exact block; setting it again is a no-op that keeps the dev
        server, which serves no such HTML, showing what the panel saved. */
-    setPageSchema(schema)
+    setPageSchema('page', schema)
+    setPageSchema('blogposting', blogPostingSchema)
+    setPageSchema('breadcrumb', breadcrumbSchema)
 
     /* Cleanup, not just the call above: RouteSeo returns null on /blog/<post>,
        which unmounts this component without re-running the effect. Without
@@ -252,9 +260,11 @@ export default function Seo({
        that shows no FAQs. */
     return () => {
       setFaqSchema(null)
-      setPageSchema('')
+      setPageSchema('page', '')
+      setPageSchema('blogposting', '')
+      setPageSchema('breadcrumb', '')
     }
-  }, [title, description, keywords, path, canonical, noindex, faqs, schema])
+  }, [title, description, keywords, path, canonical, noindex, faqs, schema, blogPostingSchema, breadcrumbSchema])
 
   return null
 }

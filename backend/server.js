@@ -319,20 +319,32 @@ if (existsSync(join(DIST, 'index.html'))) {
         metaKeywords: row.meta_keywords || '',
         canonical: row.canonical_url || '',
         schema: row.schema_json || '',
+        schemaBlogPosting: row.schema_blogposting || '',
+        schemaBreadcrumb: row.schema_breadcrumb || '',
       }).replace(/</g, '\\u003c')
 
       /* Validated on save, but re-checked here: a row could predate that check,
          and Google discards a page's whole structured data over one broken
-         object rather than just that object. */
-      let postSchema = ''
-      if (row.schema_json) {
-        try {
-          JSON.parse(row.schema_json)
-          postSchema = String(row.schema_json)
-        } catch {
-          console.error(`blog ssr: ignoring invalid schema JSON on /blog/${row.slug}`)
-        }
-      }
+         object rather than just that object. Each block is checked on its own
+         so one bad paste does not cost the others. */
+      const postSchemas = [
+        /* Names match the flags Seo.jsx writes, or React would append a second
+           copy of each rather than replacing the one already here. */
+        ['page', row.schema_json],
+        ['blogposting', row.schema_blogposting],
+        ['breadcrumb', row.schema_breadcrumb],
+      ]
+        .map(([name, raw]) => {
+          if (!raw) return null
+          try {
+            JSON.parse(raw)
+            return [name, String(raw)]
+          } catch {
+            console.error(`blog ssr: ignoring invalid ${name} schema on /blog/${row.slug}`)
+            return null
+          }
+        })
+        .filter(Boolean)
 
       const head = [
         `<title>${escapeHtml(title)}</title>`,
@@ -342,16 +354,17 @@ if (existsSync(join(DIST, 'index.html'))) {
           ? `<meta name="keywords" content="${escapeHtml(row.meta_keywords)}">`
           : '',
         /* JSON-LD the author pasted for this post, written into the HTML a
-           crawler reads before any JS runs. Carries the attribute Seo.jsx looks
-           for, so React replaces this block instead of appending a second one.
-           `</script>` inside a string would close the block early, so the one
-           sequence that can break out is escaped. */
-        postSchema
-          ? `<script type="application/ld+json" data-seo-ld="page">${postSchema.replace(
+           crawler reads before any JS runs. Each block carries its own
+           data-seo-ld name, so React replaces the one it owns rather than
+           appending a second copy. `</script>` inside a string would close the
+           block early, so the one sequence that can break out is escaped. */
+        ...postSchemas.map(
+          ([name, json]) =>
+            `<script type="application/ld+json" data-seo-ld="${name}">${json.replace(
               /</g,
               '\\u003c'
             )}</script>`
-          : '',
+        ),
         `<script>window.__POST__=${preload}</script>`,
       ]
         /* One tag per line, and no blank line where an optional tag was

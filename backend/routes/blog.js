@@ -164,6 +164,8 @@ const toPost = (row, { withContent = false } = {}) => ({
         metaKeywords: row.meta_keywords || '',
         canonical: row.canonical_url || '',
         schema: row.schema_json || '',
+        schemaBlogPosting: row.schema_blogposting || '',
+        schemaBreadcrumb: row.schema_breadcrumb || '',
       }
     : {}),
 })
@@ -291,6 +293,8 @@ router.post('/admin/posts', async (req, res) => {
     metaKeywords,
     canonical,
     schema,
+    schemaBlogPosting,
+    schemaBreadcrumb,
   } = req.body || {}
 
   if (!title?.trim() || !content?.trim()) {
@@ -314,15 +318,17 @@ router.post('/admin/posts', async (req, res) => {
     meta_keywords: clean(metaKeywords, 500),
     canonical_url: cleanCanonical(canonical),
     schema_json: cleanSchema(schema),
+    schema_blogposting: cleanSchema(schemaBlogPosting),
+    schema_breadcrumb: cleanSchema(schemaBreadcrumb),
   }
 
   const info = await run(
     `INSERT INTO blog_posts (title, slug, categories, image, content, published, published_at,
                              meta_title, meta_description, meta_keywords, canonical_url,
-                             schema_json)
+                             schema_json, schema_blogposting, schema_breadcrumb)
      VALUES (:title, :slug, :categories, :image, :content, :published, :published_at,
              :meta_title, :meta_description, :meta_keywords, :canonical_url,
-             :schema_json)`,
+             :schema_json, :schema_blogposting, :schema_breadcrumb)`,
     values
   )
 
@@ -348,6 +354,8 @@ router.patch('/admin/posts/:id', async (req, res) => {
     metaKeywords,
     canonical,
     schema,
+    schemaBlogPosting,
+    schemaBreadcrumb,
   } = req.body || {}
 
   const nextTitle = title !== undefined ? clean(title, 200) : existing.title
@@ -379,6 +387,12 @@ router.patch('/admin/posts/:id', async (req, res) => {
     meta_keywords: metaKeywords !== undefined ? clean(metaKeywords, 500) : existing.meta_keywords,
     canonical_url: canonical !== undefined ? cleanCanonical(canonical) : existing.canonical_url,
     schema_json: schema !== undefined ? cleanSchema(schema) : existing.schema_json,
+    schema_blogposting:
+      schemaBlogPosting !== undefined
+        ? cleanSchema(schemaBlogPosting)
+        : existing.schema_blogposting,
+    schema_breadcrumb:
+      schemaBreadcrumb !== undefined ? cleanSchema(schemaBreadcrumb) : existing.schema_breadcrumb,
     id: existing.id,
   }
 
@@ -388,7 +402,8 @@ router.patch('/admin/posts/:id', async (req, res) => {
             content = :content, published = :published, published_at = :published_at,
             meta_title = :meta_title, meta_description = :meta_description,
             meta_keywords = :meta_keywords, canonical_url = :canonical_url,
-            schema_json = :schema_json
+            schema_json = :schema_json, schema_blogposting = :schema_blogposting,
+            schema_breadcrumb = :schema_breadcrumb
       WHERE id = :id`,
     values
   )

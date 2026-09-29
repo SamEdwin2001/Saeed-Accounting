@@ -43,3 +43,51 @@ export const schemaNote = (text) => {
     return `Not valid JSON yet — ${e.message}`
   }
 }
+
+/* A BlogPosting, the block a search engine reads to show an article's author
+   and date. Dates are ISO 8601 — Google rejects other formats. */
+export const BLOGPOSTING_PLACEHOLDER = `{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Your post title",
+  "description": "A one-sentence summary of the post.",
+  "image": "https://saeedaccounting.com/images/logo.png",
+  "author": { "@type": "Organization", "name": "Saeed Accounting" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Saeed Accounting",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://saeedaccounting.com/images/logo.png"
+    }
+  },
+  "datePublished": "2026-01-01",
+  "dateModified": "2026-01-01",
+  "mainEntityOfPage": "https://saeedaccounting.com/blog/your-post-slug"
+}`
+
+/* The trail from the home page down to this post, as search results show it. */
+export const BREADCRUMB_PLACEHOLDER = `{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://saeedaccounting.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://saeedaccounting.com/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Your post title",
+      "item": "https://saeedaccounting.com/blog/your-post-slug"
+    }
+  ]
+}`

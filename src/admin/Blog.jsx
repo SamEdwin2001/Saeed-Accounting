@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { api } from './api.js'
-import { SCHEMA_PLACEHOLDER, schemaNote } from './schema.js'
+import {
+  BLOGPOSTING_PLACEHOLDER,
+  BREADCRUMB_PLACEHOLDER,
+  SCHEMA_PLACEHOLDER,
+  schemaNote,
+} from './schema.js'
 import { EditIcon, Trash, Plus, Close } from '../components/Icons.jsx'
 
 /* Mirrors the server's slugify, so the "/blog/…" preview under the slug box
@@ -34,6 +39,8 @@ const emptyForm = () => ({
   metaKeywords: '',
   canonical: '',
   schema: '',
+  schemaBlogPosting: '',
+  schemaBreadcrumb: '',
 })
 
 /* Google truncates around these lengths in the results page. Shown as a live
@@ -114,6 +121,8 @@ export default function Blog() {
           metaKeywords: post.metaKeywords || '',
           canonical: post.canonical || '',
           schema: post.schema || '',
+          schemaBlogPosting: post.schemaBlogPosting || '',
+          schemaBreadcrumb: post.schemaBreadcrumb || '',
         },
       })
     } catch (err) {
@@ -399,6 +408,43 @@ export default function Blog() {
                   placeholder={SCHEMA_PLACEHOLDER}
                 />
                 <em className="blg-hint">{schemaNote(values.schema ?? '')}</em>
+              </label>
+
+              <label className="adm-field">
+                <span>
+                  BlogPosting schema{' '}
+                  <em className="blg-hint">
+                    (the article block — author, dates, headline. Leave blank if the post
+                    needs none.)
+                  </em>
+                </span>
+                <textarea
+                  className="pg-schema"
+                  rows={10}
+                  value={values.schemaBlogPosting ?? ''}
+                  onChange={setField('schemaBlogPosting')}
+                  spellCheck={false}
+                  placeholder={BLOGPOSTING_PLACEHOLDER}
+                />
+                <em className="blg-hint">{schemaNote(values.schemaBlogPosting ?? '')}</em>
+              </label>
+
+              <label className="adm-field">
+                <span>
+                  BreadcrumbList schema{' '}
+                  <em className="blg-hint">
+                    (the Home &rsaquo; Blog &rsaquo; post trail shown under a search result)
+                  </em>
+                </span>
+                <textarea
+                  className="pg-schema"
+                  rows={10}
+                  value={values.schemaBreadcrumb ?? ''}
+                  onChange={setField('schemaBreadcrumb')}
+                  spellCheck={false}
+                  placeholder={BREADCRUMB_PLACEHOLDER}
+                />
+                <em className="blg-hint">{schemaNote(values.schemaBreadcrumb ?? '')}</em>
               </label>
             </fieldset>
 
