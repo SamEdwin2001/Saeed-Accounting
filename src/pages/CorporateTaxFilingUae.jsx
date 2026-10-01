@@ -14,27 +14,6 @@ import './corporateTaxFilingUae.css'
  * onclick="openWhatsApp(...)" / onclick="toggleFaq(this)" keep working.
  */
 export default function CorporateTaxFilingUae() {
-  /* The marquee sits above the site header, which is absolute at top:0.
-     Publishing its measured height as --marquee-h drops the header (and the
-     hero's top padding) below the bar. Measured rather than hardcoded so a
-     wrapped line on a narrow screen still clears. */
-  useEffect(() => {
-    const bar = document.querySelector('.ctf-marquee')
-    if (!bar) return undefined
-
-    const apply = () =>
-      document.body.style.setProperty('--marquee-h', `${bar.offsetHeight}px`)
-    apply()
-
-    const ro = new ResizeObserver(apply)
-    ro.observe(bar)
-
-    return () => {
-      ro.disconnect()
-      document.body.style.removeProperty('--marquee-h')
-    }
-  }, [])
-
   useEffect(() => {
     window.openWhatsApp = (text) => {
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -157,19 +136,8 @@ export default function CorporateTaxFilingUae() {
   return <div className="ctf-page" dangerouslySetInnerHTML={{ __html: HTML }} />
 }
 
-/* Original page markup, preserved verbatim, with the deadline marquee added
-   above it. The text is duplicated because the track scrolls a full 50% —
-   the second copy is what's on screen as the first one leaves, so the loop
-   reads as continuous rather than snapping back to an empty bar. */
-const HTML = `<!-- DEADLINE MARQUEE -->
-    <div class="ctf-marquee">
-        <div class="ctf-marquee-track">
-            <span class="ctf-marquee-item">⚠️ Avoid Penalties ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!</span>
-            <span class="ctf-marquee-item" aria-hidden="true">⚠️ Avoid Penalties ⏰ Corporate Tax Filing Deadline: September 30, 2026 – File Before It's Too Late!</span>
-        </div>
-    </div>
-
-    <!-- TOPBAR -->
+/* Original page markup, preserved verbatim. */
+const HTML = `<!-- TOPBAR -->
     <!-- <div class="topbar">
         <div class="topbar-inner">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber2)" stroke-width="2.5"

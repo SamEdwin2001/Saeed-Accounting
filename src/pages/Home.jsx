@@ -1,4 +1,3 @@
-import DeadlineMarquee from '../components/DeadlineMarquee.jsx'
 import Hero from '../components/Hero.jsx'
 import Services from '../components/Services.jsx'
 import About from '../components/About.jsx'
@@ -11,7 +10,6 @@ import { Dirham } from '../components/Icons.jsx'
 export default function Home() {
   return (
     <>
-      <DeadlineMarquee />
       <Hero />
 
       <div className="penalty">
