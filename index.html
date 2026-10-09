@@ -9,6 +9,15 @@
          reading the HTML before the JS runs sees an indexable page rather than
          no directive at all. Only the 404 route opts out, and it does so from
          JS after mount. -->
+    <!-- Favicon. Google reads /favicon.ico from the site root, and without a
+         file there the SPA fallback answered with HTML, so the search result
+         showed a generic globe. The .ico carries 16/32/48px so Windows and
+         Chrome each pick the size they want. -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <meta name="robots" content="index, follow" />
 
     <meta
