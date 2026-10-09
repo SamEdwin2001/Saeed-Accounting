@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import Img from '../components/Img.jsx'
 import Accordion from '../components/Accordion.jsx'
 import Reviews from '../components/Reviews.jsx'
@@ -11,6 +13,58 @@ import Price from '../components/Price.jsx'
 import { WHATSAPP_FALLBACK_HREF, handleWhatsappClick } from '../whatsapp.js'
 
 const WHATSAPP = WHATSAPP_FALLBACK_HREF
+
+/**
+ * The lead paragraph, with named phrases linked.
+ *
+ * Splits on each phrase rather than taking HTML from the data, so the copy
+ * stays plain text and a stray tag in it cannot reach the page. A phrase that
+ * does not occur is skipped — a typo costs its link, not the sentence.
+ *
+ * Phrases are taken longest-first and each match consumes its span, so a short
+ * phrase that also occurs inside a longer one links the remaining occurrence
+ * rather than cutting the longer link in half.
+ */
+function Lead({ text, links }) {
+  const wanted = (links ?? []).filter((l) => l?.text && l?.href)
+  if (!wanted.length) return <p className="page__lead">{text}</p>
+
+  /* Claim a span per phrase, longest first, skipping any that would overlap
+     one already claimed. */
+  const spans = []
+  for (const link of [...wanted].sort((a, b) => b.text.length - a.text.length)) {
+    let from = 0
+    for (;;) {
+      const at = text.indexOf(link.text, from)
+      if (at < 0) break
+      const end = at + link.text.length
+      if (!spans.some((s) => at < s.end && end > s.at)) {
+        spans.push({ at, end, link })
+        break
+      }
+      from = at + 1
+    }
+  }
+
+  if (!spans.length) return <p className="page__lead">{text}</p>
+
+  spans.sort((a, b) => a.at - b.at)
+
+  const parts = []
+  let cursor = 0
+  spans.forEach((s, i) => {
+    if (s.at > cursor) parts.push(text.slice(cursor, s.at))
+    parts.push(
+      <Link to={s.link.href} key={`${s.link.href}-${i}`}>
+        {text.slice(s.at, s.end)}
+      </Link>
+    )
+    cursor = s.end
+  })
+  if (cursor < text.length) parts.push(text.slice(cursor))
+
+  return <p className="page__lead">{parts}</p>
+}
 
 function WhatsAppButton() {
   return (
@@ -37,7 +91,7 @@ function WhatsAppButton() {
 export default function CorporateTaxLanding({ data }) {
   const {
     pill, heroTitle, heroSub, heroChecks, heroOffer, heroImage, heroImageAlt, penaltyLine,
-    heading, headingAccent, lead,
+    heading, headingAccent, lead, leadLinks,
     cardLeft, cardRight, cardBottom,
     notesHeading, notesAccent, notes, stepsHeading, steps,
     faqs, faqHeading, faqHeadingAccent,
@@ -108,7 +162,7 @@ export default function CorporateTaxLanding({ data }) {
           <h2 className="section__title ct-title">
             <Accented text={heading} accent={headingAccent} />
           </h2>
-          <p className="page__lead">{lead}</p>
+          <Lead text={lead} links={leadLinks} />
 
           <div className="ct-cards">
             <article className="ct-card ct-card--peach">

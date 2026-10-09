@@ -117,6 +117,20 @@ export const CORPORATE_TAX_REGISTRATION = {
   heading: 'Corporate TAX Registration',
   headingAccent: 'TAX',
   lead: 'Corporate Tax Registration in Dubai, UAE is the act of registering eligible companies with the Federal Tax Authority (FTA) for Corporate Tax purposes. Companies need to complete their registration through EmaraTax, provide the necessary documents, and obtain a Corporate Tax Registration Number to comply with UAE tax regulations.',
+  /* Phrases in the lead that link out, given as text + href rather than HTML
+     in the string, so the copy stays plain and a link cannot carry markup of
+     its own. Longest first: the second phrase also occurs inside the first,
+     and matching it first would link half of the other one. */
+  leadLinks: [
+    {
+      text: 'Corporate Tax Registration in Dubai',
+      href: '/blog/uae-corporate-tax-registration-in-dubai',
+    },
+    {
+      text: 'Corporate Tax Registration',
+      href: '/blog/uae-corporate-tax-registration-in-dubai',
+    },
+  ],
 
   cardLeft: {
     title: 'Document Requirements for UAE Corporate Tax Registration?',
