@@ -194,13 +194,12 @@ function PublicSite() {
               path="/uae-corporate-tax-registration"
               element={<CorporateTaxLanding data={CORPORATE_TAX_CONSULTANT} />}
             />
-            <Route path="/uae-vat-registration" element={<VatRegistrationPage carouselReviews />} />
-            <Route path="/vat-registration-uae" element={<VatRegistrationPage carouselReviews />} />
+            <Route path="/uae-vat-registration" element={<VatRegistrationPage />} />
+            <Route path="/vat-registration-uae" element={<VatRegistrationPage />} />
             <Route
               path="/vat-services-uae"
               element={
                 <VatRegistrationPage
-                  carouselReviews
                   heroTitle={
                     <>
                       Speak with Our

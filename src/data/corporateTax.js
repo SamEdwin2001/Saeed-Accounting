@@ -271,7 +271,6 @@ export const CORPORATE_TAX_REGISTRATION = {
   entryLead: ENTRY_LEAD,
   priceTitle: 'Corporate Tax Registration',
   priceAmount: 'Starts @ Ð 149',
-  carouselReviews: true,
 }
 
 /**
@@ -285,7 +284,6 @@ export const CORPORATE_TAX_CONSULTANT = {
   heroOffer: 'Limited Offer Running Starts at Ð 149',
   priceAmount: 'Starts at Ð 149',
   showStats: true,
-  carouselReviews: true,
 
   /* Its own list rather than the spread one: the questions here are phrased
      without "register"/"registration", so the wording stays off this page

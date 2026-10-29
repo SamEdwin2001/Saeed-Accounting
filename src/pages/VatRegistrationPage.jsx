@@ -3,7 +3,6 @@ import { withBold } from './ServicePage.jsx'
 import { VAT_REGISTRATION_FAQS } from '../data/vatRegistrationFaqs.js'
 import Img from '../components/Img.jsx'
 import Accordion from '../components/Accordion.jsx'
-import Reviews from '../components/Reviews.jsx'
 import ReviewsCarousel from '../components/ReviewsCarousel.jsx'
 import Badges from '../components/Badges.jsx'
 import { IMAGES } from '../images.js'
@@ -102,7 +101,6 @@ const WHATSAPP = WHATSAPP_FALLBACK_HREF
    the URL each one is targeting. Defaults to the original wording, so only
    /vat-services-uae passes anything. */
 export default function VatRegistrationPage({
-  carouselReviews = false,
   heroTitle = (
     <>
       FTA VAT
@@ -269,7 +267,7 @@ export default function VatRegistrationPage({
         </div>
       </section>
 
-      {carouselReviews ? <ReviewsCarousel /> : <Reviews />}
+      <ReviewsCarousel />
     </div>
   )
 }

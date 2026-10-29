@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CT_FILING as D } from '../data/ctFiling.js'
-import Reviews from '../components/Reviews.jsx'
+import ReviewsCarousel from '../components/ReviewsCarousel.jsx'
 import '../ctFiling.css'
 
 /**
@@ -425,8 +425,8 @@ export default function CtFilingPage() {
         </div>
       </section>
 
-      {/* Reviews — shared grid component, identical to the landing pages. */}
-      <Reviews />
+      {/* Reviews — the same carousel every other page shows. */}
+      <ReviewsCarousel />
 
       {/* FAQ */}
       <section className="section bg-slate">

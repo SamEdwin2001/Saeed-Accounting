@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 
 import Img from '../components/Img.jsx'
 import Accordion from '../components/Accordion.jsx'
-import Reviews from '../components/Reviews.jsx'
 import ReviewsCarousel from '../components/ReviewsCarousel.jsx'
 import Stats from '../components/Stats.jsx'
 import Badges from '../components/Badges.jsx'
@@ -96,7 +95,7 @@ export default function CorporateTaxLanding({ data }) {
     notesHeading, notesAccent, notes, stepsHeading, steps,
     faqs, faqHeading, faqHeadingAccent,
     entryHeading, entryAccent, entryLead, priceTitle, priceAmount,
-    showStats, carouselReviews,
+    showStats,
   } = data
 
   return (
@@ -342,7 +341,7 @@ export default function CorporateTaxLanding({ data }) {
         </div>
       </section>
 
-      {carouselReviews ? <ReviewsCarousel /> : <Reviews />}
+      <ReviewsCarousel />
       {showStats && <Stats />}
     </div>
   )
