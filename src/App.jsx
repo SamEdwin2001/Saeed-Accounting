@@ -3,7 +3,6 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
-import FloatingActions from './components/FloatingActions.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
 import Seo from './components/Seo.jsx'
 
@@ -228,7 +227,6 @@ function PublicSite() {
         <Footer />
       </Suspense>
 
-      <FloatingActions />
     </>
   )
 }

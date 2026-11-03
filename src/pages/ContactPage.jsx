@@ -20,8 +20,8 @@ const CHANNELS = [
   {
     Icon: Phone,
     label: 'Call us',
-    value: '+971 50 10 35 519',
-    href: 'tel:+971501035519',
+    value: '+971 58 103 5519',
+    href: 'tel:+971581035519',
     note: 'Speak to a consultant directly',
   },
 ]
@@ -134,7 +134,7 @@ export default function ContactPage() {
                 <p className="ctc-done__text">
                   Your enquiry is with our team. Expect a reply within one working day. For anything
                   urgent, call us on{' '}
-                  <a href="tel:+971501035519">+971 50 10 35 519</a>.
+                  <a href="tel:+971581035519">+971 58 103 5519</a>.
                 </p>
                 <button
                   className="ctc-done__again"
